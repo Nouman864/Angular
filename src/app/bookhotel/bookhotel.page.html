@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Reservation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div>
+
+  <ion-item>
+    <ion-label>Room</ion-label>
+  <ion-select [(ngModel)]="room" type="text"  okText="Okay" cancelText="Dismiss">
+    <ion-select-option value="1">1</ion-select-option>
+    <ion-select-option value="2">2</ion-select-option>
+    <ion-select-option value="3">3</ion-select-option>
+    <ion-select-option value="4">4</ion-select-option>
+    <ion-select-option value="5">5</ion-select-option>
+    <ion-select-option value="6">6</ion-select-option>
+    <ion-select-option value="7">7</ion-select-option>
+  </ion-select>
+  </ion-item>
+  <!-- <ion-button (click)="Rooms()" >Roooms</ion-button> -->
+  </div>
+<ion-content color="">
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+
+          <div class="ion-padding">
+            <ion-item>
+              <ion-label>check in</ion-label>
+                <ion-datetime formControlName="checkin" ></ion-datetime>
+               </ion-item>
+               <ion-item>
+                <ion-label>check out</ion-label>
+                  <ion-datetime formControlName="checkout"></ion-datetime>
+                 </ion-item>
+                 
+                 
+          </div>
+          
+          <div class="ion-padding">
+            <!-- <ion-button size="large"  (click)="addNew()" color="primary" type="submit" expand="block">Book
+            </ion-button> -->
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

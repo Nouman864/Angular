@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button  defaultHref="select-property"></ion-back-button>
+        </ion-buttons>
+    <ion-title class="ion-text-center">Get Flats</ion-title>
+    <ion-button slot="end" href="/addservice" color="success">
+      Add New 
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background">
+  <div *ngIf="!loading">
+
+    <ion-list class="gr">
+      <ion-item *ngFor="let flat of flats">
+        <ion-thumbnail slot="start">
+          <ion-img *ngIf="flat.image_url && flat.image_url!='null'" [src]="'assets/icon/shapes.svg'">
+          </ion-img>
+          <ion-img *ngIf="!flat.image_url ||  flat.image_url=='null' " [src]="'assets/icon/shapes.svg'">
+          </ion-img>
+        </ion-thumbnail>
+        <ion-label>{{flat.name}}</ion-label>
+        <ion-button (click)="openEditPopup(flat)" fill="clear">
+          <ion-icon name="create" slot="end"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="delete(flat)">
+          <ion-icon name="trash" slot="end"></ion-icon>
+        </ion-button>
+        <div>
+         <h1 *ngIf="flat.reviewsTotal >= '2'">
+          
+            <ion-icon size="large" color="{{c1}}" (click)=" click3rd(3)" name="{{n1}}"></ion-icon>
+            <ion-icon size="large" color="{{c2}}"  name="{{n2}}"></ion-icon>
+            <ion-icon size="large" color="{{c3}}" name="{{n3}}"></ion-icon>
+          </h1>
+          <h1 *ngIf="flat.reviewsTotal == '0'">
+            <ion-icon size="large" color="{{c1}}" (click)=" clickForth(3.5)" name="{{n1}}"></ion-icon>
+            <ion-icon size="large" color="{{c2}}"  name="{{n2}}"></ion-icon>
+            <ion-icon size="large" color="{{c3}}"  name="{{n3}}"></ion-icon>
+            <ion-icon size="large" color="{{c4}}"   name="{{n4}}"></ion-icon>
+          </h1>
+            <h1 *ngIf="flat.reviewsTotal == '4'">
+            <ion-icon size="large" color="{{c1}}" name="{{n1}}"></ion-icon>
+            <ion-icon size="large" color="{{c2}}"  name="{{n2}}"></ion-icon>
+            <ion-icon size="large" color="{{c3}}"  name="{{n3}}"></ion-icon>
+            <ion-icon size="large" color="{{c4}}"   name="{{n5}}"></ion-icon>
+          </h1>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div> 
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-item *ngFor="let item of skeletonlist">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ion-content>

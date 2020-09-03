@@ -1,0 +1,102 @@
+<ion-header>
+  
+  
+    <ion-title text-center>
+      Select Services
+    </ion-title>
+</ion-header>
+
+<ion-content>
+
+
+
+    <ion-card class="card">
+        <ion-card-header>
+         <ion-card-title  class="ion-text-lg-center">Flat</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="welcome-card " (click)="flat()">
+            <ion-img src="/assets/fl.png"></ion-img>       
+        </ion-card-content>
+      </ion-card>
+
+      <br>
+      <br>
+      <br>
+      <br>
+
+
+      <ion-card class="card">
+          <ion-card-header>
+           <ion-card-title  class="ion-text-lg-center">Resturant</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="welcome-card "  (click)="rest()">
+              <ion-img class="img" src="/assets/res.jpg"></ion-img>       
+          </ion-card-content>
+        </ion-card>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+  
+  
+        <ion-card class="card">
+            <ion-card-header>
+             <ion-card-title  class="ion-text-lg-center">Hotel</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="welcome-card "   (click)="hotel()">
+                <ion-img src="/assets/hotels.jpg"></ion-img>       
+            </ion-card-content>
+          </ion-card>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <ion-slides>
+    <ion-slide>
+        <img src="assets/icon/n.jpg" class="">
+    </ion-slide>
+  <ion-slide>
+        <img src="assets/icon/a.jpg" class="">
+  </ion-slide>
+  
+  </ion-slides> -->
+  <!-- <section text-center margin-bottom>
+    <ion-icon name="person"></ion-icon>    
+  </section> -->
+  
+  <!-- <form [formGroup]="registerForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+          <ion-col size-md="6" offset-md="3">
+          <div class="ion-padding">
+            <ion-item>
+               
+              <ion-label>Service Type</ion-label>
+              <ion-select formControlName="service" type="text"  okText="Okay" cancelText="Dismiss">
+                <ion-select-option value="Hotel">Hotel</ion-select-option>
+                <ion-select-option value="Flat">Flat</ion-select-option>
+                <ion-select-option value="Resturant">Resturant</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="meduim" color="success" type="submit" (click)="Service()" expand="">Open Service
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form> -->
+  
+    
+  
+</ion-content>

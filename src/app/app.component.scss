@@ -1,0 +1,33 @@
+.profile-picture {
+   border-radius: 50%;
+   text-align: center;
+ }
+ .profile {
+   top: 0;
+   right: 0;
+   left: 0;
+   z-index: 0;
+   overflow: hidden;
+   text-align: center;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 30%;
+   padding-top: 5px;
+ }
+ .head
+ {
+  background: rgb(25, 26, 25);
+  
+ }
+ .item
+ {
+    background:rgb(172, 172, 177);
+ }
+ .name
+ {
+   color: honeydew;
+ }
+ ion-content{
+
+  --ion-background-color:rgb(172, 172, 177);
+}

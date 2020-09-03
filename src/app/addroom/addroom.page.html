@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">addroom</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-item> 
+  <ion-label>Select Rooms</ion-label>       
+  <ion-select [(ngModel)]="roomtype" type="text"   okText="Okay" cancelText="Dismiss">
+    <ion-select-option value="10">10</ion-select-option>
+    <ion-select-option value="15">15</ion-select-option>
+    <ion-select-option value="20">20</ion-select-option>
+  </ion-select>
+</ion-item> 
+<br>
+<ion-item> 
+  <ion-label>Rooms Category</ion-label>       
+  <ion-select [(ngModel)]="roomcategory" type="text"   okText="Okay" cancelText="Dismiss">
+    <ion-select-option value="1stfloor">1stfloor</ion-select-option>
+    <ion-select-option value="2ndfloor">2ndfloor</ion-select-option>
+    <ion-select-option value="groundfloor">groundfloor</ion-select-option>
+  </ion-select>
+</ion-item>
+     
+<br>
+<ion-button size="large"  (click)="addNew()" color="primary" type="submit"
+            expand="block">SAVE ! &nbsp;
+            <ion-spinner *ngIf="loading">
+            </ion-spinner>
+          </ion-button>
+</ion-content>

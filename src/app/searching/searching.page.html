@@ -1,0 +1,37 @@
+
+  <ion-toolbar>
+     <ion-searchbar #myInput placeholder="Search Location..."  (input)="filterItem(myInput.value)"></ion-searchbar>
+
+           <ion-list>
+         <ion-item *ngFor="let flat of filteredFlats">
+           <h1 *ngIf="loc=='city'"> 
+           {{flat.city}}
+           
+           </h1>
+           <h1 *ngIf="loc=='name'">
+              {{flat.name}}
+              <ion-button (click)="openEditPopup(flat)" fill="clear">
+                <ion-icon name="open" slot="end"></ion-icon>
+              </ion-button>
+          </h1>
+          <h1 *ngIf="loc=='location'">
+              <ion-button (click)="openEditPopup(flat)" fill="clear">
+                  <ion-icon name="open" slot="end"></ion-icon>
+                </ion-button>
+            {{flat.Location}}
+        </h1>
+          
+         </ion-item>
+        </ion-list>
+   </ion-toolbar>
+
+<ion-content>
+    <ion-item id='parent' >
+        <ion-select [(ngModel)]="loc"  type="text"  okText="Okay" cancelText="Dismiss">
+          <ion-select-option value="city">Search city</ion-select-option>
+          <ion-select-option value="location">Search location</ion-select-option>
+          <ion-select-option value="name">Search name</ion-select-option>
+        </ion-select>
+      </ion-item>
+</ion-content>
+

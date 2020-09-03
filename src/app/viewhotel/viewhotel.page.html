@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          
+          </ion-buttons>
+    <ion-title class="ion-text-center">View Hotel</ion-title>
+    <ion-button slot="end" (click)="booking(this.rooms)" color="success">
+      Book room
+    </ion-button>
+   
+  </ion-toolbar>
+</ion-header>
+
+
+
+  
+
+
+<ion-content text-justify="top">
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          
+          <div class="ion-padding">
+              <label igxLabel for="firstname">Name</label> 
+              <br>
+          
+            <ion-item>
+                <ion-input name="firstname" formControlName="name" type="text" placeholder="Enter your name"></ion-input>
+
+              </ion-item>
+              <br>
+              <label igxLabel for="number">Phone No</label>
+              <br> 
+            <ion-item>
+              <ion-input name="text" formControlName="number" type="number" placeholder="Enter your phone number"></ion-input>
+            </ion-item>
+            <br>
+            <label igxLabel for="Location">Location</label> 
+            <br>
+            <ion-item>
+              <ion-input name="text" formControlName="Location" type="text" placeholder="Enter location"></ion-input>
+            </ion-item>
+           
+            <ion-item>
+                <ion-label>City</ion-label>
+                <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
+                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
+                  <ion-select-option value="Lahore">Lahore</ion-select-option>
+                  <ion-select-option value="Karachi">Karachi</ion-select-option>
+                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
+                </ion-select>
+              </ion-item>
+          </div>
+          <div class="ion-padding">
+            
+             
+
+          <ion-row >
+              <ion-card  class="card-center">
+             
+                  <ion-card-content  *ngFor="let image of images" >
+                    
+                      <img src= {{image}}>
+                      
+                    </ion-card-content>
+                 </ion-card>
+                
+          </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

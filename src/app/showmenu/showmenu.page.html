@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>showmenu</ion-title>
+    <ion-button slot="end" (click)="menu(this.resturants)"  color="success">
+      Book Table
+      </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card>
+    <ion-card-header>
+     <ion-card-title  class="ion-text-lg-center">Breakfast</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let data of brek">
+      <ion-list>
+      dish: {{data.dish}}
+
+      price: {{data.price}}
+      </ion-list>        
+    </ion-card-content>
+  </ion-card> 
+<br>
+<br>
+<br>
+<br>
+<br>
+  <ion-card>
+      <ion-card-header>
+       <ion-card-title  class="ion-text-lg-center">Launch</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngFor="let data of brek">
+        <ion-list>
+        dish: {{data.dish}}
+  
+        price: {{data.price}}
+        </ion-list>        
+      </ion-card-content>
+    </ion-card>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <ion-card>
+        <ion-card-header>
+         <ion-card-title  class="ion-text-lg-center">Dinner</ion-card-title>
+        </ion-card-header>
+        <ion-card-content *ngFor="let data of brek">
+          <ion-list>
+          dish: {{data.dish}}
+    
+          price: {{data.price}}
+          </ion-list>        
+        </ion-card-content>
+      </ion-card>
+  </ion-content>

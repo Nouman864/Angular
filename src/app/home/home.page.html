@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Stripe
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registerForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col  size-md="6" offset-md="3">
+
+          <div class="ion-padding">
+
+            <ion-item>
+              <ion-input name="number" formControlName="number" type="email" placeholder="cardnumber"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="text" formControlName="exp_month" type="text" placeholder="exp_month"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="text" formControlName="exp_year" type="text" placeholder="exp_year"></ion-input>
+            </ion-item> 
+            <ion-item>
+            <ion-input name="text" formControlName="cvc" type="number" placeholder="cvc"></ion-input>
+          </ion-item>
+            
+          </div>
+          <div class="ion-padding">
+            <ion-button size="meduim" color="success" type="submit" (click)="proceed()" expand="block">pay
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+
+  <div class ="container">
+        
+    <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+    <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+    <!-- <input type="file" name="image" (change)="selectImage($event)" />
+    <button type="submit" (click)="onSubmit()">Upload</button> -->
+  </div>
+</ion-content>

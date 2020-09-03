@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="getresturant"></ion-back-button>
+    </ion-buttons>
+    <ion-button slot="end" (click)="resturant(this.resturantid)" color="success">
+      Add Menu 
+    </ion-button>
+    <ion-title class="ion-text-center">Add Services</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-card class="card-center">
+<img src="\assets\icon\ppp.jpg"/>
+<ion-card-content>
+  <ion-card-title>
+    
+    </ion-card-title>
+</ion-card-content>
+</ion-card>
+  
+<!-- <div class="s"> 
+  <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+ </div> -->
+
+<ion-content text-justify="top">
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3 *ngIf="!data">Add New Resturant</h3>
+            <h3 *ngIf="data">Edit Resturant</h3>
+          </div>
+          <div class="ion-padding">
+            <!-- <ion-item>
+              <ion-label>check in</ion-label>
+              <ion-datetime formControlName="checkin"></ion-datetime>
+            </ion-item> -->
+            <ion-item>
+                <ion-input name="firstname" formControlName="name" type="text" placeholder="Enter your name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="text" formControlName="number" type="number" placeholder="Enter your phone number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input name="text" formControlName="Location" type="text" placeholder="Enter location"></ion-input>
+            </ion-item>
+           
+            <!-- <ion-item>
+              <ion-input name="text" formControlName="Lat" type="text" placeholder="Enter lat"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="text" formControlName="Lng" type="text" placeholder="Enter lng"></ion-input>
+            </ion-item> -->
+            <ion-item>
+                <ion-label>City</ion-label>
+                <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
+                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
+                  <ion-select-option value="Lahore">Lahore</ion-select-option>
+                  <ion-select-option value="Karachi">Karachi</ion-select-option>
+                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-input  type="text" readonly type="text" placeholder="we w'll charge for this service 20%"></ion-input>
+                I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
+                </ion-item>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="large" [disabled]="form.invalid" (click)="save()" color="primary" type="submit"
+            expand="block">SAVE ! &nbsp;
+            <ion-spinner *ngIf="loading">
+            </ion-spinner>
+          </ion-button>
+             
+
+          <ion-row >
+            <ion-col siz-sm="3" offset-sm="3">
+           <app-location-picker  (locationPick)="onLocationPicked($event)"></app-location-picker>
+            </ion-col>
+          </ion-row>
+
+          <div class ="container">
+      
+            <input type="file" formControlName="images" name="images" multiple (change)="selectMultipleImage($event)" />
+            <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+            <!-- <input type="file" name="image" (change)="selectImage($event)" />
+            <button type="submit" (click)="onSubmit()">Upload</button> -->
+          </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
