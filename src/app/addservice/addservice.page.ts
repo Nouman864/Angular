@@ -50,6 +50,8 @@ multipleImages = [];
   flatid: any;
   flatcity: any;
   url: any;
+img=[];   
+secure_url:any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -66,26 +68,34 @@ multipleImages = [];
     
     onMultipleSubmit(){
       const formData = new FormData();
-  //  console.log(this.flatid);
+    //  console.log(this.flatid);
       for(let img of this.multipleImages){
         console.log(img);
         formData.append('files', img);
         // formData.append('ID', this.flatid);
       }
      
-      this.http.post<any>('http://localhost:3000/upload', formData).subscribe(
+      this.http.post('http://localhost:3000/upload_images', formData).subscribe(
         
-        (data) =>{
+        async (data) =>{
           console.log(data);
-          this.url = data.array;
-          console.log(this.url);
-          this.form.patchValue({url : this.url});
-        
+      
+        if(data)
+        {
+          const toast = await this.toastController.create({
+            message: `${name} Imagehas been added successfully.`,
+            duration: 3500
+          });
+          toast.present();
+        }
+          
         },
         
         (err) => console.log(err)
       );
+      
     }
+    
     
 
   form: FormGroup;
@@ -122,10 +132,12 @@ multipleImages = [];
       _id: [null],
       name : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
+      amount: [null, [Validators.required]],
       check: [null, [Validators.required]],
-     number: [null, [Validators.required,Validators.minLength(12)]],
-      Location :  [null, [Validators.required]]
+     number: [null, [Validators.required]],
+      Location: [null, [Validators.required]]
       });
+      
   }
   onLocationPicked(location: PlaceLocation)
   {
@@ -137,44 +149,23 @@ multipleImages = [];
   }
 
 
-  onImagePicked(imageData: string | File)
-  {
-    let imageFile;
-    if (typeof imageData === 'string') {
-      try {
-        imageFile = base64toBlob(
-          imageData.replace('data:image/jpeg;base64,', ''),
-          'image/jpeg'
-        );
-      } catch (error) {
-        console.log(error);
-        return;
-      }
-    } else {
-      imageFile = imageData;
-    }
+
+
+
+
+//  async pay()
+//   {
+//     let owner;
+//     const ownerId =  await this.authService. getTokenFromStorage();
+//     const decoded = jwt_decode(ownerId );
+//     try{
+//       const decoded = jwt_decode(ownerId );
+//       owner = decoded['data']._id;
+//     }
+//     catch(ex){
+//     }
     
-    this.form.patchValue({ image: imageFile.name });
-  console.log(imageFile);
-      
-  }
-
-
-
-
- async pay()
-  {
-    let owner;
-    const ownerId =  await this.authService. getTokenFromStorage();
-    const decoded = jwt_decode(ownerId );
-    try{
-      const decoded = jwt_decode(ownerId );
-      owner = decoded['data']._id;
-    }
-    catch(ex){
-    }
-    
-  }
+//   }
   async addNew() {
    let owner;
     const ownerId =  await this.authService. getTokenFromStorage();
@@ -188,8 +179,11 @@ multipleImages = [];
     
   
     const obj =  this.form.value;
-    
+    console.log(obj);
     obj['owner'] = owner;
+    obj['image'] = this.data;
+
+
     const observable = await this.booksService.addNewBook(
       obj
     );

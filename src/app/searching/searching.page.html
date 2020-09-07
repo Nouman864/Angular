@@ -6,7 +6,9 @@
          <ion-item *ngFor="let flat of filteredFlats">
            <h1 *ngIf="loc=='city'"> 
            {{flat.city}}
-           
+           <ion-button (click)="openEditPopup(flat)" fill="clear">
+            <ion-icon name="open" slot="end"></ion-icon>
+          </ion-button>
            </h1>
            <h1 *ngIf="loc=='name'">
               {{flat.name}}
@@ -15,10 +17,11 @@
               </ion-button>
           </h1>
           <h1 *ngIf="loc=='location'">
+            {{flat.Location}}
               <ion-button (click)="openEditPopup(flat)" fill="clear">
                   <ion-icon name="open" slot="end"></ion-icon>
                 </ion-button>
-            {{flat.Location}}
+            
         </h1>
           
          </ion-item>

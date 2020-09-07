@@ -5,6 +5,7 @@ import { Platform, ToastController, ModalController, PopoverController } from '@
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import { RatingComponent } from './rating/rating.component';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-viewproperty',
@@ -14,6 +15,10 @@ import { RatingComponent } from './rating/rating.component';
 export class ViewpropertyPage implements OnInit {
   rtid: Event;
   irt: any;
+  nam: any;
+  d: Date = new Date();
+  ownerid: any;
+  amount: any;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,
@@ -39,16 +44,19 @@ export class ViewpropertyPage implements OnInit {
       this.form.patchValue(this.data);
       
     }
-       this.irt = this.data.owner;
-       console.log(this.data);
+       this.irt = this.data._id;
+       this.nam = this.data.name;
+       this.ownerid = this.data.owner;
+       this.amount = this.data.amount;
+       //console.log(this.data);
     
     })
-  
+   console.log(this.data.image[0]);
     this.images =[];
-    const urll = this.data.url;
-    for (var i = 0; i < urll.length; i++) {
+    for (var i = 0; i < this.data.image.length; i++)
+     {
       
- this.images[i] = `http://localhost:3000/images/${this.data.url[i]}`; 
+     this.images[i] = this.data.image[i];
    
     }
     
@@ -60,6 +68,7 @@ export class ViewpropertyPage implements OnInit {
     this.form = this.formBuilder.group({
       _id: [null],
       name : [null, [Validators.required]],
+      amount : [null, [Validators.required]],
       city: [null, [Validators.required]],
      number: [null, [Validators.required]],
       Location :  [null, [Validators.required]],
@@ -69,7 +78,60 @@ export class ViewpropertyPage implements OnInit {
   
 
 
-
+  async rent() {
+    let owner;
+     const ownerId =  await this.authService. getTokenFromStorage();
+  
+     try{
+       const decoded = jwt_decode(ownerId );
+       owner = decoded['data']._id;
+     }
+     catch(ex){
+     }
+     const obj ={};
+     
+     obj['owner'] = this.irt;
+     obj['name'] = this.nam;
+     obj['date'] = this.d;
+     const observable = await this.booksService.addrent(
+       obj
+     );
+     observable.subscribe(
+       async data => {
+         console.log('got response from server', data);
+         this.Review(this.irt);
+         if(data.message == "Rent already")
+         { 
+          window.alert('Alread Rented,Try Another');
+             
+         }
+         else
+         {
+         const name = this.form.controls['name'].value;
+         const toast = await this.toastController.create({
+           message: `${name} has been added successfully.`,
+           duration: 3500
+         });
+         toast.present();
+         this.loading = false;
+         const ob ={};
+         ob['ownerid'] = this.ownerid;
+         ob['amount'] = this.amount;
+         this.router.navigate(['/paymentprocess'],{
+          queryParams:{data:JSON.stringify(ob)}
+      });
+         this.Review(this.irt);
+         }
+         //this.form.reset();
+         //optional
+ 
+       },
+       error => {
+         this.loading = false;
+         console.log('error', error);
+       }
+     );
+   }
 
  async Review(event:Event)
   {
@@ -84,5 +146,7 @@ export class ViewpropertyPage implements OnInit {
       await review.present();
      
   }
+
+
  
 }

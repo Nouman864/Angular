@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="black">
+   <ion-buttons slot="start">
+     <ion-menu-button></ion-menu-button>
+   </ion-buttons>
+   <ion-title>
+     Online Payment
+   </ion-title>
+ </ion-toolbar>
+ </ion-header>
+ 
+ <ion-content class="vv">
+   <ion-card class="welcome-card">
+     <ion-img src="/assets/crd.jpg"></ion-img>
+   </ion-card>
+ <form [formGroup]="registerForm" class="vv">
+   <ion-grid>
+     <ion-row color="justify-content-center">
+       <ion-col  size-md="6" offset-md="3">
+         <div class="ion-text-center">
+           <h3 class="ion-text-center">CreditCard Info</h3>
+           
+         </div>
+         <div class="ion-padding">
+ 
+           <ion-item>
+             <ion-input name="number" formControlName="number" type="number" placeholder="Card number"></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-input name="number" formControlName="exp_month" type="digit" placeholder="exp_month"></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-input name="number" formControlName="exp_year" type="digit" placeholder="exp_year"></ion-input>
+           </ion-item>
+           <ion-item>
+            <ion-input name="text" formControlName="cvc" type="number" placeholder="cvc"></ion-input>
+          </ion-item>
+ 
+           
+         </div>
+         <div class="ion-padding">
+          <ion-button size="medium" [disabled]="registerForm.invalid" (click)="proceed()" color="primary"  type="submit" 
+          >Add Card  &nbsp;<ion-spinner *ngIf !="loading"></ion-spinner>
+        </ion-button>
+         </div>
+         <div class="ion-padding">
+          <ion-button size="meduim" color="success" type="submit" (click)="card()" expand="block">Payment 
+          </ion-button>
+        </div>
+       </ion-col>
+     </ion-row>
+   </ion-grid>
+ </form>
+ 
+ 
+ </ion-content>
+ 

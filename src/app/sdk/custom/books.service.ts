@@ -37,6 +37,32 @@ export class BooksService {
     });
   }
 
+  public async addrent(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/rentflats/add';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+
+  public async addcustomer(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/rentflats/customer';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async addtoken(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/rentflats/token';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
   public async adreview(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/ratings/add';
   const token = await this.authService.getTokenFromStorage();

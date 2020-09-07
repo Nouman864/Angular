@@ -21,6 +21,7 @@ export class HomePage {
 
   url: any;
   multipleImages:[];
+  images: any[];
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
@@ -76,7 +77,7 @@ onMultipleSubmit(){
     // formData.append('ID', this.flatid);
   }
  
-  this.http.post('http://localhost:3000/upload_images', formData).subscribe(
+  this.http.post('https://rehayash.herokuapp.com/upload_images', formData).subscribe(
     
     (data) =>{
       console.log(data);
@@ -86,10 +87,19 @@ onMultipleSubmit(){
     (err) => console.log(err)
   );
 }
+fuck()
+{
+
+this.images =[];
+  
+    for (var i = 0; i < 3; i++) {
+ this.images[i] = `http://res.cloudinary.com/dy4zcpbe6/image/upload/v1599284031/gyrrphzrsskkeebpkupw.jpg'`; 
+   
+    
+  }
 
 
-
-
+}
 
 
 

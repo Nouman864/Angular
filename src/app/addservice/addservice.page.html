@@ -19,7 +19,7 @@
         <ion-row color="justify-content-center">
           <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
             <div class="ion-text-center">
-              <h3 *ngIf="!data">Add New Flat</h3>
+              <h3 *ngIf="!data">add Flat</h3>
               <h3 *ngIf="data">Edit Flat</h3>
             </div>
             <div class="ion-padding">
@@ -31,66 +31,66 @@
                   <ion-input name="firstname" formControlName="name" type="text" placeholder="Enter property name"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="text" formControlName="number" type="number" placeholder="Enter your phone number"></ion-input>
+                <ion-input name="text" formControlName="amount" type="text" placeholder="Enter Rent per MOnth"></ion-input>
               </ion-item>
-
+              <ion-item>
+                <ion-input name="text" formControlName="number" type="number" placeholder="Enter "></ion-input>
+              </ion-item>
+              <br>
+              <ion-row >
+                <ion-col siz-sm="3" offset-sm="3">
+               <app-location-picker  (locationPick)="onLocationPicked($event)"></app-location-picker>
+                </ion-col>
+              </ion-row>
               <ion-item>
                 <ion-input name="text" formControlName="Location" type="text" placeholder="Enter location"></ion-input>
               </ion-item>
               
               <ion-item>
-                <ion-input  type="text" readonly type="text" placeholder="we w'll charge for this service 20%"></ion-input>
+                <ion-label>City</ion-label>
+                <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
+                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
+                  <ion-select-option value="Lahore">Lahore</ion-select-option>
+                  <ion-select-option value="Karachi">Karachi</ion-select-option>
+                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+              <ion-item>
+                <ion-input  type="text" readonly type="text" placeholder=" w'll charge for this service 20%"></ion-input>
                 I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
                 </ion-item>
               
-              <!-- <ion-item>
-                <ion-input name="text" formControlName="Lat" type="text" placeholder="Enter lat"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-input name="text" formControlName="Lng" type="text" placeholder="Enter lng"></ion-input>
-              </ion-item> -->
-              <ion-item>
-                  <ion-label>City</ion-label>
-                  <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
-                    <ion-select-option value="Islamabad">Islamabad</ion-select-option>
-                    <ion-select-option value="Lahore">Lahore</ion-select-option>
-                    <ion-select-option value="Karachi">Karachi</ion-select-option>
-                    <ion-select-option value="Sargodha">Sargodha</ion-select-option>
-                  </ion-select>
-                </ion-item>
+             
+              
             </div>
+           
+        <br>
+        <br>
+        
+            <br>
+            <br>
             <div class="ion-padding">
-              <ion-button size="large" [disabled]="form.invalid " (click)="save()" color="primary" type="submit"
+              <ion-button size="large" [disabled]="form.invalid"  (click)="save()" color="primary" type="submit"
               expand="block">SAVE ! &nbsp;
               <ion-spinner *ngIf="loading">
               </ion-spinner>
             </ion-button>
                
 
-            <ion-button size="large"  (click)="pay()" color="primary" type="submit"
-            expand="block">proceed
-          </ion-button>
-
-
-
-
-            <ion-row >
-              <ion-col siz-sm="3" offset-sm="3">
-             <app-location-picker  (locationPick)="onLocationPicked($event)"></app-location-picker>
-              </ion-col>
             
-              <!-- <ion-col siz-sm="3" offset-sm="3">
-             <app-image-picker  (imagePick)="onImagePicked($event)"></app-image-picker>
-              </ion-col> -->
-            </ion-row>
 
-            <div class ="container">
-        
-              <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
-              <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
-              <!-- <input type="file" name="image" (change)="selectImage($event)" />
-              <button type="submit" (click)="onSubmit()">Upload</button> -->
-            </div>
+
+
+
+            <div class="ion-padding">
+              <input type="file"  name="images" multiple (change)="selectMultipleImage($event)" />
+              <ion-button size="large"    (click)="onMultipleSubmit()" color="primary" type="submit"
+              expand="block">Multiple Image Upload
+            </ion-button>
+          </div>
+
+            
             </div>
           </ion-col>
         </ion-row>

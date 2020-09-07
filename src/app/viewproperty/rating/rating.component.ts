@@ -70,9 +70,8 @@ click2nd(item: any) {
      
     
        async addReview()  {
-        let owner = this.event.owner;
-        let flatid = this.event._id;
-        console.log(owner);
+        //let owner = this.event.owner;
+        let flatid = this.event;
         console.log(flatid);
         this.loading = true;
     let user;
@@ -86,8 +85,7 @@ click2nd(item: any) {
          
          const obj =  this.reviewForm.value;
          console.log(this.d);
-         obj['propertyid'] = owner;
-         obj['userid'] = flatid;
+         obj['flatid'] = flatid;
          obj['rating'] = this.star;
          obj['date'] = this.d;
          const observable = await this.booksService.adreview(

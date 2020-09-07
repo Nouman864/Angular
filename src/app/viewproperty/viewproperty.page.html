@@ -28,6 +28,12 @@
 
               </ion-item>
               <br>
+              <label igxLabel for="amount">Monthly Rent</label>
+              <br>
+              <ion-item>
+                <ion-input name="text" formControlName="amount" readonly type="text" type="text" placeholder="Enter Rent per MOnth"></ion-input>
+              </ion-item>
+              <br>
               <label igxLabel for="number">Phone No</label>
               <br> 
             <ion-item>
@@ -39,16 +45,13 @@
             <ion-item>
               <ion-input name="text" formControlName="Location" readonly type="text" placeholder="Enter location"></ion-input>
             </ion-item>
-           
-            <ion-item readonly>
-                <ion-label>City</ion-label>
-                <ion-select formControlName="city"  readonly type="text"   okText="Okay" cancelText="Dismiss">
-                  <ion-select-option readonly value="Islamabad">Islamabad</ion-select-option>
-                  <ion-select-option  readonly value="Lahore">Lahore</ion-select-option>
-                  <ion-select-option readonly value="Karachi">Karachi</ion-select-option>
-                  <ion-select-option readonly value="Sargodha">Sargodha</ion-select-option>
-                </ion-select>
-              </ion-item>
+            <br>
+            <label igxLabel for="city">City</label> 
+            <br>
+            <ion-item>
+              <ion-input name="text" formControlName="city" readonly type="text" placeholder="Enter city"></ion-input>
+            </ion-item>
+            
           </div>
           <div class="ion-padding">
             
@@ -77,5 +80,9 @@
   <ion-button slot="end" (click)="Review(this.data)" color="success">
    Add Reviews
   </ion-button>
+  <br>
+  <ion-button slot="end" (click)="rent()" color="success">
+    Rent
+   </ion-button>
 </div>
 </ion-content>

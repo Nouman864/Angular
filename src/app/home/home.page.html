@@ -48,4 +48,24 @@
     <!-- <input type="file" name="image" (change)="selectImage($event)" />
     <button type="submit" (click)="onSubmit()">Upload</button> -->
   </div>
+
+
+
+  <ion-row >
+    <ion-card  class="card-center">
+   
+        <ion-card-content  *ngFor="let image of images" >
+          
+            <img src= {{image}}>
+              
+          </ion-card-content>
+       </ion-card>
+      
+</ion-row>
+<button type="submit" (click)="fuck()">Get</button>
+
+
+
+
+
 </ion-content>

@@ -25,7 +25,7 @@ export class UserService {
   public userVerify(credentials: object): Observable<any> {
     const url = loginConfig.getPath() + '/users/verify';
 
-    return this.http.get(url, credentials);
+    return this.http.post(url, credentials);
   }
 
 
@@ -53,7 +53,7 @@ export class UserService {
   public clientVerify(credentials: object): Observable<any> {
     const url = loginConfig.getPath() + '/clients/clientverify';
 
-    return this.http.get(url, credentials);
+    return this.http.post(url, credentials);
   }
 
   public clientLogin(credentials: object): Observable<any> {

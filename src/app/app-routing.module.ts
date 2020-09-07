@@ -133,6 +133,18 @@ const routes: Routes = [
     path: 'clientforgot',
     loadChildren: () => import('./clientforgot/clientforgot.module').then( m => m.ClientforgotPageModule)
   },
+  {
+    path: 'paymentprocess',
+    loadChildren: () => import('./paymentprocess/paymentprocess.module').then( m => m.PaymentprocessPageModule)
+  },
+  {
+    path: 'paymenttoken',
+    loadChildren: () => import('./paymenttoken/paymenttoken.module').then( m => m.PaymenttokenPageModule)
+  },
+  {
+    path: 'onlinepay',
+    loadChildren: () => import('./onlinepay/onlinepay.module').then( m => m.OnlinepayPageModule)
+  },
   
   
   
