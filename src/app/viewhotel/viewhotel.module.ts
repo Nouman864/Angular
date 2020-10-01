@@ -8,6 +8,7 @@ import { ViewhotelPageRoutingModule } from './viewhotel-routing.module';
 
 import { ViewhotelPage } from './viewhotel.page';
 import { SharedModule } from '../shared/shared.module';
+import { RatinghotelComponent } from './ratinghotel/ratinghotel.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     ViewhotelPageRoutingModule
   ],
-  declarations: [ViewhotelPage]
+  declarations: [ViewhotelPage,RatinghotelComponent],
+  entryComponents: [RatinghotelComponent]
 })
 export class ViewhotelPageModule {}

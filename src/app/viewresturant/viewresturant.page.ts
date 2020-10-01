@@ -6,6 +6,7 @@ import { ModalController, ToastController, PopoverController, Platform } from '@
 import { BooksService } from '../sdk/custom/books.service';
 import { RatingComponent } from '../viewproperty/rating/rating.component';
 import { RatingresturantComponent } from './ratingresturant/ratingresturant.component';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-viewresturant',
@@ -16,7 +17,14 @@ export class ViewresturantPage implements OnInit {
 
   rtid: Event;
   irt: any;
+  Timings : [];
   dataa: Event;
+  c1 = '#b8860b';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
+
+  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-half' ; n6;n7;
+star: number;
+  value: any;
+  own: any;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,
@@ -39,21 +47,27 @@ export class ViewresturantPage implements OnInit {
     if (this.data) {
       console.log('got ', this.data);
       this.form.patchValue(this.data);
+        this.own = this.data.owner;
       
     }
        this.irt = this.data._id;
+       
+       this.Timings = this.data['Timings'];
+       console.log(this.Timings);
        console.log(this.irt);
     
     })
   
     this.images =[];
-    const urll = this.data.url;
-    for (var i = 0; i < urll.length; i++) {
+    console.log(this.data.image.length);
+    this.images =[];
+    for (var i = 0; i < this.data.image.length; i++)
+     {
       
- this.images[i] = `http://localhost:3000/images/${this.data.url[i]}`; 
+     this.images[i] = this.data.image[i];
    
     }
-    
+    this.get();
   }
 
   
@@ -61,6 +75,7 @@ export class ViewresturantPage implements OnInit {
     
     this.form = this.formBuilder.group({
       _id: [null],
+      about:[null, [Validators.required]],
       name : [null, [Validators.required]],
       city: [null, [Validators.required]],
      number: [null, [Validators.required]],
@@ -69,6 +84,92 @@ export class ViewresturantPage implements OnInit {
       });
   } 
   
+
+  async get() {
+    this.loading = true;
+    let id;
+    let ownerr
+        ownerr = this.irt;
+        console.log(id);
+    const ownerId =  await this.authService. getTokenFromStorage();
+    try{
+      const decoded = jwt_decode(ownerId );
+      ownerr = decoded['data']._id;
+    }
+    catch(ex){
+    }
+     const obj = {};
+     obj['sd'] = this.irt;
+    const observable = await this.booksService.getreview(
+      obj
+    );
+    observable.subscribe(
+      data => {
+        this.loading = false;
+        console.log('data', data);
+        this. value = data['data'];
+        console.log(this.value);
+        
+         
+      }, 
+      err => {
+        console.log('err', err);
+      } 
+    ); 
+  } 
+
+
+ /////////////////   GET RESTURANTS RATINGS//////////////////////////
+ clickFirst(item: any) {
+  this.star = item;
+  console.log('this.stars', this.star);
+this.c1 = '';
+this.n1 = 'star'; 
+}
+click2nd(item: any) {
+this.star = item;
+console.log('this.stars', this.star);
+   this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+   this.c4 = ''; 
+   this.n1 = 'star'; this.n2 = 'star'; 
+ }
+ click2half(item: any) {
+  this.star = item;
+  console.log('this.stars', this.star);
+     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+     this.c4 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half'; 
+   }
+ click3rd(item: any) {
+   this.star = item;
+   console.log('this.stars', this.star);
+   
+   this.c1 = '';    this.c2 = '';
+   this.c3 = '';   
+   this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; 
+      
+   }
+   click3half(item: any) {
+    this.star = item;
+    console.log('this.stars', this.star);
+    this.c1 = '';    this.c2 = '';
+    this.c3 = '';   this.c4 = '';
+    this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+       
+    }
+   clickForth(item: any) {
+       this.star = item;
+     console.log('this.stars', this.star);
+     this.c1 = '';    this.c2 = '';
+     this.c3 = '';    this.c4 = '';
+     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+
+   
+     }
+
+
+
+
 
 
 
@@ -88,10 +189,14 @@ export class ViewresturantPage implements OnInit {
   }
   menu(event:Event)
   {
+    
+    const ob ={};
+    ob['restid'] = this.irt;
+    ob['owner']  =  this.own;
     this.dataa = event;
     console.log(this.dataa);
     this.router.navigate(['/showmenu'],{
-        queryParams:{data:JSON.stringify(this.dataa)}
+        queryParams:{data:JSON.stringify(ob)}
     });
   }
  

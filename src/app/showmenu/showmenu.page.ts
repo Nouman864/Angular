@@ -30,14 +30,16 @@ export class ShowmenuPage implements OnInit {
     this.route.queryParams.subscribe((params)=>{
       console.log(params);
       this.data = JSON.parse(params.data);
-    console.log(this.data);
+          
+            console.log(this.data.owner);
       })
+
         this.get()
     }
 
       async get() {
         this.loading = true;
-       let restrnid = this.data;
+       let restrnid = this.data.restid;
         let owner;
         const ownerId =  await this.authService. getTokenFromStorage();
         try{
@@ -54,11 +56,13 @@ export class ShowmenuPage implements OnInit {
           data => {
             this.resturants = data.data;
             this.loading = false;
-            console.log('data',data);
+            console.log('MEALS',data);
             this.brek = data.data[0].AvailableTime[0].breakfast;
             this.launh = data.data[0].AvailableTime[0].launch;
             this.dnner = data.data[0].AvailableTime[0].dinner;
             console.log(this.brek);
+            console.log(this.launh);
+            console.log(this.dnner);
         
           }, 
           err => {
@@ -69,10 +73,13 @@ export class ShowmenuPage implements OnInit {
 
       menu(event:Event)
       {
+        const ob = {};
+        ob['rest'] = this.resturants;
+        ob['id'] = this.data.owner;
         this.dataa = event;
         console.log(this.dataa);
         this.router.navigate(['/booktable'],{
-            queryParams:{data:JSON.stringify(this.dataa)}
+            queryParams:{data:JSON.stringify(ob)}
         });
       }
 

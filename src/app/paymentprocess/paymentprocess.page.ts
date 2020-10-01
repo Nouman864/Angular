@@ -35,7 +35,7 @@ export class PaymentprocessPage implements OnInit {
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
-      console.log(params);
+      //console.log(params);
       this.detail = JSON.parse(params.data);
       if (this.detail) {
         console.log(this.detail);

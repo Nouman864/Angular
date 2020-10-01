@@ -50,8 +50,17 @@ multipleImages = [];
   flatid: any;
   flatcity: any;
   url: any;
-img=[];   
+imges=[];   
 secure_url:any;
+  tableno: any;
+  rom: [];
+  tabll =[];
+  tabl: any;
+  arrayy: any;
+  order = new Array();
+  id: any;
+  faci: any;
+
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -75,12 +84,13 @@ secure_url:any;
         // formData.append('ID', this.flatid);
       }
      
-      this.http.post('http://localhost:3000/upload_images', formData).subscribe(
+      this.http.post( 'http://localhost:3000/upload_images', formData).subscribe(
         
         async (data) =>{
-          console.log(data);
-      
-        if(data)
+          //console.log(data);
+        this.images = data['image'];
+        console.log(this.images);
+        if(this.images)
         {
           const toast = await this.toastController.create({
             message: `${name} Imagehas been added successfully.`,
@@ -111,6 +121,7 @@ secure_url:any;
     if (this.data) {
       console.log('got flat', this.data);
       this.form.patchValue(this.data);
+      this.id = this.data._id;
     }
     })
   
@@ -129,7 +140,6 @@ secure_url:any;
   formInitializer() {
     
     this.form = this.formBuilder.group({
-      _id: [null],
       name : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
       amount: [null, [Validators.required]],
@@ -149,7 +159,16 @@ secure_url:any;
   }
 
 
-
+  facility()
+  {
+    
+    let avail = this.faci;
+    this.tabll.push(
+        avail
+     );
+     this.faci = '';
+    console.log(this.tabll);
+  }
 
 
 
@@ -167,6 +186,7 @@ secure_url:any;
     
 //   }
   async addNew() {
+    console.log(this.data);
    let owner;
     const ownerId =  await this.authService. getTokenFromStorage();
     const decoded = jwt_decode(ownerId );
@@ -181,7 +201,9 @@ secure_url:any;
     const obj =  this.form.value;
     console.log(obj);
     obj['owner'] = owner;
-    obj['image'] = this.data;
+    obj['image'] = this.images;
+    obj['roomno'] = this.order;
+    obj['facility'] = this.tabll;
 
 
     const observable = await this.booksService.addNewBook(
@@ -211,9 +233,11 @@ secure_url:any;
   }
   
   async updateBook() {
-    console.log(this.flatid);
+    console.log(this.id);
+   const obj =  this.form.value
+    obj['_id'] = this.id;
     const observable = await this.booksService.updateBook(
-      this.form.value
+       obj
     );
 
     observable.subscribe(

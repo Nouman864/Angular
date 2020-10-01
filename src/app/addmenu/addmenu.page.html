@@ -1,6 +1,9 @@
 <ion-content>
+  <ion-button  (click)="update()" color="success">
+    Update menu
+   </ion-button>
     <ion-item>
-        <ion-label>MENU</ion-label>
+        <ion-label> Add MENU</ion-label>
         <ion-select [(ngModel)]="menutype" type="text"  okText="Okay" cancelText="Dismiss">
           <ion-select-option value="BreakFast">BreakFast</ion-select-option>
           <ion-select-option value="Launch">Launch</ion-select-option>
@@ -8,15 +11,14 @@
         </ion-select>
       </ion-item> 
       <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <ion-card class="welcome-card">
+        <ion-img src="\assets\table.webp"></ion-img>
+      </ion-card>
       <div class="s"> 
         <ion-icon name="add-circle-outline" slot="end" (click)="table()"></ion-icon>
        </div>
       <ion-item>
-        <ion-input name="text" [(ngModel)]="tableno" type="number" placeholder="Add Your Table"></ion-input>
+        <ion-input name="text" [(ngModel)]="tableno" type="number" placeholder="Add  Tables"></ion-input>
     </ion-item>
   <form [formGroup]="form">
   <ion-grid>
@@ -25,34 +27,30 @@
                 <div class="ion-padding">
                   
                    
-                      <br>
-    
-                
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                  <ion-card >
+                    <ion-img src="\assets\FEAST.jpg"></ion-img>
+                  </ion-card>
                     <div class="s"> 
                      <ion-icon name="add-circle-outline" slot="end" (click)="add()"></ion-icon>
                     </div>
                    
                         <ion-item>
-                            <ion-input name="firstname" formControlName="dish"  type="text" placeholder="Enter your Dish"></ion-input>
+                            <ion-input name="firstname" formControlName="dish"  type="text" placeholder="Add Dishes"></ion-input>
                         </ion-item>
                         <ion-item>
-                          <ion-input name="text" formControlName="price" type="text" placeholder="Enter your Price"></ion-input>
+                          <ion-input name="text" formControlName="price" type="text" placeholder=" Price"></ion-input>
                         </ion-item>
                         </div>
                         
           </ion-col>
       </ion-row>
   </ion-grid>
-  <ion-button size="large" [disabled]="form.invalid" (click)="addNew()" color="primary" type="submit"
+  <ion-button size="large"  (click)="save()" color="primary" type="submit"
             expand="block">SAVE ! &nbsp;
             <ion-spinner *ngIf="loading">
             </ion-spinner>
           </ion-button>
 </form>
+
+
 </ion-content>

@@ -32,6 +32,15 @@ multipleImages = [];
   url: any;
   resturantid: any;
   dataa: Event;
+  time: any;
+  tabl=[];
+  mealid: any;
+  img = [];
+  IMAGE: any[];
+  resturants: Resturants[];
+  arr: any[];
+  id: any;
+
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -48,25 +57,34 @@ multipleImages = [];
     
     onMultipleSubmit(){
       const formData = new FormData();
-  //  console.log(this.flatid);
+    //  console.log(this.flatid);
       for(let img of this.multipleImages){
         console.log(img);
         formData.append('files', img);
         // formData.append('ID', this.flatid);
       }
      
-      this.http.post<any>('http://localhost:3000/upload', formData).subscribe(
+      this.http.post('http://localhost:3000/upload_rest', formData).subscribe(
         
-        (data) =>{
-          console.log(data);
-          this.url = data.array;
-          console.log(this.url);
-          this.form.patchValue({url : this.url});
+        async (data) =>{
+           console.log(data);
+          this.img = (data['image']);
         
+      
+        if(data)
+        {
+          const toast = await this.toastController.create({
+            message: `${name} Image has been added successfully.`,
+            duration: 3500
+          });
+          toast.present();
+        }
+          
         },
         
         (err) => console.log(err)
       );
+      
     }
     
 
@@ -82,6 +100,9 @@ multipleImages = [];
     this.data = JSON.parse(params.data);
     if (this.data) {
       console.log('got flat', this.data);
+      console.log(this.data._id);
+      this.mealid = this.data._id;
+      this.id = this.data._id;
       this.form.patchValue(this.data);
     }
     })
@@ -107,7 +128,8 @@ multipleImages = [];
       check: [null, [Validators.required]],
      number: [null, [Validators.required,Validators.minLength(12)]],
       Location :  [null, [Validators.required]],
-      images:  [null, [Validators.required]]
+      images:  [null, [Validators.required]],
+      about : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
       // Lat :  [null, [Validators.required]],
       // Lng :  [null, [Validators.required]],
       });
@@ -121,10 +143,22 @@ multipleImages = [];
        
   }
 
-
+  table()
+  {
+       let open = this.time;
+       this.tabl.push({
+         Timing: open
+        });
+        this.time = '';
+       console.log(this.tabl);
+  }
+  
   
 
   async addNew() {
+    
+     
+    console.log(this.img);
    let owner;
     const ownerId =  await this.authService. getTokenFromStorage();
     const decoded = jwt_decode(ownerId );
@@ -139,14 +173,17 @@ multipleImages = [];
     const obj =  this.form.value;
     
     obj['owner'] = owner;
+    obj['Timings'] = this.tabl;
+    obj['image'] = this.img;
     const observable = await this.booksService.addresturant(
       obj
     );
     observable.subscribe(
       async data => {
         console.log('got response from server', data);
-        console.log(data);
+        //console.log(data);
         this.resturantid = data.result._id;
+        console.log(this.resturantid);
         const name = this.form.controls['name'].value;
         const toast = await this.toastController.create({
           message: `${name} has been added successfully.`,
@@ -155,6 +192,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
+        this.router.navigate(['/addmenu'],{
+          queryParams:{data:JSON.stringify(this.resturantid )}
+      });
         //optional
 
       },
@@ -163,16 +203,24 @@ multipleImages = [];
         console.log('error', error);
       }
     );
-  }
-
+   }
+       
   async updateresturant() {
+    console.log("jnkj");
+    const obj = this.form.value;
+    obj['image'] = this.img;
+    obj['_id'] = this.id;
     const observable = await this.booksService.updateresturant(
-      this.form.value
+      obj
     );
-
+    console.log("jnkj");
     observable.subscribe(
+      
       async data => {
+        console.log("jnkj");
         console.log('got response from server', data);
+        console.log("jnkj");
+        console.log(data);
         const name = this.form.controls['name'].value;
         //this.authService.saveTokenToStorage(data.token);
         const toast = await this.toastController.create({
@@ -182,8 +230,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
-        //optional
-
+        this.router.navigate(['/addmenu'],{
+          queryParams:{data:JSON.stringify(this.mealid)}
+      });
         this.modalCtrl.dismiss();
       },
       error => {
@@ -199,7 +248,7 @@ resturant(event: Event)
   this.dataa = event;
   console.log(this.dataa);
   this.router.navigate(['/addmenu'],{
-      queryParams:{data:JSON.stringify(this.dataa)}
+      queryParams:{data:JSON.stringify(this.mealid)}
   });
 
 }
@@ -212,10 +261,21 @@ resturant(event: Event)
     if (this.data) {
       console.log("jnkj");
       this.updateresturant();
+      console.log("jnkj");
     }
      else 
     {
       this.addNew();
     }
   }
+}
+
+interface Resturants {
+  name: string;
+  ibn: string;
+  _id: string;
+  reviewsTotal:string;
+  image_url: string;
+  author: string;
+  is_deleted: boolean;
 }

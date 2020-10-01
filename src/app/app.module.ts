@@ -1,6 +1,5 @@
 
-
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule} from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,10 +17,16 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { FormsModule } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
 import { NgxStripeModule } from 'ngx-stripe';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [AppComponent, SearchPipe],
   entryComponents: [],
+  schemas:  [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAViINBuMEzYnpgRTmE2aLGVcAI_RsErxM',
+      libraries: ['places']
+    }),
     NgxStripeModule.forRoot('pk_test_51H4ItYBs0W61I6tPnvZDdy9k3tgCua1cd8NmDQKXMBZr3GhlsAGnHQC9WpEWGDXE7AJmEPqYMWjyzsKN6y91IIB100WX6eOtMM'),HttpClientModule, IonicModule.forRoot(), AppRoutingModule,FormsModule, IonicStorageModule.forRoot()
   ],
   providers: [

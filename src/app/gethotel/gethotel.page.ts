@@ -13,17 +13,23 @@ import { Router } from '@angular/router';
 })
 export class GethotelPage implements OnInit {
   loading = false;
-  @Input() hotel : Hotels;
+ @Input() hotel : Hotels;
   hotels: Hotels[] = [];
   bookIconPath = 'assets/icon/ss.png';
   skeletonlist = [1, 2, 3, 4, 5];
-  selectedBook: Hotels;
+  selectedreshotel: Hotels;
   deleteLoading: boolean;
   dataa: Event;
+  c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
+
+  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline';  n5 = 'star-half' ; n6;n7;
+star: number;
+  rooms: any;
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
 
   ngOnInit() {
     this.get();
+    
   }
 
   async get() {
@@ -53,6 +59,41 @@ export class GethotelPage implements OnInit {
       } 
     );
   }
+
+  ////////////////////////GET ROOM ///////////////////////
+  
+
+  clickFirst(item: any) {
+    this.star = item;
+    console.log('this.stars', this.star);
+ this.c1 = '';
+ this.n1 = 'star'; 
+ }
+ click2nd(item: any) {
+  this.star = item;
+  console.log('this.stars', this.star);
+     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+     this.c4 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; 
+   }
+   click3half(item: any) {
+    this.star = item;
+    console.log('this.stars', this.star);
+    this.c1 = '';    this.c2 = '';
+    this.c3 = '';   this.c4 = '';
+    this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+       
+    }
+     clickForth(item: any) {
+         this.star = item;
+       console.log('this.stars', this.star);
+       this.c1 = '';    this.c2 = '';
+       this.c3 = '';    this.c4 = '';
+       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+
+     
+       }
+
   
   openEditPopup(event:Event) {
   
@@ -63,15 +104,22 @@ export class GethotelPage implements OnInit {
     });
   }
 
+  openroom(event:Event) {
+  
+    this.dataa = event;
+    console.log(this.dataa);
+    this.router.navigate(['/addroom'],{
+        queryParams:{data:JSON.stringify(this.dataa)}
+    });
+  }
 
 
-
-  async delete(flat) {
-    this.selectedBook = flat;
-    console.log(flat);
+  async delete(hotel) {
+    this.selectedreshotel = hotel;
+    console.log(hotel);
     const alert = await this.alertController.create({
       header: 'Confirm!',
-      message: `Are you sure you want to delete the book "${flat.flat}"`,
+      message: `Are you sure you want to delete the Hotel "${hotel.name}"`,
       buttons: [
         {
           text: 'Cancel',
@@ -84,7 +132,7 @@ export class GethotelPage implements OnInit {
         {
           text: 'Okay',
           handler: () => {
-            this.deleteBook();
+            this.deleteres();
           }
         }
       ]
@@ -92,9 +140,9 @@ export class GethotelPage implements OnInit {
     await alert.present();
   }
 
-  async deleteBook() {
+  async deleteres() {
     this.deleteLoading = true;
-    const observable = await this.booksService.deleteBook(this.selectedBook._id);
+    const observable = await this.booksService.deletehotel(this.selectedreshotel._id);
 
     observable.subscribe(
       data => {

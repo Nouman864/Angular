@@ -55,8 +55,36 @@ export class BooksService {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+
+  public async addhotelcustomer(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/customer';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  } 
+
+
+  public async payme(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/payme';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
   public async addtoken(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/rentflats/token';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async addhoteltoken(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/token';
   const token = await this.authService.getTokenFromStorage();
 
    return this.http.post(url, data, {
@@ -132,6 +160,16 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+
+  public async hotelreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hotelratings/add';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
   public async updatehotel(data): Promise<any> {
     const url =loginConfig.getPath() + `/hotels/${data._id}`;
     const token = await this.authService.getTokenFromStorage();
@@ -139,6 +177,14 @@ public async getAllHotels(): Promise<any> {
   return this.http.put(url, data, {
     headers: new HttpHeaders().set('Authorization', token)
   });
+  }
+  public async deletehotel(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/hotels/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
   }
   
 
@@ -151,13 +197,29 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
-  public async getroom(owner: string): Promise<any> {
-    const url = loginConfig.getPath() + '/rooms/' + owner;
+  public async getroom(ownerr: string): Promise<any> {
+    const url = loginConfig.getPath() + '/rooms/' + ownerr;
     const token = await this.authService.getTokenFromStorage();
 
     return this.http.get(url, {
       headers: new HttpHeaders().set('Authorization', token)
     });
+  }
+  public async getmultipleroom(hotel: string): Promise<any> {
+    const url = loginConfig.getPath() + '/rooms/' + hotel;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async updateroom(data): Promise<any> {
+    const url =loginConfig.getPath() + `/rooms/${data._id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+  return this.http.put(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
   }
 
   public async reservedRoom(data: object): Promise<any> {
@@ -170,6 +232,15 @@ public async getAllHotels(): Promise<any> {
   }
 
 
+  public async checkroom(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/chk';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
   public async Qrcode(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/roomcodes/add';
     const token = await this.authService.getTokenFromStorage();
@@ -178,11 +249,35 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async tablecode(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedtables/table';
+    const token = await this.authService.getTokenFromStorage();
 
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async roomcode(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/rmcode';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
 
 
   public async scanroom(data: object): Promise<any> {
-    const url = loginConfig.getPath() + '/reservedrooms/scan';
+    const url = loginConfig.getPath() + '/bookedrooms/scan';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async scan(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedtables/scantable';
     const token = await this.authService.getTokenFromStorage();
 
     return this.http.post(url, data, {
@@ -226,7 +321,32 @@ public async getmenu(restrnid: string): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async getreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/resturantratings/review';
+    const token = await this.authService.getTokenFromStorage();
 
+    return this.http.post(url,data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  public async getflatreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/ratings/flatrevew';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url,data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async gethotelreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hotelratings/hotelrevew';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url,data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
 
   public async getAllresturant(): Promise<any> {
     const url = loginConfig.getPath() + '/resturants';
@@ -254,10 +374,25 @@ public async getmenu(restrnid: string): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async reservedroom(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/add';
+    const token = await this.authService.getTokenFromStorage();
 
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
 
   public async updateresturant(data): Promise<any> {
     const url =loginConfig.getPath() + `/resturants/${data._id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+  return this.http.put(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+  }
+  public async updatemenu(data): Promise<any> {
+    const url =loginConfig.getPath() + `/menus/${data._id}`;
     const token = await this.authService.getTokenFromStorage();
 
   return this.http.put(url, data, {

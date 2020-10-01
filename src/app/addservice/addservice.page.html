@@ -12,8 +12,16 @@
 
   <ion-content text-justify="top">
       <ion-card class="welcome-card">
-          <ion-img src="/assets/strip.jpg"></ion-img>
+          <ion-img src="/assets/fl.png"></ion-img>
         </ion-card>
+
+        <br>
+        <div class="s"> 
+          <ion-icon name="add-circle-outline" slot="end" (click)="facility()"></ion-icon>
+         </div>
+        <ion-item>
+          <ion-input name="text" [(ngModel)]="faci" type="text"  placeholder="faciliteis"></ion-input>
+      </ion-item>
     <form [formGroup]="form">
       <ion-grid>
         <ion-row color="justify-content-center">
@@ -26,7 +34,10 @@
               <!-- <ion-item>
                 <ion-label>check in</ion-label>
                 <ion-datetime formControlName="checkin"></ion-datetime>
-              </ion-item> -->
+              </ion-item> 
+            
+            -->
+
               <ion-item>
                   <ion-input name="firstname" formControlName="name" type="text" placeholder="Enter property name"></ion-input>
               </ion-item>
@@ -34,7 +45,7 @@
                 <ion-input name="text" formControlName="amount" type="text" placeholder="Enter Rent per MOnth"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="text" formControlName="number" type="number" placeholder="Enter "></ion-input>
+                <ion-input name="text" formControlName="number" type="number" placeholder="Contact "></ion-input>
               </ion-item>
               <br>
               <ion-row >
@@ -55,7 +66,7 @@
                   <ion-select-option value="Sargodha">Sargodha</ion-select-option>
                 </ion-select>
               </ion-item>
-              
+             
               <ion-item>
                 <ion-input  type="text" readonly type="text" placeholder=" w'll charge for this service 20%"></ion-input>
                 I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
@@ -70,25 +81,22 @@
         
             <br>
             <br>
-            <div class="ion-padding">
-              <ion-button size="large" [disabled]="form.invalid"  (click)="save()" color="primary" type="submit"
-              expand="block">SAVE ! &nbsp;
-              <ion-spinner *ngIf="loading">
-              </ion-spinner>
-            </ion-button>
-               
 
             
-
-
-
-
             <div class="ion-padding">
               <input type="file"  name="images" multiple (change)="selectMultipleImage($event)" />
               <ion-button size="large"    (click)="onMultipleSubmit()" color="primary" type="submit"
               expand="block">Multiple Image Upload
             </ion-button>
           </div>
+          
+            <div class="ion-padding">
+              <ion-button size="large" [disabled]="form.invalid"  (click)="save()" color="primary" type="submit"
+              expand="block">SAVE ! &nbsp;
+              <ion-spinner *ngIf="loading">
+              </ion-spinner>
+            </ion-button>
+              
 
             
             </div>
@@ -96,5 +104,6 @@
         </ion-row>
       </ion-grid>
     </form>
+
   </ion-content>
   

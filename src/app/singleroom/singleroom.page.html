@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>singleroom</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+
+
+
+  <ion-list>
+    <ion-item *ngFor="let roomss of romno">
+      
+      <ion-checkbox color="primary"  [(ngModel)]="roomss.checked" ></ion-checkbox>
+      
+    </ion-item>
+  </ion-list> -->
+  <ion-button size="meduim" (click)="booked()" fill="clear">Select Room</ion-button>
+</ion-content>

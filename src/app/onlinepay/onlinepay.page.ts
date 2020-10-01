@@ -23,6 +23,10 @@ export class OnlinepayPage implements OnInit {
   url: any;
   multipleImages:[];
   images: any[];
+  cd: any;
+  customerid: any;
+  ownerid: any;
+  tokenid: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
@@ -33,6 +37,14 @@ export class OnlinepayPage implements OnInit {
 
   ngOnInit() {
     this.formInitializer();
+    this.route.queryParams.subscribe((params)=>{
+      console.log(params);
+      this.cd = JSON.parse(params.data);
+      console.log(this.cd);
+      this.customerid = this.cd.cid;
+        this.ownerid = this.cd.ownerid;
+           this.tokenid = this.cd.tokid;
+      })
   }
 
   formInitializer() {
@@ -45,33 +57,34 @@ export class OnlinepayPage implements OnInit {
 }
 
 
-async proceed()
-{
 
+     async card()
+  {
 
-    
-  
-    const obj =  this.registerForm.value;
-    console.log(obj);
-    const observable = await this.booksService.addcustomer(
+    console.log(this.tokenid);
+     const obj = this.registerForm.value;
+     obj['cid'] =   this.customerid;
+     obj['tokid'] = this.tokenid;
+     obj['ownerid'] = this.ownerid;
+               
+     const observable = await this.booksService.payme(
       obj
     );
     observable.subscribe(
       async data => {
         console.log('got response from server', data);
-        console.log(data);
-        const jsonObj = JSON.parse(data.message);
-        console.log(jsonObj);
         this.registerForm.reset();
-        window.alert('Successfully Created');
-        this.router.navigate(['/paymenttoken'],{
-          queryParams:{data:JSON.stringify(jsonObj)}
-      });
+        window.alert("Successfull payment");
+      
       },
       error => {
         this.loading = false;
         console.log('error', error);
       }
     );
-  }
+  
+      }
+    
+
+
 }

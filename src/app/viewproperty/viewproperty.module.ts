@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,6 +19,9 @@ import { RatingComponent } from './rating/rating.component';
     SharedModule,
     ViewpropertyPageRoutingModule
   ],
+  
+  schemas:  [ CUSTOM_ELEMENTS_SCHEMA ],
+
   declarations: [ViewpropertyPage,RatingComponent],
   entryComponents: [RatingComponent]
 })

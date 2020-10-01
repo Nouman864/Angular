@@ -1,39 +1,39 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>showmenu</ion-title>
-    <ion-button slot="end" (click)="menu(this.resturants)"  color="success">
-      Book Table
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="viewresturant"></ion-back-button>
+    </ion-buttons>
+    <ion-button slot="end" (click)="menu()"  color="success">
+      Make Reservation
       </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   
-  <ion-card>
+  <ion-card class="ion-text-lg-cente">
     <ion-card-header>
      <ion-card-title  class="ion-text-lg-center">Breakfast</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngFor="let data of brek">
       <ion-list>
       dish: {{data.dish}}
-
+       <br>
       price: {{data.price}}
       </ion-list>        
     </ion-card-content>
   </ion-card> 
 <br>
 <br>
-<br>
-<br>
-<br>
-  <ion-card>
+  <ion-card class="ion-text-lg-cente">
       <ion-card-header>
        <ion-card-title  class="ion-text-lg-center">Launch</ion-card-title>
       </ion-card-header>
-      <ion-card-content *ngFor="let data of brek">
+      <ion-card-content *ngFor="let data of launh">
         <ion-list>
         dish: {{data.dish}}
-  
+         <br>
         price: {{data.price}}
         </ion-list>        
       </ion-card-content>
@@ -41,17 +41,14 @@
 
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <ion-card>
+    <ion-card class="ion-text-lg-cente">
         <ion-card-header>
          <ion-card-title  class="ion-text-lg-center">Dinner</ion-card-title>
         </ion-card-header>
-        <ion-card-content *ngFor="let data of brek">
+        <ion-card-content *ngFor="let data of dnner">
           <ion-list>
           dish: {{data.dish}}
-    
+             <br>
           price: {{data.price}}
           </ion-list>        
         </ion-card-content>

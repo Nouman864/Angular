@@ -141,6 +141,23 @@ const routes: Routes = [
     path: 'paymenttoken',
     loadChildren: () => import('./paymenttoken/paymenttoken.module').then( m => m.PaymenttokenPageModule)
   },
+  
+  {
+    path: 'singleroom',
+    loadChildren: () => import('./singleroom/singleroom.module').then( m => m.SingleroomPageModule)
+  },
+  {
+    path: 'reservedroom',
+    loadChildren: () => import('./reservedroom/reservedroom.module').then( m => m.ReservedroomPageModule)
+  },
+  {
+    path: 'paymenthotel',
+    loadChildren: () => import('./paymenthotel/paymenthotel.module').then( m => m.PaymenthotelPageModule)
+  },
+  {
+    path: 'paymenttokenhotel',
+    loadChildren: () => import('./paymenttokenhotel/paymenttokenhotel.module').then( m => m.PaymenttokenhotelPageModule)
+  },
   {
     path: 'onlinepay',
     loadChildren: () => import('./onlinepay/onlinepay.module').then( m => m.OnlinepayPageModule)

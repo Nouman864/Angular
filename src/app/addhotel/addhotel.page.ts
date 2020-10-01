@@ -15,6 +15,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../sdk/custom/user.service';
 import { async } from 'q';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-addhotel',
@@ -37,6 +38,11 @@ multipleImages = [];
   roomtype:any;
   roomno:any;
   cateogory: any;
+  imag: any;
+  id: any;
+  hotelid: any;
+  idd: any;
+  rom: Event;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -51,10 +57,22 @@ multipleImages = [];
 
 
   
-    selectMultipleImage(event){
-      if (event.target.files.length > 0) {
+    selectMultipleImage(event)
+    {
+      if (event.target.files.length > 0) 
+      {
         this.multipleImages = event.target.files;
       }
+
+  //     console.log(this.multipleImages);
+  //    this.images =[];
+  //  for (var i = 0; i < this.multipleImages.length; i++)
+  //   {
+     
+  //   this.images[i] = this.multipleImages[i].name;
+  
+  //    }
+
     }
     
     onMultipleSubmit(){
@@ -65,13 +83,19 @@ multipleImages = [];
       
       }
      
-      this.http.post<any>('http://localhost:3000/upload', formData).subscribe(
+      this.http.post<any>('http://localhost:3000/hotelimage', formData).subscribe(
         
-        (data) =>{
+        async (data) =>{
           console.log(data);
-          this.url = data.array;
-          console.log(this.url);
-          this.form.patchValue({url : this.url});
+         this.imag =  data['image'];
+         if(data)
+        {
+          const toast = await this.toastController.create({
+            message: `${name} Image has been added successfully.`,
+            duration: 3500
+          });
+          toast.present();
+        }
         
         },
         
@@ -92,20 +116,27 @@ multipleImages = [];
     this.data = JSON.parse(params.data);
     if (this.data) {
       console.log('got hotel', this.data);
-      
-      this.form.patchValue(this.data);
+     this.idd = this.data._id;
+      this.form.patchValue({name : this.data.name});
+      this.form.patchValue({city : this.data.city});
+      this.form.patchValue({number : this.data.number});
+      this.form.patchValue({Location : this.data.Location});
+      this.form.patchValue({facility : this.data.facility});
+      this.form.patchValue({check: this.data.check});
+      this.id = this.data._id;
     }
     })
   }
   formInitializer() {
     
     this.form = this.formBuilder.group({
-      _id: [null],
-      name : [null, [Validators.required]],
+      name : [null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
-     number: [null, [Validators.required]],
-      Location :  [null, [Validators.required]],
-      url:  [null, [Validators.required]]
+     number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
+      Location: [null, [Validators.required]],
+      // facility: [null, [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
+      images: [null, [Validators.required]],
+      check:  [null, [Validators.required]]
       });
   }
   onLocationPicked(location: PlaceLocation)
@@ -119,7 +150,13 @@ multipleImages = [];
 
  
 
-
+  updateroom(event:Event)
+  {
+    this.rom = event;
+  this.router.navigate(['/addroom'],{
+      queryParams:{data:JSON.stringify(this.rom)}
+  });
+  }
 
 
   
@@ -136,13 +173,15 @@ multipleImages = [];
     const obj =  this.form.value;
     
     obj['owner'] = owner;
+    obj['images'] =  this.imag;
     const observable = await this.booksService.addNewHotel(
       obj
     );
     observable.subscribe(
       async data => {
         console.log('got response from server', data);
-       
+        this.hotelid = data.result._id;
+        console.log(this.hotelid);
         const name = this.form.controls['name'].value;
         const toast = await this.toastController.create({
           message: `${name} has been added successfully.`,
@@ -151,6 +190,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
+        this.router.navigate(['/addroom'],{
+          queryParams:{data:JSON.stringify(this.hotelid )}
+      });
         //optional
 
       },
@@ -162,8 +204,11 @@ multipleImages = [];
   }
   
   async updateBook() {
+    const obj = this.form.value;
+    obj['images'] =  this.imag;
+    obj['_id'] = this.id;
     const observable = await this.booksService.updatehotel(
-      this.form.value
+      obj
     );
 
     observable.subscribe(
@@ -178,7 +223,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
-        //optional
+        this.router.navigate(['/addroom'],{
+          queryParams:{data:JSON.stringify(this.id )}
+      });
 
         this.modalCtrl.dismiss();
       },

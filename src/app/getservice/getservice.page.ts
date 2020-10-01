@@ -31,7 +31,7 @@ Account() {
   {
     this.router.navigateByUrl('/userlogin');
   }
-  else
+  if(loginData.account === "Client")
   {
     this.router.navigateByUrl('/clientlogin');
   }

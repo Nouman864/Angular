@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="bookroom"></ion-back-button>
+    </ion-buttons>
+    <ion-title>reservedroom</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item>
+      <ion-label>Check-in </ion-label>
+      <ion-datetime displayFormat="D/M" pickerFormat="D/M" [(ngModel)]="from_date" (ionChange)="booked()" ></ion-datetime>
+    </ion-item>
+    
+    <ion-item>
+        <ion-label>Check-out </ion-label>
+        
+    <ion-datetime displayFormat="D/M" pickerFormat="D/M" [(ngModel)]="to_date" (ionChange)="time()" ></ion-datetime>
+    </ion-item>
+
+    <form [formGroup]="form"> 
+        <label igxLabel for="number">Night:</label>
+      <br>
+      <ion-item>
+        <ion-input name="text" readonly type="text" formControlName="night" type="number" placeholder="nights"></ion-input>
+      </ion-item>
+    </form>
+    <!-- *ngIf="value == '3'" -->
+
+    <ion-button size="meduim"   (click)="room()"  type="submit"
+    >book now
+    <!-- <ion-spinner *ngIf="loading">
+    </ion-spinner> -->
+  </ion-button>
+  <br>
+  <ion-button   (click)="Scan()">Click to Verify Room QR</ion-button>
+  <br>
+  <br>
+  <br>
+  <br>
+  <ion-button expand='block'  (click)="pay()">online payment</ion-button>
+</ion-content>

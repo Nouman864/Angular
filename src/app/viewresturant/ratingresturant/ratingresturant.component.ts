@@ -40,26 +40,26 @@ title: [null, [Validators.required]]
 clickFirst(item: any) {
    this.star = item;
    console.log('this.stars', this.star);
-this.c1 = 'Primary - yellow';
+this.c1 = 'Primary';
 this.n1 = 'star';
 }
 click2nd(item: any) {
  this.star = item;
  console.log('this.stars', this.star);
-  this.c1 = 'Primary - yellow';    this.c2 = 'primary';
+  this.c1 = 'Primary';    this.c2 = 'primary';
     this.n1 = 'star'; this.n2 = 'star';
   }
   click3rd(item: any) {
     this.star = item;
     console.log('this.stars', this.star);
-    this.c1 = 'Primary - yellow';    this.c2 = 'primary';
+    this.c1 = 'Primary';    this.c2 = 'primary';
     this.c3 = 'primary';
     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
     }
     clickForth(item: any) {
         this.star = item;
       console.log('this.stars', this.star);
-      this.c1 = 'Primary - yellow';    this.c2 = 'primary';
+      this.c1 = 'Primary';    this.c2 = 'primary';
       this.c3 = 'primary';    this.c4 = 'primary';
       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
       }

@@ -1,7 +1,18 @@
-.card-center{
-    width:30%; // adjust width on your ion-card suitable on your screen
-    display:block;
-    margin: 0 auto;
+// .card-center{
+//     width:30%; // adjust width on your ion-card suitable on your screen
+//     display:block;
+//     margin: 0 auto;
     
     
+// }
+.welcome-card ion-img {
+    max-height: 44vh;
+    max-width: 110vh;
+    // overflow: hidden;
+  }  
+  .s {
+    font-size: 2em;
+    float: right;
+    margin-right: 30px;
+
 }

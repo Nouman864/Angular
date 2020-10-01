@@ -1,4 +1,87 @@
+
+
+
+
+
+
+
+
+
 <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="welcome-card">
+      <img src="/assets/aprt.jpg">
+    
+      <ion-card-header class="cont">
+        <ion-card-title class="titl">Welcome to Rehayash App</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="cont">
+        <p class="text">Basically, it is very complicated for people to find good hotels for staying, or booking hotels for eating and flats or houses for renting, but with through help of our application the user can easily find hotels for staying and reserve the room online, reserve a table in the restaurant, find flats for renting and can reserve them, book the entire marriage hall, and other types of accommodations can be done easily with the help of Rehayash application with just the tips of fingers.
+          In Rehayash application the hotels/flats/house/restaurant owner can register/present their hotels/flats/house/restaurant for reservation and renting purposes with the help of the Rehayash app. To register the owner’s property the Application would get them all the required of information, customized for the type of accommodation.
+          The user must sign into book room, reserve a table, rent a flat/home. The user will be providing online payment option (optional) or pay at the doorstep.
+          The user can search and finds hotels, Restaurants, flats,as per location,City, Best Rating and so on.</p>
+      </ion-card-content> 
+
+      <ion-footer>
+        <ion-row>
+          <ion-col center text-center>
+            <button>
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>1.5k Likes</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button>
+              <ion-icon name="text"></ion-icon>
+              <div>4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button>
+              <ion-icon name="time"></ion-icon>
+              <div>11h ago</div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -9,63 +92,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [formGroup]="registerForm">
-    <ion-grid>
-      <ion-row color="justify-content-center">
-        <ion-col  size-md="6" offset-md="3">
+<ion-content> 
 
-          <div class="ion-padding">
+  <ion-buttons (click)="save()">
+    large
+  </ion-buttons >
 
-            <ion-item>
-              <ion-input name="number" formControlName="number" type="email" placeholder="cardnumber"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="text" formControlName="exp_month" type="text" placeholder="exp_month"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="text" formControlName="exp_year" type="text" placeholder="exp_year"></ion-input>
-            </ion-item> 
-            <ion-item>
-            <ion-input name="text" formControlName="cvc" type="number" placeholder="cvc"></ion-input>
-          </ion-item>
-            
-          </div>
-          <div class="ion-padding">
-            <ion-button size="meduim" color="success" type="submit" (click)="proceed()" expand="block">pay
-            </ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+  <ion-buttons (click)="missing()">
+    missing
+  </ion-buttons >
 
-
-  <div class ="container">
-        
-    <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
-    <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
-    <!-- <input type="file" name="image" (change)="selectImage($event)" />
-    <button type="submit" (click)="onSubmit()">Upload</button> -->
-  </div>
-
-
-
-  <ion-row >
-    <ion-card  class="card-center">
-   
-        <ion-card-content  *ngFor="let image of images" >
-          
-            <img src= {{image}}>
-              
-          </ion-card-content>
-       </ion-card>
-      
-</ion-row>
-<button type="submit" (click)="fuck()">Get</button>
-
-
-
-
-
-</ion-content>
+  <ion-buttons (click)="duplicate()">
+    duplicate
+  </ion-buttons >
+  <ion-buttons (click)="sort()">
+    sort
+  </ion-buttons >
+</ion-content> -->

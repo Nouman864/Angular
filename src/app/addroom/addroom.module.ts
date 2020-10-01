@@ -13,6 +13,7 @@ import { AddroomPage } from './addroom.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     AddroomPageRoutingModule
   ],
   declarations: [AddroomPage]

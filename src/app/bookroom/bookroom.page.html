@@ -1,20 +1,59 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Reservation</ion-title>
-    <ion-button slot="end" href="/addservice" color="success">
-      Your Review 
-    </ion-button>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="viewhotel"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons>
+    <ion-icon name="refresh-circle-outline"></ion-icon>
+    </ion-buttons> -->
+
+    <ion-title class="ion-text-center">Room details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-
-  
-  <!-- <ion-button (click)="Rooms()" >Roooms</ion-button> -->
-  
 <ion-content color="">
+
+
   
-  <form [formGroup]="form">
+
+
+
+
+
+
+  <ion-card class="ion-text-lg-cente">
+    <ion-card-content *ngFor="let data of info; let i = index" >
+      <ion-list>
+          <ion-row >
+              <ion-card  class="card-center">
+             
+                  <ion-card-content  *ngFor="let image of images" >
+                    
+                      <img src= {{image}}>
+                      
+                    </ion-card-content>
+                 </ion-card>
+                
+          </ion-row>
+        <br>
+        Room no:  {{data.roomno}}
+        <br>
+        <br>
+       No of Beds:  {{data.beds}}
+       <br>
+        <br>
+        facility:  {{data.facility}}
+        <br>
+         <br>
+      Amount:  {{data.amount}}
+       
+      </ion-list> 
+      <ion-button (click)="reserve(i)" fill="clear">book</ion-button>       
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- <form [formGroup]="form">
     <ion-grid>
       <ion-row color="justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
@@ -52,7 +91,7 @@
     <ion-checkbox color="primary"  [(ngModel)]="rooms.checked" ></ion-checkbox>
     
   </ion-item>
-</ion-list>
+</ion-list> -->
 
 
 </ion-content>

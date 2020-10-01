@@ -45,8 +45,8 @@ export class PaymenttokenPage implements OnInit {
       if (this.cd) {
         console.log(this.cd);
         this.customerid = this.cd.cid;
-        this.amount = this.cd.detaill.amount;
         this.ownerid = this.cd.detaill.ownerid;
+        this.amount = this.cd.detaill.amount;
         console.log(this.customerid);
         console.log( this.amount);
         console.log( this.ownerid);
@@ -68,25 +68,33 @@ export class PaymenttokenPage implements OnInit {
 
 async proceed()
 {
-    const obj =  this.registerForm.value;
-    console.log(obj);
-    const observable = await this.booksService.addtoken(
-      obj
-    );
-    observable.subscribe(
-      async data => {
-        console.log('got response from server', data);
-        console.log(data.message.id);
-        this.tokenid = data.message.id;
-        this.registerForm.reset();
-        window.alert('Successfully Created');
-      },
-      error => {
-        this.loading = false;
-        console.log('error', error);
-      }
-    );
-  }
+  const obj =  this.registerForm.value;
+  console.log(obj);
+  const observable = await this.booksService.addtoken(
+    obj
+  );
+  observable.subscribe(
+    async data => {
+      console.log('got response from server', data);
+      console.log(data.message.id);
+      this.tokenid = data.message.id;
+      this.registerForm.reset();
+      window.alert('Successfully Created');
+      const obj ={};
+   obj['cid'] =   this.customerid;
+   obj['tokid'] = this.tokenid;
+   obj['ownerid'] = this.ownerid;
+         this.router.navigate(['/onlinepay'],{
+          queryParams:{data:JSON.stringify(obj)}
+      });
+    },
+    error => {
+      this.loading = false;
+      console.log('error', error);
+    }
+  );
+}
+
  
 
   card()
@@ -96,7 +104,7 @@ async proceed()
      const obj ={};
      obj['cid'] =   this.customerid;
      obj['tokid'] = this.tokenid;
-     obj['amount'] = this.amount;
+    //  obj['amount'] = this.amount;
      obj['ownerid'] = this.ownerid;
                
   

@@ -1,0 +1,23 @@
+.ion-text-lg-cente
+{
+     // background-color: rgb(129, 172, 253);
+     --background: linear-gradient(180deg, rgb(231, 50, 50), rgb(235, 142, 66));
+}
+.ion-text-lg-center
+{
+    color: rgb(10, 1, 1);
+}
+ion-content {
+    --background: linear-gradient(180deg, rgb(231, 50, 50), rgb(235, 142, 66));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg, rgb(231, 50, 50), rgb(235, 142, 66));
+  }
+  ion-card
+  {
+    --background: linear-gradient(180deg, rgb(231, 50, 50), rgb(235, 142, 66));
+  }
+
+    
+  
+ 

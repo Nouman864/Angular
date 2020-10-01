@@ -29,8 +29,9 @@ export class AppComponent {
       icon: 'person'
     },
     {
-      title: 'Logout',
-      icon: 'power'
+      title: 'Login',
+      url:'/getservice',
+      icon: 'log-in'
     }
   ];
   alertCtrl: any;

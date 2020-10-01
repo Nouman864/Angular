@@ -22,7 +22,7 @@
           </ion-img>
         </ion-thumbnail>
         <ion-label>{{flat.name}}</ion-label>
-        <h1 *ngIf="flat.reviewsTotal == '2'">
+        <h1 *ngIf="flat.reviewsTotal == '2'" class="ion">
           {{this.click2nd(flat.reviewsTotal)}} 
           <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
           <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
@@ -30,7 +30,7 @@
           <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
           
         </h1>
-        <h1 *ngIf="flat.reviewsTotal == '3'">
+        <h1 *ngIf="flat.reviewsTotal == '3'" class="ion">
           {{this.click3rd(flat.reviewsTotal)}} 
           <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
           <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
@@ -38,7 +38,7 @@
           <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
           
         </h1>
-        <h1 *ngIf="flat.reviewsTotal == '4'">
+        <h1 *ngIf="flat.reviewsTotal == '4'" class="ion">
           {{this.clickForth(flat.reviewsTotal)}} 
           <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
           <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>

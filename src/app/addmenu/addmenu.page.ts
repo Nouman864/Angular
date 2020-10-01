@@ -32,9 +32,11 @@ export class AddmenuPage implements OnInit {
   id: any;
   loading: boolean;
   tableno: any;
+  MENU: any;
+  menus: any;
   
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
+    private booksService: BooksService, private toastController: ToastController, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
      {
 }
@@ -49,13 +51,49 @@ this.route.queryParams.subscribe((params)=>{
     console.log(this.id);
   
   });
+  this.getmenu();
 }
 
 formInitializer() {
 this.form = this.formBuilder.group({
+     
   dish : [null, [Validators.required]],
   price: [null, [Validators.required]]
 });
+}
+
+
+
+///////////////////get MENU.////////////////////////////////
+
+
+async getmenu() {
+  this.loading = true;
+  let owner1 = this.id;
+  const ownerId =  await this.authService. getTokenFromStorage();
+  console.log(ownerId);
+  try{
+    const decoded = jwt_decode(ownerId );
+   let owner = decoded['data']._id;
+  }
+  catch(ex){
+  }
+  console.log(owner1);
+  const observable = await this.booksService.getmenu(
+    owner1
+  );
+  observable.subscribe(
+    data => {
+      this.menus = data.data;
+      this.loading = false;
+      console.log( data);
+       console.log(data.data[0]._id);
+      this.MENU = data.data[0]._id;
+    }, 
+    err => {
+      console.log('err', err);
+    } 
+  );
 }
 
 add()
@@ -65,18 +103,21 @@ add()
   {
    let item = this.form.value;
    this.breakfast.push(item);
+   this.form.reset();
    console.log(this.breakfast);
  }
  if(this.menutype ==  "Launch")
   {
 let item = this.form.value;
    this.launch.push(item);
+   this.form.reset();
 console.log(this.launch);
  }
  if(this.menutype ==  "Dinner")
   {
 let item = this.form.value;
    this.dinner.push(item);
+   this.form.reset();
 console.log(this.dinner);
  }
 
@@ -92,6 +133,7 @@ table()
      this.tabll.push({
        tableno:tabel
       });
+      this.tableno = '';
      console.log(this.tabll);
 }
 
@@ -145,5 +187,52 @@ async addNew() {
    );
  }
 
+
+ async update() {
+
+  this.tab.push({
+    Table:this.tabll
+  });
+  console.log(this.tab);
+  this.time.push({
+      breakfast:this.breakfast,
+      launch:this.launch,
+      dinner:this.dinner
+    });
+
+    console.log(this.time);
+  
+   
+ let ob = {};
+   ob['AvailableTime'] = this.time;
+   ob['Ta'] = this.tab;
+   ob['_id'] = this.MENU;
+   const observable = await this.booksService.updatemenu(
+     ob
+   );
+   observable.subscribe(
+     async data => {
+       console.log('got response from server', data);
+       console.log(data);
+       this.loading = false;
+       this.form.reset();
+       //optional
+
+     },
+     error => {
+       this.loading = false;
+       console.log('error', error);
+     }
+   );
+
+
+
+ }
+
+ save() {
+  this.loading = true;
+    this.addNew();
+  
+}
 
 }

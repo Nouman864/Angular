@@ -1,9 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="showmenu"></ion-back-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">Reservation</ion-title>
-    <!-- <ion-button slot="end" href="/addservice" color="success">
-      Your Review 
-    </ion-button> -->
+    
   </ion-toolbar>
 </ion-header>
 
@@ -18,28 +19,61 @@
       <ion-row color="justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
 
-          <div class="ion-padding">
+          <ion-item>
+            <ion-label>Party Size</ion-label>
+            <ion-select formControlName="partysize" type="text"   okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+            </ion-select>
+          </ion-item>
+<br>
+
             <ion-item>
-              <ion-label>check in</ion-label>
-                <ion-datetime formControlName="checkin" ></ion-datetime>
+              <ion-label>Date</ion-label>
+                <ion-datetime formControlName="date" ></ion-datetime>
                </ion-item> 
-          </div>
+        <br>
+        <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-select formControlName="time" type="text"   okText="Okay" cancelText="Cancel">
+            <ion-select-option value="6:30 AM">6:30 AM</ion-select-option>
+            <ion-select-option value="7:00 AM">7:00 AM</ion-select-option>
+            <ion-select-option value="7:30 AM">7:30 AM</ion-select-option>
+            <ion-select-option value="8:00 AM">8:00 AM</ion-select-option>
+            <ion-select-option value="8:30 AM">8:30 AM</ion-select-option>
+            <ion-select-option value="9:00 AM">9:00 AM</ion-select-option>
+            <ion-select-option value="9:30 AM">9:30 AM</ion-select-option>
+            <ion-select-option value="10:00 AM">10:00 AM</ion-select-option>
+            <ion-select-option value="10:30 AM">10:30 AM</ion-select-option>
+            <ion-select-option value="11:00 AM">11:00 AM</ion-select-option>
+          </ion-select>
+
+          
+        </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
   
   <br>
-  <!-- <ion-button expand='block' margin (click)=" Encode()">Click to Create QR</ion-button>
-    <ion-button expand='block' margin (click)="Scan()">Click to Scan QR</ion-button> -->
-  <ion-button (click)="booked()" fill="clear">Select Table</ion-button>
+  <!-- <ion-button expand='block' margin (click)=" Encode()">Click to Create QR</ion-button> -->
+    <ion-button expand='block' margin (click)="Scan()">Click to Scan Table QR</ion-button>
   <ion-list>
-  <ion-item *ngFor="let tables of table">
+  <ion-item *ngFor="let tables of seltable">
     
     <ion-checkbox color="primary"  [(ngModel)]="tables.checked" ></ion-checkbox>
     
   </ion-item>
 </ion-list>
+<ion-button size="meduim" (click)="booked()" fill="clear">Select Table</ion-button>
 
 <div class="ion-padding">
   <ion-button size="large" (click)="addNew()" color="primary" type="submit" expand="block">Book

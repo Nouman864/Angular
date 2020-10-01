@@ -10,6 +10,7 @@ import { BooksService } from 'src/app/sdk/custom/books.service';
   styleUrls: ['./rating.component.scss'],
 })
 export class RatingComponent implements OnInit {
+
   service: any;
   event: any;
   form: any;

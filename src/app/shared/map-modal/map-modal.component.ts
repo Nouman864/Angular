@@ -6,10 +6,11 @@ import {
   ElementRef,
   Renderer2,
   OnDestroy,
-  Input
+  NgZone,
+  Input,
 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-
+import { MapsAPILoader } from '@agm/core';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -25,14 +26,20 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() title = 'Pick Location';
   clickListener: any;
   googleMaps: any;
-
+  places: string;
+  plac: string;
   constructor(
-    private modalCtrl: ModalController,
-    private renderer: Renderer2
+    private modalCtrl: ModalController, private ngZone: NgZone,
+    private renderer: Renderer2,private mapsAPILoader: MapsAPILoader
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
+  
+  
+   
   ngAfterViewInit() {
     this.getGoogleMaps()
       .then(googleMaps => {
@@ -42,7 +49,13 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
           center: this.center,
           zoom: 16
         });
-
+          
+        // let script = document.getElementById('txtHome').getElementsByTagName('input')[0];
+        // let autocomplete = new googleMaps.MapAutocomplete(script,
+        //   "https://maps.googleapis.com/maps/api/js?key= ${ environment.googleMapsAPIKey}&libraries=places
+        //   );
+   
+      
         this.googleMaps.event.addListenerOnce(map, 'idle', () => {
           this.renderer.addClass(mapEl, 'visible');
         });
@@ -78,6 +91,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.googleMaps.event.removeListener(this.clickListener);
     }
   }
+  
 
   private getGoogleMaps(): Promise<any> {
     const win = window as any;
@@ -103,4 +117,5 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       };
     });
   }
+  
 }

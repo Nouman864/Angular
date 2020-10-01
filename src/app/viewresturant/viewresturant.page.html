@@ -1,16 +1,42 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            
-            </ion-buttons>
       <ion-title class="ion-text-center">View Resturant</ion-title>
-      <ion-button slot="end" (click)="menu(this.irt)"  color="success">
+      <ion-buttons slot="start">
+        <ion-back-button  defaultHref="resturantsearch"></ion-back-button>
+      </ion-buttons>
+      <ion-button slot="end" (click)="menu()"  color="success">
         Show Menu
       </ion-button>
      
     </ion-toolbar>
   </ion-header>
+  client Reviews
+  <h1 *ngIf="value == '3'" class="ion">
+    {{this.click3rd(value)}} 
+    <ion-icon  size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+    <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+    <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+    <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+    
+  </h1>
   
+    
+    <h1 *ngIf="value == '2'" class="ion">
+      {{this.click2nd(value)}} 
+      <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+      <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+      <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+      <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+      
+    </h1>
+    <h1 *ngIf="value == '4'" class="ion">
+      {{this.clickForth(value)}} 
+      <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+      <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+      <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+      <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+      
+    </h1>
   
   
     
@@ -23,7 +49,7 @@
           <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
             
             <div class="ion-padding">
-                <label igxLabel for="firstname">Name</label> 
+                <label class="ion-text-lg-center" igxLabel for="firstname">Resturant Name:</label> 
                 <br>
             
               <ion-item>
@@ -31,28 +57,41 @@
   
                 </ion-item>
                 <br>
-                <label igxLabel for="number">Phone No</label>
+                <label class="ion-text-lg-center" igxLabel for="number">Contact:</label>
                 <br> 
               <ion-item>
                 <ion-input name="text" formControlName="number"  readonly type="number" placeholder="Enter your phone number"></ion-input>
               </ion-item>
               <br>
-              <label igxLabel for="Location">Location</label> 
+              <label class="ion-text-lg-center" igxLabel for="Location">Adress:</label> 
               <br>
               <ion-item>
                 <ion-input name="text" formControlName="Location"   readonly type="text" placeholder="Enter location"></ion-input>
               </ion-item>
-             
+              <br>
+              <label class="ion-text-lg-center" igxLabel for="Location">City:</label> 
+              <br>
               <ion-item>
-                  <ion-label>City</ion-label>
-                  <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
-                    <ion-select-option value="Islamabad">Islamabad</ion-select-option>
-                    <ion-select-option value="Lahore">Lahore</ion-select-option>
-                    <ion-select-option value="Karachi">Karachi</ion-select-option>
-                    <ion-select-option value="Sargodha">Sargodha</ion-select-option>
-                  </ion-select>
-                </ion-item>
+                <ion-input name="text" formControlName="city"   readonly type="text" placeholder="city"></ion-input>
+              </ion-item>
             </div>
+
+            <ion-card class="ion-text-lg-cente">
+              <ion-card-header>
+               <ion-card-title  class="ion-text-lg-center">Timings</ion-card-title>
+              </ion-card-header>
+              <ion-card-content *ngFor="let data of Timings">
+                <ion-list >
+               {{data.Timing}}
+                </ion-list>        
+              </ion-card-content>
+            </ion-card>
+            <br>
+              <label class="ion-text-lg-center" igxLabel for="about">About Resturant:</label> 
+              <br>
+            <textarea name="text"  readonly type="text" formControlName="about" placeholder="About Resturant" type="text" cols="50" rows="5"></textarea>
+
+
             <div class="ion-padding">
               
                

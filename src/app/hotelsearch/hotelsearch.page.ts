@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { UserService } from '../sdk/custom/user.service';
 import { Router } from '@angular/router';
 import { BooksService } from '../sdk/custom/books.service';
+import { DataService } from '../sdk/custom/data.services';
 @Component({
   selector: 'app-hotelsearch',
   templateUrl: './hotelsearch.page.html',
@@ -27,7 +28,7 @@ export class HotelsearchPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,private userService:UserService,private router: Router, private booksService :BooksService,
-    private renderer: Renderer2
+    private renderer: Renderer2,private dataService:DataService,
   ) {}
 
   ngOnInit() {
@@ -109,9 +110,10 @@ openEditPopup(event:Event) {
   
     this.dataa = event;
     console.log(this.dataa);
-    this.router.navigate(['/viewhotel'],{
-        queryParams:{data:JSON.stringify(this.dataa)}
-    });
+    this.dataService.savehotel(this.dataa);
+    this.router.navigateByUrl('/viewhotel');
+    
+
 }
   
 }

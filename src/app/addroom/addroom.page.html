@@ -1,33 +1,71 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-center">addroom</ion-title>
+      <ion-button  (click)="updateroom()" color="success">
+        Update Room
+       </ion-button>
+  <ion-buttons>
+    <ion-back-button  defaultHref="addhotel"></ion-back-button>
+  </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="grd">
+  <form [formGroup]="form" class="grd">
+  <div class="ion-padding">
+    <div class="ion-text-center">
+      <h3 *ngIf="!id">Add New Room</h3>
+       <!-- <h3 *ngIf="id"></h3> -->
+    </div>
 
-<ion-item> 
-  <ion-label>Select Rooms</ion-label>       
-  <ion-select [(ngModel)]="roomtype" type="text"   okText="Okay" cancelText="Dismiss">
-    <ion-select-option value="10">10</ion-select-option>
-    <ion-select-option value="15">15</ion-select-option>
-    <ion-select-option value="20">20</ion-select-option>
-  </ion-select>
-</ion-item> 
-<br>
-<ion-item> 
-  <ion-label>Rooms Category</ion-label>       
-  <ion-select [(ngModel)]="roomcategory" type="text"   okText="Okay" cancelText="Dismiss">
-    <ion-select-option value="1stfloor">1stfloor</ion-select-option>
-    <ion-select-option value="2ndfloor">2ndfloor</ion-select-option>
-    <ion-select-option value="groundfloor">groundfloor</ion-select-option>
-  </ion-select>
-</ion-item>
-     
-<br>
-<ion-button size="large"  (click)="addNew()" color="primary" type="submit"
-            expand="block">SAVE ! &nbsp;
-            <ion-spinner *ngIf="loading">
-            </ion-spinner>
-          </ion-button>
+  
+  
+       <ion-item>
+           <ion-input name="firstname" formControlName="roomno" type="tel"  minLength="1" maxLength="3" placeholder="Room no"></ion-input>
+       </ion-item>
+       <div class="s"> 
+        <ion-icon name="add-circle-outline" slot="end" (click)="facility()"></ion-icon>
+       </div>
+       <ion-item>
+       <ion-label>Facility</ion-label>
+                <ion-select formControlName="facility" type="text"   okText="Okay" cancelText="Dismiss">
+                  <ion-select-option value="WiFi">WiFi</ion-select-option>
+                  <ion-select-option value="Microwave">Microwave</ion-select-option>
+                  <ion-select-option value="tea maker">tea maker</ion-select-option>
+                  <ion-select-option value="Dishwasher">Dishwasher</ion-select-option>
+                  <ion-select-option value="Cookware">Cookware</ion-select-option>
+                  <ion-select-option value="Washing machine">Washing machine</ion-select-option>
+                  <ion-select-option value="Air conditioning">Air conditioning</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+              <input type="file"  formControlName="images" multiple (change)="selectMultipleImage($event)" />
+            </ion-item>
+            <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
+    >Image Upload
+    </ion-button>
+       <ion-item>
+         <ion-input name="text" formControlName="beds" type="tel"  minLength="1" maxLength="1" placeholder=" No of Beds"></ion-input>
+       </ion-item>
+       <!-- <ion-item>
+        <ion-input name="text" formControlName="nightstay"  type="number" placeholder=" nights stay"></ion-input>
+      </ion-item> -->
+      <ion-item>
+        <ion-input name="text" formControlName="amount" type="tel"  minLength="4" maxLength="5" placeholder=" amount"></ion-input>
+      </ion-item>
+      <div class="s"> 
+        <ion-title class="ion-text-center">Add</ion-title>
+        <ion-icon name="add-circle-outline" slot="end" (click)="Roominfo()"></ion-icon>
+       </div>
+       </div>
+      </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <ion-button size="meduim" (click)="save()" color="primary" type="submit"
+    expand="block">Save ! &nbsp;
+    <ion-spinner *ngIf="loading">
+    </ion-spinner>
+  </ion-button>
 </ion-content>

@@ -19,7 +19,13 @@ export class ViewpropertyPage implements OnInit {
   d: Date = new Date();
   ownerid: any;
   amount: any;
+  rm: Event;
+  c1 = '#b8860b';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
 
+  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-half' ; n6;n7;
+star: number;
+  value: any;
+  faci: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,
     private booksService: BooksService,private platform: Platform) 
@@ -42,12 +48,12 @@ export class ViewpropertyPage implements OnInit {
     if (this.data) {
       console.log('got flat', this.data);
       this.form.patchValue(this.data);
-      
+
+      this.faci = this.data.facility;
     }
+    console.log(this.faci);
        this.irt = this.data._id;
-       this.nam = this.data.name;
-       this.ownerid = this.data.owner;
-       this.amount = this.data.amount;
+    
        //console.log(this.data);
     
     })
@@ -59,7 +65,7 @@ export class ViewpropertyPage implements OnInit {
      this.images[i] = this.data.image[i];
    
     }
-    
+    this.get();
   }
 
   
@@ -72,11 +78,100 @@ export class ViewpropertyPage implements OnInit {
       city: [null, [Validators.required]],
      number: [null, [Validators.required]],
       Location :  [null, [Validators.required]],
+      facility :  [null, [Validators.required]],
       image :  [null],
       });
   } 
   
+  async get() {
+    this.loading = true;
+    let id;
+    let ownerr
+        ownerr = this.irt;
+        console.log(id);
+    const ownerId =  await this.authService. getTokenFromStorage();
+    try{
+      const decoded = jwt_decode(ownerId );
+      ownerr = decoded['data']._id;
+    }
+    catch(ex){
+    }
+     const obj = {};
+     obj['sd'] = this.irt;
+    const observable = await this.booksService.getflatreview(
+      obj
+    );
+    observable.subscribe(
+      data => {
+        this.loading = false;
+        console.log('data', data);
+        this. value = data['data'];
+        console.log(this.value);
+         
+      }, 
+      err => {
+        console.log('err', err);
+      } 
+    ); 
+  }
 
+
+
+   room(event: Event)
+    {
+      this.rm = event;
+      console.log(this.rm);
+      this.router.navigate(['/singleroom'],{
+          queryParams:{data:JSON.stringify(this.rm)}
+      });
+    
+    
+   }
+   clickFirst(item: any) {
+    this.star = item;
+    console.log('this.stars', this.star);
+  this.c1 = '';
+  this.n1 = 'star'; 
+  }
+  click2nd(item: any) {
+  this.star = item;
+  console.log('this.stars', this.star);
+     this.c1 = ''; this.c2 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; this.n3; this.n4;
+   }
+   click2half(item: any) {
+    this.star = item;
+    console.log('this.stars', this.star);
+       this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+       this.c4 = ''; 
+       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half'; 
+     }
+   click3rd(item: any) {
+     this.star = item;
+     console.log('this.stars', this.star);
+     
+     this.c1 = '';    this.c2 = '';
+     this.c3 = '';   
+     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+        
+     }
+     click3half(item: any) {
+      this.star = item;
+      console.log('this.stars', this.star);
+      this.c1 = '';    this.c2 = '';
+      this.c3 = '';   this.c4 = '';
+      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+         
+      }
+     clickForth(item: any) {
+         this.star = item;
+       console.log('this.stars', this.star);
+       this.c1 = '';    this.c2 = '';
+       this.c3 = '';    this.c4 = '';
+       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+  
+     
+       }
 
   async rent() {
     let owner;
@@ -116,7 +211,7 @@ export class ViewpropertyPage implements OnInit {
          this.loading = false;
          const ob ={};
          ob['ownerid'] = this.ownerid;
-         ob['amount'] = this.amount;
+         //ob['amount'] = this.amount;
          this.router.navigate(['/paymentprocess'],{
           queryParams:{data:JSON.stringify(ob)}
       });

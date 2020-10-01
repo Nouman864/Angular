@@ -50,8 +50,7 @@ star: number;
   }
  
   async get() {
-    this.click3rd(3);
-    this.clickForth(3.5);
+   
     this.loading = true;
     let owner;
     const ownerId =  await this.authService. getTokenFromStorage();
@@ -78,27 +77,26 @@ star: number;
     ); 
   } 
 
- 
   clickFirst(item: any) {
     this.star = item;
     console.log('this.stars', this.star);
- this.c1 = 'primary'; this.c2 = 'primary';
- this.n1 = 'star'; this.n2 = 'star-half';
+ this.c1 = '';
+ this.n1 = 'star'; 
  }
  click2nd(item: any) {
   this.star = item;
   console.log('this.stars', this.star);
-   this.c1 = 'primary';    this.c2 = 'primary'; this.c3 = 'primary';
-     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half';
+     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+     this.c4 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; 
    }
    click3rd(item: any) {
      this.star = item;
      console.log('this.stars', this.star);
      
-          this.c1 = 'primary';this.c2 = 'primary';this.c3 = 'primary';this.c = 'medium';
-          //this.c4 = 'primary';
-         this.n1 = 'star';  this.n2 = 'star';
-         this.n3 = 'star'; this.n = 'star';
+     this.c1 = '';    this.c2 = '';
+     this.c3 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
         
      
     
@@ -106,12 +104,13 @@ star: number;
      clickForth(item: any) {
          this.star = item;
        console.log('this.stars', this.star);
-       this.c1 = 'primary';    this.c2 = 'primary';
-       this.c3 = 'primary';    this.c4 = 'primary';
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+       this.c1 = '';    this.c2 = '';
+       this.c3 = '';    this.c4 = '';
+       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
 
      
        }
+
 
 
 

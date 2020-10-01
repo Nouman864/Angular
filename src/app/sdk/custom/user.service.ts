@@ -53,7 +53,7 @@ export class UserService {
   public clientVerify(credentials: object): Observable<any> {
     const url = loginConfig.getPath() + '/clients/clientverify';
 
-    return this.http.post(url, credentials);
+    return this.http.get(url, credentials);
   }
 
   public clientLogin(credentials: object): Observable<any> {
