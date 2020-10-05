@@ -162,6 +162,10 @@ const routes: Routes = [
     path: 'onlinepay',
     loadChildren: () => import('./onlinepay/onlinepay.module').then( m => m.OnlinepayPageModule)
   },
+  {
+    path: 'bookinglist',
+    loadChildren: () => import('./bookinglist/bookinglist.module').then( m => m.BookinglistPageModule)
+  },
   
   
   

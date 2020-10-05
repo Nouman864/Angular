@@ -25,7 +25,7 @@ export class UserService {
   public userVerify(credentials: object): Observable<any> {
     const url = loginConfig.getPath() + '/users/verify';
 
-    return this.http.post(url, credentials);
+    return this.http.get(url, credentials);
   }
 
 

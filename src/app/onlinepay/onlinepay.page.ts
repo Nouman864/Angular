@@ -11,6 +11,7 @@ import { BooksService } from '../sdk/custom/books.service';
 import { AuthService } from '../sdk/core/auth.service';
 import { File } from '@ionic-native/file/ngx';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-onlinepay',
@@ -27,24 +28,28 @@ export class OnlinepayPage implements OnInit {
   customerid: any;
   ownerid: any;
   tokenid: any;
+  charge: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
+    private booksService: BooksService, private dataService:DataService, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
     {
                
     }
   registerForm: FormGroup;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-      console.log(params);
-      this.cd = JSON.parse(params.data);
+    this.cd;
+    await this.dataService.getpay().then((val)=>
+    {
+     this.cd= val;
+    });
       console.log(this.cd);
       this.customerid = this.cd.cid;
         this.ownerid = this.cd.ownerid;
            this.tokenid = this.cd.tokid;
-      })
+           this.charge = this.cd.amount;
+       this.registerForm.patchValue({amount : this.charge});
   }
 
   formInitializer() {

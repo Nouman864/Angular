@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-      <ion-button  (click)="updateroom()" color="success">
+      <!-- <ion-button  (click)="updateroom()" color="success">
         Update Room
-       </ion-button>
+       </ion-button> -->
   <ion-buttons>
     <ion-back-button  defaultHref="addhotel"></ion-back-button>
   </ion-buttons>
@@ -38,7 +38,7 @@
                 </ion-select>
               </ion-item>
               <ion-item>
-              <input type="file"  formControlName="images" multiple (change)="selectMultipleImage($event)" />
+              <input type="file"   multiple (change)="selectMultipleImage($event)" />
             </ion-item>
             <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
     >Image Upload
@@ -52,10 +52,20 @@
       <ion-item>
         <ion-input name="text" formControlName="amount" type="tel"  minLength="4" maxLength="5" placeholder=" amount"></ion-input>
       </ion-item>
+       
+  
       <div class="s"> 
         <ion-title class="ion-text-center">Add</ion-title>
         <ion-icon name="add-circle-outline" slot="end" (click)="Roominfo()"></ion-icon>
        </div>
+    
+
+      
+        <div class="s"> 
+          <ion-title class="ion-text-center">Edit</ion-title>
+          <ion-icon name="create"  (click)="updateinfo()"></ion-icon>
+         </div>
+        
        </div>
       </form>
 

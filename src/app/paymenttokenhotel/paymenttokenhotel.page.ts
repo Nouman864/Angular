@@ -11,6 +11,7 @@ import { BooksService } from '../sdk/custom/books.service';
 import { AuthService } from '../sdk/core/auth.service';
 import { File } from '@ionic-native/file/ngx';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 @Component({
   selector: 'app-paymenttokenhotel',
   templateUrl: './paymenttokenhotel.page.html',
@@ -28,28 +29,37 @@ export class PaymenttokenhotelPage implements OnInit {
   cd: any;
   amount: any;
   ownerid: any;
+  total: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
+    private booksService: BooksService,private dataService:DataService, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
     {
                
     }
   registerForm: FormGroup;
-
-  ngOnInit() {
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-      console.log(params);
-      this.cd = JSON.parse(params.data);
+
+    this.cd;
+    await this.dataService.gettokenhotel().then((val)=>
+    {
+     this.cd= val;
+    });
+      console.log(this.cd);
       if (this.cd) {
         console.log(this.cd);
         this.customerid = this.cd.cid;
-        this.ownerid = this.cd.detaill.ownerid;
+        this.ownerid = this.cd.detaill;
+        this.total = this.cd.amount;
         console.log(this.customerid);
         console.log( this.ownerid);
+        console.log(this.total);
         
       }
-      })
+    
   }
 
   formInitializer() {
@@ -79,11 +89,12 @@ async proceed()
         window.alert('Successfully Created');
         const obj ={};
      obj['cid'] =   this.customerid;
+     obj['amount'] = this.total;
      obj['tokid'] = this.tokenid;
      obj['ownerid'] = this.ownerid;
-           this.router.navigate(['/onlinepay'],{
-            queryParams:{data:JSON.stringify(obj)}
-        });
+     this.dataService.savepay(obj);
+    this.router.navigateByUrl('/onlinepay');
+      
       },
       error => {
         this.loading = false;

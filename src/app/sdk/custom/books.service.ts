@@ -119,6 +119,14 @@ export class BooksService {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async deletebooking(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/bookedrooms/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
 
 
   
@@ -160,7 +168,14 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async getbookinglist(owner: string): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/' + owner;
+    const token = await this.authService.getTokenFromStorage();
 
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
   public async hotelreview(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/hotelratings/add';
   const token = await this.authService.getTokenFromStorage();
@@ -223,7 +238,7 @@ public async getAllHotels(): Promise<any> {
   }
 
   public async reservedRoom(data: object): Promise<any> {
-    const url = loginConfig.getPath() + '/reservedrooms/add';
+    const url = loginConfig.getPath() + '/bookedrooms/add';
     const token = await this.authService.getTokenFromStorage();
 
     return this.http.post(url, data, {

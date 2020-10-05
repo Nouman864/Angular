@@ -35,6 +35,7 @@ export class AddroomPage implements OnInit {
   ROMMID: any;
   i = 0;
   l = 0;
+  updateitem: any[];
  
   constructor(private formBuilder: FormBuilder,private userService:UserService,private booksService: BooksService,private alertCtrl: AlertController,private router: Router,private route: ActivatedRoute, private authService: AuthService,
     private file: File,private toastController: ToastController,private platform: Platform,private http: HttpClient)
@@ -79,6 +80,10 @@ export class AddroomPage implements OnInit {
       (err) => console.log(err)
     );
   }
+
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
 
     this.formInitializer();
@@ -114,12 +119,12 @@ export class AddroomPage implements OnInit {
       owner1
     );
     observable.subscribe(
-      data => {
-        this.rooms = data.data;
+      uppt => {
+        this.rooms = uppt.data;
         this.loading = false;
-        console.log( data);
-         console.log(data.data[0]._id);
-        this.ROMMID = data.data[0]._id;
+      console.log( uppt);
+         console.log(uppt.data[0]._id);
+        this.ROMMID = uppt.data[0]._id;
       }, 
       err => {
         console.log('err', err);
@@ -133,12 +138,24 @@ export class AddroomPage implements OnInit {
      roomno : [null,[Validators.minLength(1)]],
       beds: [null,[Validators.minLength(1)]],
       facility:[null],
-      images:[null],
       amount: [null,[Validators.minLength(4)]]
       });
       
   }
-
+  updateinfo()
+  {
+        this.updateitem = [];
+    let item = this.form.value;
+    item['facility'] = this.tabll;
+    item['image'] = this.imag;
+     this.updateitem.push(item);
+     console.log(this.updateitem);
+        this.form.reset();
+        this.updateroom();
+  
+    }
+   
+  
  
 
 Roominfo()
@@ -269,7 +286,8 @@ facility()
       }
       const ob = this.form.value;
         ob['_id'] = this.ROMMID;
-        ob['Roomsinfo'] = this.info;
+        
+        ob['Roomsinfo'] = this.updateitem;
       const observable = await this.booksService.updateroom(
         ob
       );

@@ -92,14 +92,27 @@
                 I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
                 </ion-item>
           </div>
+
+          <h3 *ngIf="!data">
           <div class="ion-padding">
-            <ion-button size="large" [disabled]="form.invalid" (click)="save()" color="primary" type="submit"
+            <ion-button size="large" [disabled]="form.invalid" (click)="addNew()" color="primary" type="submit"
             expand="block">SAVE ! &nbsp;
             <ion-spinner *ngIf="loading">
             </ion-spinner>
           </ion-button>
-    
           </div>
+        </h3>
+
+      
+      <h3 *ngIf="data">
+      <div class="ion-padding">
+        <ion-button size="large"  (click)="updateBook()" color="primary" type="submit"
+        expand="block">SAVE ! &nbsp;
+        <ion-spinner *ngIf="loading">
+        </ion-spinner>
+      </ion-button>
+      </div>
+    </h3>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -19,19 +19,61 @@ export class GethotelPage implements OnInit {
   skeletonlist = [1, 2, 3, 4, 5];
   selectedreshotel: Hotels;
   deleteLoading: boolean;
+  booking = false;
   dataa: Event;
   c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
 
   n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline';  n5 = 'star-half' ; n6;n7;
 star: number;
   rooms: any;
+  list: any;
+  listt: any[];
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
-
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
     this.get();
     
   }
-
+  async bookinglist() {
+    let owner1;
+    const ownerId =  await this.authService. getTokenFromStorage();
+    console.log(ownerId);
+    try{
+      const decoded = jwt_decode(ownerId );
+      owner1 = decoded['data']._id;
+    }
+    catch(ex){
+    }
+    
+    const observable = await this.booksService.getbookinglist(
+      owner1 
+    );
+    observable.subscribe(
+      data => {
+        this.list = data.data;
+        this.loading = false;
+        console.log('data', data);
+          let book =  data.data;
+          console.log(book);
+          this.listt = [];
+          for(let j = 0; j<book.length; j++)
+          {
+               this.listt.push({
+                 Rooms:book[0].Rooms[0],
+               checkin: book[0].checkin,
+               checkout:book[0].checkout
+                
+               });
+          }
+          console.log(this.listt);
+      }, 
+      err => {
+        console.log('err', err);
+      } 
+    );
+  }
   async get() {
     this.loading = true;
     let owner1;
@@ -156,6 +198,7 @@ star: number;
       }
     );
   }
+  
 
 }
   

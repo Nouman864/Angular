@@ -40,5 +40,41 @@ public async getroom() {
   public async setpay(token) {
     this.storage.set('pay', token);
   }
+  public async gethotelpay() {
+    return await this.storage.get('pay');
+  }
+  public async savetokenhotel(token) {
+    this.storage.set('tokenhotel', token);
+  }
+  public async gettokenhotel() {
+    return await this.storage.get('tokenhotel');
+  }
+  public async savepay(token) {
+    this.storage.set('payhotel', token);
+  }
+  public async getpay() {
+    return await this.storage.get('payhotel');
+  }
 
+
+
+
+
+
+
+
+  public async newhotel(token) {
+    this.storage.set('newhotel', token);
+  }
+
+  public async getnewhotel() {
+    return await this.storage.get('newhotel');
+  }
+
+  public async savehotelid(token) {
+    this.storage.set('savehotelid', token);
+  }
+  public async gethotelid() {
+    return await this.storage.get('savehotelid');
+  }
 }

@@ -109,6 +109,9 @@ multipleImages = [];
   loading = false;
   
   @Input() hotel;
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
@@ -237,17 +240,17 @@ multipleImages = [];
   }
   
 
-  save() {
-    this.loading = true;
+  // save() {
+  //   this.loading = true;
     
-    if (this.data) {
-      this.updateBook();
-    }
-     else 
-    {
-      this.addNew();
-    }
-  }
+  //   if (this.data) {
+  //     this.updateBook();
+  //   }
+  //    else 
+  //   {
+  //     this.addNew();
+  //   }
+  // }
 
   // dismiss() {
   //   this.modalCtrl.dismiss({

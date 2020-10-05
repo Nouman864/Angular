@@ -64,6 +64,7 @@ export class ReservedroomPage implements OnInit {
            this.hotelowner = this.data.owner;
            this.amount = this.data.amount;
            console.log(this.amount);
+           console.log(this.hotelowner);
       
   }
   
@@ -117,10 +118,6 @@ time()
   async room() {
     console.log(this.start);
     console.log(this.to);
-
-
-
-
     if(this.to>this.start)
   {
 

@@ -39,7 +39,7 @@ export class PaymenthotelPage implements OnInit {
   async ngOnInit() {
     this.formInitializer();
     this.detail;
-    await this.dataService.getreserverom().then((val)=>
+    await this.dataService.gethotelpay().then((val)=>
     {
      this.detail= val;
     });
@@ -47,7 +47,7 @@ export class PaymenthotelPage implements OnInit {
       if (this.detail) {
         console.log(this.detail.ownerid);
         console.log(this.detail.amount);
-        //this.customerid = this.cd;
+      
       }
       
   }
@@ -85,9 +85,8 @@ async proceed()
         objt['cid'] = jsonObj;
         objt['detaill'] = this.detail.ownerid;
         objt['amount'] = this.detail.amount;
-        this.router.navigate(['/paymenttokenhotel'],{
-          queryParams:{data:JSON.stringify(objt)}
-      });
+          this.dataService.savetokenhotel(objt);
+          this.router.navigateByUrl('/paymenttokenhotel');
       },
       error => {
         this.loading = false;
