@@ -38,7 +38,7 @@
                 </ion-select>
               </ion-item>
               <ion-item>
-              <input type="file"   multiple (change)="selectMultipleImage($event)" />
+              <input type="file" formControlName="images"  multiple (change)="selectMultipleImage($event)" />
             </ion-item>
             <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
     >Image Upload
@@ -73,7 +73,7 @@
     <br>
     <br>
     <br>
-    <ion-button size="meduim" (click)="save()" color="primary" type="submit"
+    <ion-button size="meduim" [disabled]="form.invalid" (click)="save()" color="primary" type="submit"
     expand="block">Save ! &nbsp;
     <ion-spinner *ngIf="loading">
     </ion-spinner>

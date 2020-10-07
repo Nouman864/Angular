@@ -15,3 +15,22 @@
     max-height: 35vh;
     overflow: hidden;
   }
+  .text
+  {
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  ion-content {
+    --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+  }
+  ion-item{
+    --background: transparent;
+  }
+  ion-input{
+    background-color: transparent;
+  }

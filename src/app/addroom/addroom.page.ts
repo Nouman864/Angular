@@ -135,10 +135,11 @@ export class AddroomPage implements OnInit {
   formInitializer() {
     
     this.form = this.formBuilder.group({
-     roomno : [null,[Validators.minLength(1)]],
-      beds: [null,[Validators.minLength(1)]],
+     roomno : [null,[Validators.minLength(1), Validators.pattern(/^[0-9]\d*$/)]],
+      beds: [null,[Validators.minLength(1),Validators.pattern(/^[0-9]\d*$/)]],
       facility:[null],
-      amount: [null,[Validators.minLength(4)]]
+      images:[null],
+      amount: [null,[Validators.minLength(4),Validators.pattern(/^[0-9]\d*$/)]]
       });
       
   }
@@ -151,7 +152,7 @@ export class AddroomPage implements OnInit {
      this.updateitem.push(item);
      console.log(this.updateitem);
         this.form.reset();
-        this.updateroom();
+         this.updateroom();
   
     }
    

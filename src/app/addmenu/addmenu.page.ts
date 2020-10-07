@@ -27,6 +27,8 @@ export class AddmenuPage implements OnInit {
   dinner =[];
   time = [];
   tabll = [];
+  tabletype = [];
+  tablecapacity = [];
   tab =[];
   menutype: any;
   id: any;
@@ -34,6 +36,7 @@ export class AddmenuPage implements OnInit {
   tableno: any;
   MENU: any;
   menus: any;
+  l = 0;
   
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private booksService: BooksService, private toastController: ToastController, private file: File,private platform: Platform,private http: HttpClient,
@@ -56,8 +59,11 @@ this.route.queryParams.subscribe((params)=>{
 
 formInitializer() {
 this.form = this.formBuilder.group({
-     
-  dish : [null, [Validators.required]],
+
+  tableno:[null,[Validators.minLength(1), Validators.pattern(/^[0-9]\d*$/)]],
+  type : [null, [Validators.required]],
+  capacity : [null, [Validators.required]],
+  dish : [null, [Validators.required, Validators.minLength(4),Validators.pattern('^[a-zA-Z ]*$')]],
   price: [null, [Validators.required]]
 });
 }
@@ -98,7 +104,11 @@ async getmenu() {
 
 add()
 {
-  
+  if(!this.menutype)
+  {
+    window.alert('Please above select menu ');
+    return;
+  }
   if(this.menutype ==  "BreakFast")
   {
    let item = this.form.value;
@@ -129,13 +139,79 @@ console.log(this.dinner);
 
 table()
 {
-     let tabel = this.tableno;
-     this.tabll.push({
-       tableno:tabel
-      });
-      this.tableno = '';
+     let tabel = this.form.value.tableno;
+     let  type = this.form.value.type;
+     let capacity = this.form.value.capacity;
+     if( this.l == 1)
+  {
      console.log(this.tabll);
+     for(let j = 0; j<this.tabll.length; j++)
+     {
+      if(this.tabll[j].tabel == tabel )
+      {
+         window.alert('Table alraedy Added please add another');
+         this.form.reset();
+         return ;
+      }
+   }
+   this.tabll.push({
+    tabel,
+       type,
+       capacity
+   });
+   this.form.reset();
+   console.log(this.tabll);
+
+
+  }
+  else
+  {
+    this.tabll.push({
+      tabel,
+       type,
+       capacity
+     });
+     this.form.reset();
+     this.l = 1;
+    console.log(this.tabll);
+  }
+     
 }
+// type()
+// {
+//      let type = this.form.value.type;
+//      if( this.l == 1)
+//   {
+//      console.log(this.tabletype);
+//      for(let j = 0; j<this.tabletype.length; j++)
+//      {
+//       if(this.tabletype[j].type == type )
+//       {
+//          window.alert('Type already Added please add another');
+//          this.form.reset();
+//          return ;
+         
+//       }
+//    }
+//    this.tabletype.push({
+//        type
+//    });
+//    this.form.reset();
+//    console.log(this.tabletype);
+
+//   }
+//   else
+//   {
+//     this.tabletype.push({
+//       type
+//   });
+//   this.form.reset();
+//      this.l = 1;
+//     //console.log(this.tabll);
+//   }
+     
+// }
+
 
 
 
@@ -143,48 +219,45 @@ table()
 async addNew() {
  
 
-  this.tab.push({
-    Table:this.tabll
-  });
-  console.log(this.tab);
-  this.time.push({
-      breakfast:this.breakfast,
-      launch:this.launch,
-      dinner:this.dinner
-    });
+     console.log(this.tabll);
+  // this.time.push({
+  //     breakfast:this.breakfast,
+  //     launch:this.launch,
+  //     dinner:this.dinner
+  //   });
 
-    console.log(this.time);
-  let owner;
-   const ownerId =  await this.authService. getTokenFromStorage();
-   const decoded = jwt_decode(ownerId );
-   try{
-     const decoded = jwt_decode(ownerId );
-     owner = decoded['data']._id;
-   }
-   catch(ex){
-   }
+  //  console.log(this.time);
+//   let owner;
+//    const ownerId =  await this.authService. getTokenFromStorage();
+//    const decoded = jwt_decode(ownerId );
+//    try{
+//      const decoded = jwt_decode(ownerId );
+//      owner = decoded['data']._id;
+//    }
+//    catch(ex){
+//    }
    
- let obj = {};
-   obj['resturantid'] = this.id;
-   obj['AvailableTime'] = this.time;
-   obj['Ta'] = this.tab;
-   const observable = await this.booksService.addmenu(
-     obj
-   );
-   observable.subscribe(
-     async data => {
-       console.log('got response from server', data);
-       console.log(data);
-       this.loading = false;
-       this.form.reset();
-       //optional
+//  let obj = {};
+//    obj['resturantid'] = this.id;
+//    obj['AvailableTime'] = this.time;
+//    obj['Ta'] = this.tab;
+//    const observable = await this.booksService.addmenu(
+//      obj
+//    );
+//    observable.subscribe(
+//      async data => {
+//        console.log('got response from server', data);
+//        console.log(data);
+//        this.loading = false;
+//        this.form.reset();
+//        //optional
 
-     },
-     error => {
-       this.loading = false;
-       console.log('error', error);
-     }
-   );
+//      },
+//      error => {
+//        this.loading = false;
+//        console.log('error', error);
+//      }
+//    );
  }
 
 

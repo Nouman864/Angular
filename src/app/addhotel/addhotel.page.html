@@ -35,7 +35,7 @@
           </div>
           <div class="ion-padding">
             <ion-item>
-                <ion-input name="firstname" formControlName="name" type="text" placeholder="Hotel Name"></ion-input>
+                <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="6" placeholder="Hotel Name"></ion-input>
             </ion-item>
             <ion-item>
               <ion-input name="number" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact No"></ion-input>
@@ -102,7 +102,7 @@
           </ion-button>
           </div>
         </h3>
-
+       
       
       <h3 *ngIf="data">
       <div class="ion-padding">

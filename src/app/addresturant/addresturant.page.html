@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button  defaultHref="getresturant"></ion-back-button>
     </ion-buttons>
@@ -34,27 +34,26 @@
     <br>
     <br>
   
-     <div class="s"> 
+           <!-- <div class="s"> 
               <ion-icon name="add-circle-outline" slot="end" (click)="table()"></ion-icon>
-             </div>
-             <ion-item>
-              <ion-input name="text" [(ngModel)]="time" type="text" placeholder="Resturant Opening Timings"></ion-input>
-          </ion-item>
+             </div> -->
   <form [formGroup]="form">
     <ion-grid>
       <ion-row color="justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
           
           <div class="ion-padding">
-            <!-- <ion-item>
-              <ion-label>check in</ion-label>
-              <ion-datetime formControlName="checkin"></ion-datetime>
-            </ion-item> -->
             <ion-item>
-                <ion-input name="firstname" formControlName="name" type="text" placeholder="Resturant name"></ion-input>
+                <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="6" placeholder="Resturant name"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="text" formControlName="number" type="number" placeholder="Contact number"></ion-input>
+              <ion-input name="text" formControlName="open" type="text" placeholder="Opening Time"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="text" formControlName="close" type="text" placeholder="Closing Time"></ion-input>
+        </ion-item>
+            <ion-item>
+              <ion-input name="text" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact number"></ion-input>
             </ion-item>
 
             <ion-row >
@@ -63,7 +62,7 @@
               </ion-col>
             </ion-row>
             <ion-item>
-              <ion-input name="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
+              <ion-input name="text" readonly type="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>City</ion-label>
@@ -74,10 +73,10 @@
                   <ion-select-option value="Sargodha">Sargodha</ion-select-option>
                 </ion-select>
               </ion-item>
-              <br>
-              
-              <textarea name="text" formControlName="about" placeholder="About Resturant" type="text" cols="50" rows="10"></textarea>
-            
+              <ion-item>
+                <ion-textarea rows="5" cols="5" formControlName="about" type="text" placeholder="About Resturant..."></ion-textarea>
+              </ion-item>  
+    
           </div>
           <br> 
           <br>
@@ -94,7 +93,7 @@
             
           </div>
           <ion-item>
-            <ion-input  type="text" readonly type="text" placeholder="w'll charge for this service 20%"></ion-input>
+            <ion-input  type="text" readonly type="text" placeholder="w'll charge for this service 5%"></ion-input>
             I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
             </ion-item>
           <div class="ion-padding">

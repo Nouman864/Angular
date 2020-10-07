@@ -36,8 +36,9 @@ export class LocationPickerComponent implements OnInit {
           address: null,
           staticMapImageUrl: null
         };
-        this.isLoading = true;
-        this.getAddress(modalData.data.lat, modalData.data.lng)
+         this.isLoading = true;
+         this.getAddress(modalData.data.lat, modalData.data.lng)
+        
           .pipe(
             switchMap(address => {
               console.log(address);

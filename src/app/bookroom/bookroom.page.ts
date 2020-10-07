@@ -72,6 +72,7 @@ export class BookroomPage implements OnInit {
         this.hotelowner = this.data.owner;
         this.info = this.data.room[0].Roomsinfo;
           this.pic = this.data.room[0].Roomsinfo[0].image;
+          console.log(this.pic);
           this.hotel = this.data.room[0].hotelid;
           console.log(this.hotel);
           console.log(this.info);
@@ -94,6 +95,7 @@ export class BookroomPage implements OnInit {
        this.images[i] = this.pic[i];
      
       }
+      
       this.Booked();
   }
   
@@ -146,8 +148,9 @@ reserve(i)
 {
   
  
-  console.log(this.books.length);
-
+  // console.log(this.books.length);
+        if(this.books.length)
+    {
   
   let no = this.info[i].roomno;
   let charge = this.info[i].amount;
@@ -169,6 +172,20 @@ reserve(i)
 
   this.dataService.bookrom(ob);
   this.router.navigateByUrl('/reservedroom');
+
+}
+else
+{
+  let no = this.info[i].roomno;
+  let charge = this.info[i].amount;
+  let ob = {};
+  ob['romno'] = no;
+  ob['amount'] = charge;
+  ob['hotelid'] = this.hotel;
+  ob['owner'] = this.hotelowner;
+  this.dataService.bookrom(ob);
+  this.router.navigateByUrl('/reservedroom');
+}
     
 }
    

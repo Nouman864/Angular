@@ -133,7 +133,7 @@ multipleImages = [];
   formInitializer() {
     
     this.form = this.formBuilder.group({
-      name : [null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      name : [null, [Validators.required, Validators.minLength(6),Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
      number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
       Location: [null, [Validators.required]],

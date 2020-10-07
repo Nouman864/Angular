@@ -123,10 +123,12 @@ multipleImages = [];
     
     this.form = this.formBuilder.group({
     
-      name : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
+      name : [null, [Validators.required, Validators.minLength(6),Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
       check: [null, [Validators.required]],
-     number: [null, [Validators.required,Validators.minLength(12)]],
+      open: [null, [Validators.required]],
+      close:[null, [Validators.required]],
+      number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
       Location :  [null, [Validators.required]],
       images:  [null, [Validators.required]],
       about : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
@@ -143,15 +145,15 @@ multipleImages = [];
        
   }
 
-  table()
-  {
-       let open = this.time;
-       this.tabl.push({
-         Timing: open
-        });
-        this.time = '';
-       console.log(this.tabl);
-  }
+  // table()
+  // {
+  //      let open = this.time;
+  //      this.tabl.push({
+  //        Timing: open
+  //       });
+  //       this.time = '';
+  //      console.log(this.tabl);
+  // }
   
   
 
@@ -171,9 +173,7 @@ multipleImages = [];
     
   
     const obj =  this.form.value;
-    
     obj['owner'] = owner;
-    obj['Timings'] = this.tabl;
     obj['image'] = this.img;
     const observable = await this.booksService.addresturant(
       obj
@@ -192,9 +192,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
-        this.router.navigate(['/addmenu'],{
-          queryParams:{data:JSON.stringify(this.resturantid )}
-      });
+      //   this.router.navigate(['/addmenu'],{
+      //     queryParams:{data:JSON.stringify(this.resturantid )}
+      // });
         //optional
 
       },

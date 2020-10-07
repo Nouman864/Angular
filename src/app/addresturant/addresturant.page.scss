@@ -6,8 +6,8 @@
     
 // }
 .welcome-card ion-img {
-    max-height: 44vh;
-    max-width: 110vh;
+    max-height: 80vh;
+    max-width: 150vh;
     // overflow: hidden;
   }  
   .s {
@@ -15,4 +15,16 @@
     float: right;
     margin-right: 30px;
 
+}
+ion-content {
+  --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+}
+ion-toolbar{
+  --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+}
+ion-item{
+  --background: transparent;
+}
+ion-input{
+  background-color: transparent;
 }
