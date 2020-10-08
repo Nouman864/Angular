@@ -41,7 +41,9 @@ star: number;
   n: string;
   c: string;
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
-
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
     
     this.get();

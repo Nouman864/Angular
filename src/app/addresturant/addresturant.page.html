@@ -23,11 +23,11 @@
 
  <ion-content text-justify="top">
   <ion-card class="welcome-card">
-      <ion-img src="\assets\design-creative-logo-for-restaurant.jpg"></ion-img>
+      <ion-img src="\assets\preview.jpg"></ion-img>
     </ion-card>
     <div class="ion-text-center">
       <h3 *ngIf="!data">Add New Resturant</h3>
-      <h3 *ngIf="data">Update Resturant</h3>
+      <h3 *ngIf="data">Edit Resturant</h3>
     </div>
     <br>
     <br>
@@ -97,12 +97,21 @@
             I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
             </ion-item>
           <div class="ion-padding">
-            <ion-button size="large" [disabled]="form.invalid" (click)="save()" color="primary" type="submit"
+            <h3 *ngIf="!data">
+            <ion-button size="large" [disabled]="form.invalid" (click)="addNew()" color="primary" type="submit"
             expand="block">SAVE ! &nbsp;
             <ion-spinner *ngIf="loading">
             </ion-spinner>
           </ion-button>
+        </h3>
 
+        <h3 *ngIf="data">
+          <ion-button size="large"  (click)="updateresturant()" color="primary" type="submit"
+          expand="block">SAVE ! &nbsp;
+          <ion-spinner *ngIf="loading">
+          </ion-spinner>
+        </ion-button>
+      </h3>
           
           </div>
         </ion-col>

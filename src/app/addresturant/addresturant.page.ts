@@ -92,18 +92,29 @@ multipleImages = [];
   data:any;
   loading = false;
   
-
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
     console.log(params);
     this.data = JSON.parse(params.data);
     if (this.data) {
-      console.log('got flat', this.data);
+      console.log('got resturant', this.data);
       console.log(this.data._id);
       this.mealid = this.data._id;
       this.id = this.data._id;
-      this.form.patchValue(this.data);
+      this.form.patchValue({name : this.data.name});
+      this.form.patchValue({city : this.data.city});
+      this.form.patchValue({number : this.data.number});
+      this.form.patchValue({Location : this.data.Location});
+      this.form.patchValue({check: this.data.check});
+      this.form.patchValue({about: this.data.about});
+      this.form.patchValue({open: this.data.open});
+      this.form.patchValue({close: this.data.close});
+          this.img = this.data.image;
+      // this.form.patchValue({images: this.data.close});
     }
     })
   
@@ -192,9 +203,9 @@ multipleImages = [];
         toast.present();
         this.loading = false;
         this.form.reset();
-      //   this.router.navigate(['/addmenu'],{
-      //     queryParams:{data:JSON.stringify(this.resturantid )}
-      // });
+        this.router.navigate(['/addmenu'],{
+          queryParams:{data:JSON.stringify(this.resturantid )}
+      });
         //optional
 
       },
@@ -256,17 +267,9 @@ resturant(event: Event)
 
 
   save() {
-    this.loading = true;
-    
-    if (this.data) {
-      console.log("jnkj");
-      this.updateresturant();
-      console.log("jnkj");
-    }
-     else 
-    {
+  
       this.addNew();
-    }
+    
   }
 }
 
