@@ -1,7 +1,4 @@
-.ion-text-lg-center
-{
-    color: brown;
-}
+
 .ion-text-lg-cente
 {
       background-color: black;
@@ -16,3 +13,16 @@
 .ion{
     color: rgb(245, 187, 40);
 }
+
+ion-content {
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-item{
+    --background: transparent;
+  }
+  ion-input{
+    background-color: transparent;
+  }

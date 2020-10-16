@@ -296,13 +296,11 @@ facility()
       observable.subscribe(
         async data => {
           console.log('got response from server', data);
-          //const name = this.form.controls['name'].value;
-          //this.authService.saveTokenToStorage(data.token);
-          // const toast = await this.toastController.create({
-          //   message: `${name} has been updated successfully.`,
-          //   duration: 3500
-          // });
-          //toast.present();
+          const toast = await this.toastController.create({
+            message: `Room has been updated successfully.`,
+            duration: 3500
+          });
+          toast.present();
           this.loading = false;
           this.form.reset();
           //optional

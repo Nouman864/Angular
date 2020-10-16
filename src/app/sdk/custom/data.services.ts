@@ -77,4 +77,20 @@ public async getroom() {
   public async gethotelid() {
     return await this.storage.get('savehotelid');
   }
+  public async saveresturant(token) {
+    this.storage.set('saveresturant', token);
+  }
+  public async getresturant() {
+    return await this.storage.get('saveresturant');
+  }
+
+  public async savemenuid(token) {
+    this.storage.set('savemenuid', token);
+  }
+  public async getmenuid() {
+    return await this.storage.get('savemenuid');
+  }
+
+
+  
 }

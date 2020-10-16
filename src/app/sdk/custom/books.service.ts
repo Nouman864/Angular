@@ -302,7 +302,7 @@ public async getAllHotels(): Promise<any> {
 
 
 
-///////////////////    RESTURANTS ////////////////////////////////
+////////////////////////////    RESTURANTS   ////////////////////////////////
 
 public async addresturant(data: object): Promise<any> {
   const url = loginConfig.getPath() + '/resturants/add';
@@ -320,6 +320,74 @@ public async addmenu(data: object): Promise<any> {
     headers: new HttpHeaders().set('Authorization', token)
   });
 }
+
+//////////////////////// EDIT MENU ///////////////////////////////
+
+
+public async editmenu(data: object): Promise<any> {
+  const url =loginConfig.getPath() + '/menus/edit';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+
+public async edittable(data: object): Promise<any> {
+  const url =loginConfig.getPath() + '/tables/edit';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+
+
+
+
+
+
+
+
+public async deletedish(data): Promise<any> {
+  const url =loginConfig.getPath() + '/menus/del';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+
+public async deletetable(data): Promise<any> {
+  const url =loginConfig.getPath() + '/tables/del';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+/////////////////TABLE///////////////////
+
+
+
+public async addtable(data: object): Promise<any> {
+  const url = loginConfig.getPath() + '/tables/add';
+  const token = await this.authService.getTokenFromStorage();
+
+  return this.http.post(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+}
+
+
+
+
+
+
+
+
+
+
 public async getmenu(restrnid: string): Promise<any> {
   const url = loginConfig.getPath() + '/menus/' + restrnid;
   const token = await this.authService.getTokenFromStorage();
@@ -328,6 +396,20 @@ public async getmenu(restrnid: string): Promise<any> {
     headers: new HttpHeaders().set('Authorization', token)
   });
 }
+
+
+public async gettable(tablid: string): Promise<any> {
+  const url = loginConfig.getPath() + '/tables/' + tablid;
+  const token = await this.authService.getTokenFromStorage();
+
+  return this.http.get(url, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+}
+
+
+
+
   public async getresturant(owner: string): Promise<any> {
     const url = loginConfig.getPath() + '/resturants/' + owner;
     const token = await this.authService.getTokenFromStorage();
@@ -414,6 +496,21 @@ public async getmenu(restrnid: string): Promise<any> {
     headers: new HttpHeaders().set('Authorization', token)
   });
   }
+
+/////////////////////TABLE//////////////////////////
+
+  public async updatetable(data): Promise<any> {
+    const url =loginConfig.getPath() + `/tables/${data._id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+  return this.http.put(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+  }
+
+
+
+
 
   public async deleteresturant(id: string): Promise<any> {
     const url = loginConfig.getPath() + `/resturants/${id}`;

@@ -166,6 +166,10 @@ const routes: Routes = [
     path: 'bookinglist',
     loadChildren: () => import('./bookinglist/bookinglist.module').then( m => m.BookinglistPageModule)
   },
+  {
+    path: 'addtable',
+    loadChildren: () => import('./addtable/addtable.module').then( m => m.AddtablePageModule)
+  },
   
   
   

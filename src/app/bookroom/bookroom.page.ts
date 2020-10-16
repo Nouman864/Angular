@@ -87,14 +87,14 @@ export class BookroomPage implements OnInit {
     
      }
      console.log(this.booked);
-      console.log(this.pic.length);
-      this.images =[];
-      for (var i = 0; i < this.pic.length; i++)
-       {
+      // console.log(this.pic.length);
+      // this.images =[];
+      // for (var i = 0; i < this.pic.length; i++)
+      //  {
         
-       this.images[i] = this.pic[i];
+      //  this.images[i] = this.pic[i];
      
-      }
+      // }
       
       this.Booked();
   }

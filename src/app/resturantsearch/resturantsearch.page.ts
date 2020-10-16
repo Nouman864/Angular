@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { UserService } from '../sdk/custom/user.service';
 import { Router } from '@angular/router';
 import { BooksService } from '../sdk/custom/books.service';
+import { DataService } from '../sdk/custom/data.services';
 @Component({
   selector: 'app-resturantsearch',
   templateUrl: './resturantsearch.page.html',
@@ -27,7 +28,7 @@ export class ResturantsearchPage implements OnInit {
   filteredResturants: any[] & Resturants[];
 
   constructor(
-    private modalCtrl: ModalController,private userService:UserService,private router: Router, private booksService :BooksService,
+    private modalCtrl: ModalController,private dataService:DataService,private userService:UserService,private router: Router, private booksService :BooksService,
     private renderer: Renderer2
   ) {}
 
@@ -105,9 +106,8 @@ openEditPopup(event:Event) {
   
     this.dataa = event;
     console.log(this.dataa);
-    this.router.navigate(['/viewresturant'],{
-        queryParams:{data:JSON.stringify(this.dataa)}
-    });
+    this.dataService.saveresturant(this.dataa);
+    this.router.navigateByUrl('/viewresturant');
 }
   
 }

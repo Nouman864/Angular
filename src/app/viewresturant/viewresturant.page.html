@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar>
       <ion-title class="ion-text-center">View Resturant</ion-title>
       <ion-buttons slot="start">
         <ion-back-button  defaultHref="resturantsearch"></ion-back-button>
@@ -10,7 +10,7 @@
      
     </ion-toolbar>
   </ion-header>
-  client Reviews
+
   <h1 *ngIf="value == '3'" class="ion">
     {{this.click3rd(value)}} 
     <ion-icon  size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
@@ -56,6 +56,19 @@
                   <ion-input name="firstname" formControlName="name"  readonly type="text" placeholder="Enter your name"></ion-input>
   
                 </ion-item>
+
+                <label class="ion-text-lg-center" igxLabel for="firstname">opening:</label> 
+                <br>
+                <ion-item>
+                  <ion-datetime displayFormat="hh-mm-A" readonly type="text" formControlName="open" placeholder="opening Time"></ion-datetime>
+                    </ion-item>
+                    <br>
+                    <label class="ion-text-lg-center" igxLabel for="firstname">closing:</label> 
+                <br>
+                   <ion-item>
+                    <ion-datetime displayFormat="hh-mm-A" readonly type="text" formControlName="close" placeholder="closing Time"></ion-datetime>
+                 </ion-item>
+
                 <br>
                 <label class="ion-text-lg-center" igxLabel for="number">Contact:</label>
                 <br> 
@@ -76,20 +89,13 @@
               </ion-item>
             </div>
 
-            <ion-card class="ion-text-lg-cente">
-              <ion-card-header>
-               <ion-card-title  class="ion-text-lg-center">Timings</ion-card-title>
-              </ion-card-header>
-              <ion-card-content *ngFor="let data of Timings">
-                <ion-list >
-               {{data.Timing}}
-                </ion-list>        
-              </ion-card-content>
-            </ion-card>
+  
             <br>
               <label class="ion-text-lg-center" igxLabel for="about">About Resturant:</label> 
               <br>
-            <textarea name="text"  readonly type="text" formControlName="about" placeholder="About Resturant" type="text" cols="50" rows="5"></textarea>
+              <ion-item>
+                <ion-textarea rows="5" cols="5" readonly type="text" formControlName="about" type="text" placeholder="About Resturant..."></ion-textarea>
+              </ion-item>
 
 
             <div class="ion-padding">

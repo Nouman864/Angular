@@ -134,7 +134,7 @@ multipleImages = [];
     
     this.form = this.formBuilder.group({
     
-      name : [null, [Validators.required, Validators.minLength(6),Validators.pattern('^[a-zA-Z ]*$')]],
+      name : [null, [Validators.required, Validators.minLength(1),Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
       check: [null, [Validators.required]],
       open: [null, [Validators.required]],
@@ -150,10 +150,13 @@ multipleImages = [];
   onLocationPicked(location: PlaceLocation)
   {
     console.log(location);
+          //  const loc =`${location.address}`. split(",")[2];
+           const loc = location.address.slice(location.address.lastIndexOf(',') + 1);
+           console.log(loc);
       this.form.patchValue({Location : location.address});
-      //this.form.patchValue({Lat : location.lat});
+         this.form.patchValue({city : loc});
       // this.form.patchValue({Lng : location.lng});
-       
+      // let output = `${numbs}`.split('');
   }
 
   // table()

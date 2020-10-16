@@ -9,6 +9,7 @@ import { AuthService } from '../sdk/core/auth.service';
 import { AlertController } from '@ionic/angular';
 import * as jwt_decode from 'jwt-decode';
 import { BooksService } from '../sdk/custom/books.service';
+import { DataService } from '../sdk/custom/data.services';
 @Component({
   selector: 'app-showmenu',
   templateUrl: './showmenu.page.html',
@@ -24,17 +25,20 @@ export class ShowmenuPage implements OnInit {
   launh: any;
   dataa: Event;
 
-  constructor(private userService:UserService,private booksService :BooksService,private alertCtrl: AlertController,private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(private userService:UserService,private dataService:DataService,private booksService :BooksService,private alertCtrl: AlertController,private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private authService: AuthService) { }
   form: FormGroup;
-  ngOnInit() {
-    this.route.queryParams.subscribe((params)=>{
-      console.log(params);
-      this.data = JSON.parse(params.data);
-          
-            console.log(this.data.owner);
-      })
+  async ngOnInit() {
+    this.data;
+    await this.dataService.getmenuid().then((val)=>
+    {
+     this.data = val;
+    });
 
-        this.get()
+         console.log(this.data);
+            console.log(this.data.owner);
+    
+
+        this.get();
     }
 
       async get() {
@@ -56,13 +60,13 @@ export class ShowmenuPage implements OnInit {
           data => {
             this.resturants = data.data;
             this.loading = false;
-            console.log('MEALS',data);
-            this.brek = data.data[0].AvailableTime[0].breakfast;
-            this.launh = data.data[0].AvailableTime[0].launch;
-            this.dnner = data.data[0].AvailableTime[0].dinner;
-            console.log(this.brek);
-            console.log(this.launh);
-            console.log(this.dnner);
+          console.log(this.resturants);
+            // this.brek = data.data[0].AvailableTime[0].breakfast;
+            // this.launh = data.data[0].AvailableTime[0].launch;
+            // this.dnner = data.data[0].AvailableTime[0].dinner;
+            // console.log(this.brek);
+            // console.log(this.launh);
+            // console.log(this.dnner);
         
           }, 
           err => {

@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
 import { NgxStripeModule } from 'ngx-stripe';
 import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [AppComponent, SearchPipe],
   entryComponents: [],

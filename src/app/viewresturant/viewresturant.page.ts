@@ -7,6 +7,7 @@ import { BooksService } from '../sdk/custom/books.service';
 import { RatingComponent } from '../viewproperty/rating/rating.component';
 import { RatingresturantComponent } from './ratingresturant/ratingresturant.component';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-viewresturant',
@@ -27,7 +28,7 @@ star: number;
   own: any;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private toastController: ToastController,private popoverController: PopoverController,
+    private toastController: ToastController,private popoverController: PopoverController,private dataService:DataService,
     private booksService: BooksService,private platform: Platform) 
     {
 
@@ -39,11 +40,16 @@ star: number;
   data:any;
   loading = false;
   images:any;
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.ngOnInit();
+}
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-    console.log(params);
-    this.data = JSON.parse(params.data);
+    this.data;
+    await this.dataService.getresturant().then((val)=>
+    {
+     this.data = val;
+    });
     if (this.data) {
       console.log('got ', this.data);
       this.form.patchValue(this.data);
@@ -56,7 +62,7 @@ star: number;
        console.log(this.Timings);
        console.log(this.irt);
     
-    })
+    
   
     this.images =[];
     console.log(this.data.image.length);
@@ -76,6 +82,8 @@ star: number;
     this.form = this.formBuilder.group({
       _id: [null],
       about:[null, [Validators.required]],
+      open:[null, [Validators.required]],
+      close: [null, [Validators.required]],
       name : [null, [Validators.required]],
       city: [null, [Validators.required]],
      number: [null, [Validators.required]],
@@ -195,9 +203,8 @@ console.log('this.stars', this.star);
     ob['owner']  =  this.own;
     this.dataa = event;
     console.log(this.dataa);
-    this.router.navigate(['/showmenu'],{
-        queryParams:{data:JSON.stringify(ob)}
-    });
+    this.dataService.savemenuid(ob);
+    this.router.navigateByUrl('/showmenu');
   }
  
 }

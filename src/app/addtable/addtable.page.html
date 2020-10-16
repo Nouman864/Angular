@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="addmenu"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+  <ion-grid>
+      <ion-row color="justify-content-center">
+          <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                <div class="ion-padding">
+
+
+                  <h3 *ngIf="TABLE">
+                    <ion-card class="ion-text-lg-cente">
+                      <ion-card-header>
+                       <ion-card-title  class="ion-text-lg-center">Tables</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content *ngFor="let data of showtable; let i = index ">
+                        
+                        <ion-list>
+                          <ion-text class="color">
+                            Tableno: {{data.tabel}}
+                          </ion-text>
+          
+                         <br>
+                         <ion-text class="color">
+                          Type: {{data.type}}
+                        </ion-text>
+  
+                        <br>
+                        <ion-text class="color">
+                          Capacity: {{data.capacity}}
+                        </ion-text>
+                        
+                        <ion-button fill="clear" (click)="delete(data,i)">
+                          <ion-icon name="trash" slot="end"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="Edit(data,i)" fill="clear">
+                          <ion-icon name="create" slot="end"></ion-icon>
+                        </ion-button>
+                        </ion-list>        
+                      </ion-card-content>
+                    
+                    </ion-card> 
+                  </h3>
+
+
+                  <!-- owner viewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww -->
+
+
+
+    
+                  <h3 *ngIf="!TABLE">
+                    <ion-card class="ion-text-lg-cente">
+                      <ion-card-header>
+                       <ion-card-title  class="ion-text-lg-center">Tables</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content *ngFor="let data of tabll; let i = index">
+                        
+                        <ion-list>
+                          <ion-text class="color">
+                            Tableno: {{data.tabel}}
+                          </ion-text>
+          
+                         <br>
+                         <ion-text class="color">
+                          Type: {{data.type}}
+                        </ion-text>
+  
+                        <br>
+                        <ion-text class="color">
+                          Capacity: {{data.capacity}}
+                        </ion-text>
+                        
+                        <ion-button fill="clear" (click)="del(data,i)">
+                          <ion-icon name="trash" slot="end"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="Edit(data,i)" fill="clear">
+                          <ion-icon name="create" slot="end"></ion-icon>
+                        </ion-button>
+                        </ion-list>        
+                      </ion-card-content>
+                    
+                    </ion-card> 
+                  </h3>
+
+
+
+
+
+
+
+                  <ion-item>
+                    <ion-input name="text" formControlName="tableno" type="tel"  minLength="1" maxLength="2" placeholder="Table No"></ion-input>
+                </ion-item>
+                
+                 <ion-item>
+                 <ion-label>Table type</ion-label>
+                          <ion-select formControlName="type" type="text"   okText="Okay" cancelText="Dismiss">
+                            <ion-select-option value="family">family</ion-select-option>
+                            <ion-select-option value="outdoor">outdoor</ion-select-option>
+                            <ion-select-option value="bachelor">bachelor</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                         <ion-item>
+                          <ion-label>Table capacity</ion-label>
+                          <ion-select formControlName="capacity" type="text"   okText="Okay" cancelText="Dismiss">
+                            <ion-select-option value="1">1</ion-select-option>
+                            <ion-select-option value="2">2</ion-select-option>
+                            <ion-select-option value="3">3</ion-select-option>
+                            <ion-select-option value="4">4</ion-select-option>
+                            <ion-select-option value="5">5</ion-select-option>
+                            <ion-select-option value="6">6</ion-select-option>
+                            <ion-select-option value="7">7</ion-select-option>
+                            <ion-select-option value="8">8</ion-select-option>
+                            <ion-select-option value="9">9</ion-select-option>
+                            <ion-select-option value="10">10</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        <h3 *ngIf="!TABLE">
+                        <div class="s"> 
+                  
+                          <ion-icon name="add-circle-outline" slot="end" (click)="table()"></ion-icon>
+                         </div>
+                        </h3>
+                         <h3 *ngIf="TABLE">
+                         <ion-button  (click)="update()" color="success">
+                          Add new
+                         </ion-button>
+                        </h3>
+                        <h3 *ngIf="TABLE">
+                          <ion-button  (click)="edit()" color="success">
+                           Update
+                          </ion-button>
+                         </h3>
+                        </div>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+          <h3 *ngIf="!TABLE">
+           <ion-button size="large"  (click)="save()" color="primary" type="submit"
+            expand="block">SAVE ! &nbsp;
+            <ion-spinner *ngIf="loading">
+            </ion-spinner>
+          </ion-button>
+        </h3>
+</form>
+</ion-content>

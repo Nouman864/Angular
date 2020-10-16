@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
 
-import { AddmenuPageRoutingModule } from './addmenu-routing.module';
+import { AddtablePageRoutingModule } from './addtable-routing.module';
 
-import { AddmenuPage } from './addmenu.page';
+import { AddtablePage } from './addtable.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
     ReactiveFormsModule,
-    AddmenuPageRoutingModule
+    IonicModule,
+    AddtablePageRoutingModule
   ],
-  declarations: [AddmenuPage]
+  declarations: [AddtablePage]
 })
-export class AddmenuPageModule {}
+export class AddtablePageModule {}

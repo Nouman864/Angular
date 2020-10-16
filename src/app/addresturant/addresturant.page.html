@@ -44,14 +44,14 @@
           
           <div class="ion-padding">
             <ion-item>
-                <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="6" placeholder="Resturant name"></ion-input>
+                <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="1" placeholder="Resturant name"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="text" formControlName="open" type="text" placeholder="Opening Time"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input name="text" formControlName="close" type="text" placeholder="Closing Time"></ion-input>
-        </ion-item>
+            <ion-datetime displayFormat="hh-mm-A" formControlName="open" placeholder="opening Time"></ion-datetime>
+              </ion-item>
+             <ion-item>
+              <ion-datetime displayFormat="hh-mm-A" formControlName="close" placeholder="closing Time"></ion-datetime>
+           </ion-item>
             <ion-item>
               <ion-input name="text" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact number"></ion-input>
             </ion-item>
@@ -64,14 +64,9 @@
             <ion-item>
               <ion-input name="text" readonly type="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
             </ion-item>
+
             <ion-item>
-                <ion-label>City</ion-label>
-                <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
-                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
-                  <ion-select-option value="Lahore">Lahore</ion-select-option>
-                  <ion-select-option value="Karachi">Karachi</ion-select-option>
-                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
-                </ion-select>
+                 <ion-input name="text" readonly type="text" formControlName="city" type="text" placeholder=" City"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-textarea rows="5" cols="5" formControlName="about" type="text" placeholder="About Resturant..."></ion-textarea>

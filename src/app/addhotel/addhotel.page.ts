@@ -127,11 +127,11 @@ multipleImages = [];
       this.form.patchValue({facility : this.data.facility});
       this.form.patchValue({check: this.data.check});
       this.id = this.data._id;
+      this.imag = this.data.images;
     }
     })
   }
   formInitializer() {
-    
     this.form = this.formBuilder.group({
       name : [null, [Validators.required, Validators.minLength(6),Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
