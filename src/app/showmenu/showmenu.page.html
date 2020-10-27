@@ -4,9 +4,10 @@
     <ion-buttons slot="start">
       <ion-back-button  defaultHref="viewresturant"></ion-back-button>
     </ion-buttons>
-    <ion-button slot="end" (click)="menu()"  color="success">
-      Make Reservation
-      </ion-button>
+  
+      <ion-button slot="end" (click)="table()"  color="success">
+        Show Tables
+        </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -18,9 +19,14 @@
     </ion-card-header>
     <ion-card-content *ngFor="let data of brek">
       <ion-list>
+        <ion-text class="color">
       dish: {{data.dish}}
+    </ion-text>
        <br>
+       <ion-text class="color">
       price: {{data.price}}
+      
+    </ion-text>
       </ion-list>        
     </ion-card-content>
   </ion-card> 

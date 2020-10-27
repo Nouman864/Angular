@@ -39,6 +39,7 @@ export class ReservedroomPage implements OnInit {
   check: boolean;
   from: any;
   dt: any;
+  email: any;
   constructor(private booksService: BooksService,private barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,private router: Router,private dataService:DataService,
@@ -65,6 +66,7 @@ export class ReservedroomPage implements OnInit {
            this.amount = this.data.amount;
            console.log(this.amount);
            console.log(this.hotelowner);
+           this.email = this.data.email;
       
   }
   
@@ -147,6 +149,8 @@ time()
      obj['checkout'] = this.to_date;
      obj['ownerid'] = this.hotelowner
      obj['hotelid'] = this.owner;
+     obj['email'] = this.email;
+     obj['clientid'] = clientid;
      const observable = await this.booksService.reservedroom(
        obj
      );
@@ -194,12 +198,10 @@ time()
   {
     
 
-    console.log(this.bookedarray);
-    for (var i = 0; i < this.bookedarray.length ; i++)
-    {
-  
+    console.log(this.rm);
+
     this.barcodeScanner
-      .encode(this.barcodeScanner.Encode.TEXT_TYPE, this.bookedarray[i])
+      .encode(this.barcodeScanner.Encode.TEXT_TYPE, this.rm)
       .then((data) => {
               window.alert(JSON.stringify("Your room code is:", data));
               window.alert('Your qr code room:'+ data);
@@ -210,7 +212,7 @@ time()
         err => {
           alert(JSON.stringify(err));
         });
-    }
+    
 
 
     
@@ -225,7 +227,7 @@ time()
     }
     const obj = {};
 
-     obj['RoomReserved'] = this.bookedarray;
+     obj['RoomReserved'] = this.rm;
       obj['clientid'] = client;
      const observable = await this.booksService.roomcode(
        obj

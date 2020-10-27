@@ -1,0 +1,244 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="getresturant"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">View Resturant</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+ <ion-content text-justify="top">
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          
+          <div class="ion-padding">
+            <label class="ion-text-lg-center" igxLabel for="firstname">Resturant Name:</label> 
+            <br>
+            <ion-item>
+                <ion-input name="firstname"  readonly type="text" formControlName="name" type="text" minLength="6" maxLength="1" placeholder="Resturant name"></ion-input>
+            </ion-item>
+            <br>
+            <label class="ion-text-lg-center" igxLabel for="firstname">opening:</label> 
+            <br>
+            <ion-item>
+            <ion-datetime displayFormat="hh-mm-A"  readonly type="text" formControlName="open" placeholder="opening Time"></ion-datetime>
+              </ion-item>
+              <br>
+              <label class="ion-text-lg-center" igxLabel for="firstname">closing:</label> 
+              <br>
+             <ion-item>
+              <ion-datetime displayFormat="hh-mm-A"  readonly type="text" formControlName="close" placeholder="closing Time"></ion-datetime>
+           </ion-item>
+           <br>
+           <label class="ion-text-lg-center" igxLabel for="firstname">Contact no:</label> 
+           <br>
+            <ion-item>
+              <ion-input name="text"  readonly type="text" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact number"></ion-input>
+            </ion-item>
+         <br>
+         <label class="ion-text-lg-center" igxLabel for="firstname">Adress:</label> 
+         <br>
+            
+            <ion-item>
+              <ion-input name="text" readonly type="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
+            </ion-item>
+           <br>
+           <label class="ion-text-lg-center" igxLabel for="firstname">City:</label> 
+           <br>
+            <ion-item>
+                 <ion-input name="text" readonly type="text" formControlName="city" type="text" placeholder=" City"></ion-input>
+              </ion-item>
+              <br>
+              <label class="ion-text-lg-center" igxLabel for="firstname">About:</label> 
+              <br>
+              <ion-item>
+                <ion-textarea rows="5" cols="5"  readonly type="text"  formControlName="about" type="text" placeholder="About Resturant..."></ion-textarea>
+              </ion-item>  
+              
+          </div>
+          <br> 
+          <br>
+        
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <div class="ion-padding">
+              
+               
+  
+    <ion-row >
+        <ion-card  class="card-center">
+       
+            <ion-card-content  *ngFor="let image of images" >
+              
+                <img src= {{image}}>
+                
+              </ion-card-content>
+           </ion-card>
+          
+    </ion-row>
+    </div>
+<br>
+<br>
+<ion-card class="ion-text-lg-cente">
+  <ion-card-header>
+   <ion-card-title  class="ion-text-lg-center">Breakfast</ion-card-title>
+  </ion-card-header>
+  <ion-card-content *ngFor="let data of brek">
+    <ion-list>
+    dish: {{data.dish}}
+     <br>
+    price: {{data.price}}
+    </ion-list>        
+  </ion-card-content>
+</ion-card> 
+<br>
+<br>
+<ion-card class="ion-text-lg-cente">
+    <ion-card-header>
+     <ion-card-title  class="ion-text-lg-center">Launch</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let data of launh">
+      <ion-list>
+      dish: {{data.dish}}
+       <br>
+      price: {{data.price}}
+      </ion-list>        
+    </ion-card-content>
+  </ion-card>
+
+  <br>
+  <br>
+  <ion-card class="ion-text-lg-cente">
+      <ion-card-header>
+       <ion-card-title  class="ion-text-lg-center">Dinner</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngFor="let data of dnner">
+        <ion-list>
+        dish: {{data.dish}}
+           <br>
+        price: {{data.price}}
+        </ion-list>        
+      </ion-card-content>
+    </ion-card>
+    <br>
+
+    
+      <ion-card class="ion-text-lg-cente">
+        <ion-card-header>
+         <ion-card-title  class="ion-text-lg-center">Tables</ion-card-title>
+        </ion-card-header>
+        <ion-card-content *ngFor="let data of showtable; let i = index ">
+          
+          <ion-list>
+            <ion-text class="color">
+              Tableno: {{data.tabel}}
+            </ion-text>
+
+           <br>
+           <ion-text class="color">
+            Type: {{data.type}}
+          </ion-text>
+
+          <br>
+          <ion-text class="color">
+            Capacity: {{data.capacity}}
+          </ion-text>
+          
+     
+       
+          </ion-list>        
+        </ion-card-content>
+      <br>
+      <br>
+      </ion-card> 
+      <ion-card class="ion-text-lg-cente">
+        <ion-card-header>
+         <ion-card-title  class="ion-text-lg-center">Reserved tables</ion-card-title>
+        </ion-card-header>
+        <ion-card-content *ngFor="let data of tb">
+          <ion-list>
+           table no: {{data.tableno}}
+           <br>
+            date: {{data.date}}
+            <br>
+            time: {{data.time}}
+          </ion-list>  
+          <ion-button slot="end" fill="clear"  (click)="delete(data)"  color="success">
+            Remove
+            </ion-button>
+        </ion-card-content>
+      </ion-card> 
+
+      <h1 *ngIf="value == '2'" class="ion">
+        {{this.click2nd(value)}} 
+             
+        <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+        <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+        <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+        <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+        <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+        <ion-label>{{value}}</ion-label>
+      </h1>
+      
+      <h1 *ngIf="value == '3'" class="c" class="ion">
+        {{this.click3rd(value)}} 
+        <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+        <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+        <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+        <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+        <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+        <ion-label>{{value}}</ion-label>
+      </h1>
+      <h1 *ngIf="value == '4'"class="ion">
+        {{this.click4th(value)}} 
+        <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+        <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+        <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+        <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+        <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+        <ion-label>{{value}}</ion-label>
+      </h1>
+      <h1 *ngIf="value == '5'"class="ion">
+        {{this.click5th(value)}} 
+        <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+        <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+        <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+        <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+        <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+        <ion-label>{{value}}</ion-label>
+      </h1>
+      <h1 *ngIf="value > '3.1' && value < '4'" class="ion">
+        {{this.click3half(value)}}  
+      <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+      <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+      <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+      <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+      <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+      <ion-label>{{value}}</ion-label>
+      </h1>
+       
+        <h1 *ngIf="value > '2.1' && value < '3'" class="ion">
+          {{this.click2half(value)}} 
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+       
+        <h1 *ngIf="value > '4.1' && value < '5'" class="ion">
+          {{this.click4half(value)}} 
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+</ion-content>

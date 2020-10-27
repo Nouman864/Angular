@@ -121,20 +121,23 @@ multipleImages = [];
       console.log('got hotel', this.data);
      this.idd = this.data._id;
       this.form.patchValue({name : this.data.name});
-      this.form.patchValue({city : this.data.city});
       this.form.patchValue({number : this.data.number});
       this.form.patchValue({Location : this.data.Location});
       this.form.patchValue({facility : this.data.facility});
+      this.form.patchValue({city : this.data.city});
+      this.form.patchValue({email : this.data.email});
       this.form.patchValue({check: this.data.check});
+      
       this.id = this.data._id;
-      this.imag = this.data.images;
+      this.imag = this.data.images; 
     }
     })
   }
   formInitializer() {
     this.form = this.formBuilder.group({
-      name : [null, [Validators.required, Validators.minLength(6),Validators.pattern('^[a-zA-Z ]*$')]],
+      name : [null, [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
+      email: [null, [Validators.required,Validators.email]],
      number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
       Location: [null, [Validators.required]],
       // facility: [null, [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
@@ -144,10 +147,16 @@ multipleImages = [];
   }
   onLocationPicked(location: PlaceLocation)
   {
-    console.log(location);
-      this.form.patchValue({Location : location.address});
-      //this.form.patchValue({Lat : location.lat});
-      // this.form.patchValue({Lng : location.lng});
+          console.log(location);
+
+    let n = `${location.address}`.split(",");
+          
+   
+          const loc =`${location.address}`. split(",")[n.length - 2];
+         //const loc = location.address.slice(location.address.lastIndexOf(',') + 2);
+          console.log(loc);
+     this.form.patchValue({Location : location.address});
+      this.form.patchValue({city : loc});
        
   }
 
@@ -210,6 +219,7 @@ multipleImages = [];
     const obj = this.form.value;
     obj['images'] =  this.imag;
     obj['_id'] = this.id;
+    
     const observable = await this.booksService.updatehotel(
       obj
     );

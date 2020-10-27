@@ -36,6 +36,11 @@ export class AddroomPage implements OnInit {
   i = 0;
   l = 0;
   updateitem: any[];
+  pic: any;
+  rm: any;
+  images: any;
+  deleteLoading: boolean;
+  img: any[];
  
   constructor(private formBuilder: FormBuilder,private userService:UserService,private booksService: BooksService,private alertCtrl: AlertController,private router: Router,private route: ActivatedRoute, private authService: AuthService,
     private file: File,private toastController: ToastController,private platform: Platform,private http: HttpClient)
@@ -122,9 +127,20 @@ export class AddroomPage implements OnInit {
       uppt => {
         this.rooms = uppt.data;
         this.loading = false;
-      console.log( uppt);
-         console.log(uppt.data[0]._id);
+         if(this.rooms.length > 0)
+         {
+        
+         console.log(this.rooms);
+         this.rm = this.rooms[0].Roomsinfo;
         this.ROMMID = uppt.data[0]._id;
+        
+           for(let data of this.rooms[0].Roomsinfo)
+           {
+                  this.images = data.image;
+           }
+        
+           console.log(this.images);
+         }
       }, 
       err => {
         console.log('err', err);
@@ -143,18 +159,30 @@ export class AddroomPage implements OnInit {
       });
       
   }
-  updateinfo()
-  {
-        this.updateitem = [];
-    let item = this.form.value;
-    item['facility'] = this.tabll;
-    item['image'] = this.imag;
-     this.updateitem.push(item);
-     console.log(this.updateitem);
-        this.form.reset();
-         this.updateroom();
+  // updateinfo()
+  // {
+  //       this.updateitem = [];
+  //   let item = this.form.value;
+  //   let amnt = item.amount;
+  //    let bed = item.beds
+  //   if(!Number(amnt))
+  //   {
+  //     window.alert('sorry,put Number ');
+  //       return ;
+  //   }
+  //   if(!Number(bed))
+  //   {
+  //     window.alert('sorry,put Number ');
+  //       return ;
+  //   }
+  //   item['facility'] = this.tabll;
+  //   item['image'] = this.imag;
+  //    this.updateitem.push(item);
+  //    console.log(this.updateitem);
+  //       this.form.reset();
+  //        this.updateroom();
   
-    }
+  //   }
    
   
  
@@ -163,6 +191,18 @@ Roominfo()
 {
  
   let item = this.form.value;
+     let amnt = item.amount;
+     let bed = item.beds
+    if(!Number(amnt))
+    {
+      window.alert('sorry,put Number ');
+        return ;
+    }
+    if(!Number(bed))
+    {
+      window.alert('sorry,put Number ');
+        return ;
+    }
   item['facility'] = this.tabll;
   item['image'] = this.imag;
   this.tabll = [];
@@ -195,6 +235,11 @@ Roominfo()
   this.form.reset();
   }
    console.log(this.info);
+
+
+
+
+
 }
 
 
@@ -217,7 +262,7 @@ facility()
      this.tabll.push(
       this.faci
     );
-      //this.form.reset();
+    avail.facility = '';
       
 
 
@@ -228,7 +273,8 @@ facility()
       this.faci
     );
     this.l = 1;
-  //this.form.reset();
+    avail.facility = '';
+   
   }
 
   console.log(this.tabll);
@@ -247,7 +293,7 @@ facility()
     }
      const obj = this.form.value;
         obj['Roomsinfo'] = this.info;
-        // obj['img'] = this.imag;
+        // obj['image'] = this.imag;
         obj['hotelid'] = this.id;
         obj['owner'] = owner;
        const observable = await this.booksService.addRoom(
@@ -261,7 +307,8 @@ facility()
           duration: 3500
         });
         toast.present();
-           this.loading = false;
+        this.router.navigate(['/gethotel']);
+        this.loading = false;
           
            
    
@@ -286,9 +333,11 @@ facility()
       catch(ex){
       }
       const ob = this.form.value;
+       ob['image'] = this.imag;
         ob['_id'] = this.ROMMID;
-        
-        ob['Roomsinfo'] = this.updateitem;
+        ob['Roomsinfo'] = this.tabll;
+      
+      
       const observable = await this.booksService.updateroom(
         ob
       );
@@ -301,8 +350,9 @@ facility()
             duration: 3500
           });
           toast.present();
-          this.loading = false;
           this.form.reset();
+          this.getroom();
+          this.tabll = [];
           //optional
   
          // this.modalCtrl.dismiss();
@@ -314,11 +364,157 @@ facility()
       );
     }
 
+del(data,i)
+ {
+  console.log(data);
+  console.log(i);
+  // console.log(this.breakfast.length);
+           let dih = data.roomno;
+            for(let k = 0; k <this.info.length; k++)
+           {
 
+          if(this.info[k].roomno == dih)
+          {
+            this.info.splice(k, 1);
+          }
+
+           }
+     console.log(this.info);  
+ }
+    
+    
+    Edit(data,i)
+    {
+      console.log(data);
+      this.img =[];
+      for (let ii = 0; ii < data.image.length; ii++)
+       {
+        
+          this.imag = data.image[ii];
+     
+      }
+            console.log(this.imag);
+        this.form.patchValue({roomno: data.roomno});
+        this.form.patchValue({beds : data.beds});
+        this.form.patchValue({amount : data.amount});
+        for(let l = 0; l <data.facility.length; l++)
+        {
+          this.form.patchValue({ facility : data.facility[l]});    
+        }
+    }
     save()
     {
        // this.updateroom();
         this.room();
     }
 
+
+
+    async new()
+    { 
+      for (let data of this.rm)
+       {
+                if(data.roomno == this.form.value.roomno)
+                {
+                  window.alert('already added  ');
+                  return ;
+                }
+       }
+      let owner;
+      const ownerId =  await this.authService. getTokenFromStorage();
+      try{
+        const decoded = jwt_decode(ownerId );
+        owner = decoded['data']._id;
+      }
+      catch(ex){
+      }
+       const obj = this.form.value;
+          obj['facility'] = this.tabll;
+          obj['image'] = this.imag;
+          this.info.push(obj);
+          let obb = {};
+          obb['Roomsinfo'] = this.info;
+          obb['_id'] = this.ROMMID;
+         const observable = await this.booksService.newroom(
+           obb
+         );
+         observable.subscribe(
+           async data => {
+             console.log('got response from server', data);
+          const toast = await this.toastController.create({
+            message: `Room has been added successfully.`,
+            duration: 3500
+          });
+          toast.present();
+          this.tabll = [];
+          this.getroom();
+          this.loading = false;
+            
+             
+     
+           },
+           error => {
+             this.loading = false;
+             console.log('error', error);
+           }
+         );
+
+    }
+
+
+
+
+
+
+
+    async delete(data,i) {
+      console.log(data);
+      console.log(i);
+      let ob = data;
+      ob['_id'] = this.ROMMID;
+      // ob['tabel'] = data.tabel;
+      // ob['type'] = data.type;
+      // ob['capacity'] = data.capacity;
+      const alert = await this.alertCtrl.create({
+        header: 'Confirm!',
+        message: `Are you sure you want to delete the Room "${data.roomno}"`,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: blah => {
+              console.log('Confirm Cancel: blah');
+            }
+          },
+          {
+            text: 'Okay',
+            handler: () => {
+              this.deletetable(ob);
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
+    
+    async deletetable(ob) {
+      const observable = await this.booksService.deleteroom(
+        ob);
+    
+      observable.subscribe(
+        data => {
+          console.log('got response from server', data);
+          window.alert('Delete successfully');
+          this.getroom();
+          this.deleteLoading = false;
+          
+        },
+        error => {
+          this.deleteLoading = false;
+          console.log('error', error);
+        }
+      );
+     
+    }
 }

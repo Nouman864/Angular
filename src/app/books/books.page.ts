@@ -23,10 +23,7 @@ export class BooksPage implements OnInit {
   deleteLoading: boolean;
   dataa: Event;
   
-  c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
-
-  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 ; n6;n7;
-star: number;
+ 
   k: number;
   adrom: any[];
   avg: any;
@@ -37,11 +34,16 @@ star: number;
   active: string;
   true: any;
   loc: boolean;
+  dat: Event;
+  value: boolean;
+  rev: any[];
   // n1: string;
   // n2: string;
   // n3: string;
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
-
+  ionViewWillEnter() {
+    this. ngOnInit();
+}
   ngOnInit() {
     
     this.get();
@@ -74,61 +76,17 @@ star: number;
         this.loading = false;
         console.log('data', data);
         console.log(this.flats);
-           
+        
       }, 
       err => {
         console.log('err', err);
       } 
     ); 
-    // for(let i = 0; i< this.flats.length; i++)
-    // {
-    //   if(this.flats[i].reviewsTotal == '2')
-    //   {
-    //     this.click2nd(2);
-    //   }
-    // // this.clickFirst(1);
-    // // this.click2nd(2);
-    // // this.click3rd(3);
-    // // this.clickForth(4);
-    // }
+    
   } 
 
   
-  clickFirst(item: any) {
-    this.star = item;
-    console.log('this.stars', this.star);
- this.c1 = '';
- this.n1 = 'star'; 
- }
- click2nd(item: any) {
-  this.star = item;
-  console.log('this.stars', this.star);
-     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-     this.c4 = ''; 
-     this.n1 = 'star'; this.n2 = 'star'; 
-   }
-   click3rd(item: any) {
-     this.star = item;
-     console.log('this.stars', this.star);
-     
-     this.c1 = '';    this.c2 = '';
-     this.c3 = ''; 
-     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
-        
-     
-    
-     }
-     clickForth(item: any) {
-         this.star = item;
-       console.log('this.stars', this.star);
-       this.c1 = '';    this.c2 = '';
-       this.c3 = '';    this.c4 = '';
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
-
-     
-       }
-
-
+  
 
 
 
@@ -189,7 +147,14 @@ star: number;
   }
 
 
-
+  viewflat(event:Event)
+  {
+    this.dat = event;
+    console.log(this.dat);
+    this.router.navigate(['/flatprofile'],{
+        queryParams:{data:JSON.stringify(this.dat)}
+    });
+  }
 
 
 

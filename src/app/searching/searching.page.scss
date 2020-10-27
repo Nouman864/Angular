@@ -1,7 +1,12 @@
-#parent {
-  /* can be any value */
-  width: 300px;
-  text-align: right;
-  direction: rtl;
-  position: relative;
+ion-content {
+  --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+}
+ion-toolbar{
+  --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+}
+ion-item{
+  --background: transparent;
+}
+ion-input{
+  background-color: transparent;
 }

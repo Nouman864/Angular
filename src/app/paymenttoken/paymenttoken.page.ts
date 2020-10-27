@@ -11,6 +11,7 @@ import { BooksService } from '../sdk/custom/books.service';
 import { AuthService } from '../sdk/core/auth.service';
 import { File } from '@ionic-native/file/ngx';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-paymenttoken',
@@ -30,18 +31,20 @@ export class PaymenttokenPage implements OnInit {
   amount: any;
   ownerid: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
+    private booksService: BooksService,private dataService:DataService, private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
     {
                
     }
   registerForm: FormGroup;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-      console.log(params);
-      this.cd = JSON.parse(params.data);
+    this.cd;
+    await this.dataService.getflattoken().then((val)=>
+    {
+     this.cd = val;
+    });
       if (this.cd) {
         console.log(this.cd);
         this.customerid = this.cd.cid;
@@ -52,7 +55,7 @@ export class PaymenttokenPage implements OnInit {
         console.log( this.ownerid);
         
       }
-      })
+      
   }
 
   formInitializer() {
@@ -84,9 +87,9 @@ async proceed()
    obj['cid'] =   this.customerid;
    obj['tokid'] = this.tokenid;
    obj['ownerid'] = this.ownerid;
-         this.router.navigate(['/onlinepay'],{
-          queryParams:{data:JSON.stringify(obj)}
-      });
+   obj['amount'] = this.amount;
+      this.dataService.flatonlinepay(obj);
+      this.router.navigateByUrl('/onlineflatpay');
     },
     error => {
       this.loading = false;

@@ -40,6 +40,7 @@ star: number;
   n3: string;
   n: string;
   c: string;
+  dat: Event;
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
   ionViewWillEnter() {
     this. ngOnInit();
@@ -79,40 +80,7 @@ star: number;
     ); 
   } 
 
-  clickFirst(item: any) {
-    this.star = item;
-    console.log('this.stars', this.star);
- this.c1 = '';
- this.n1 = 'star'; 
- }
- click2nd(item: any) {
-  this.star = item;
-  console.log('this.stars', this.star);
-     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-     this.c4 = ''; 
-     this.n1 = 'star'; this.n2 = 'star'; 
-   }
-   click3rd(item: any) {
-     this.star = item;
-     console.log('this.stars', this.star);
-     
-     this.c1 = '';    this.c2 = '';
-     this.c3 = ''; 
-     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
-        
-     
-    
-     }
-     clickForth(item: any) {
-         this.star = item;
-       console.log('this.stars', this.star);
-       this.c1 = '';    this.c2 = '';
-       this.c3 = '';    this.c4 = '';
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
-
-     
-       }
-
+  
 
 
 
@@ -176,7 +144,14 @@ star: number;
 
 
 
-
+  viewrest(event:Event)
+  {
+    this.dat = event;
+    console.log(this.dat);
+    this.router.navigate(['/resturantprofile'],{
+        queryParams:{data:JSON.stringify(this.dat)}
+    });
+  }
 
 
 

@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar >
       <ion-buttons slot="start">
         <ion-back-button  defaultHref="books"></ion-back-button>
       </ion-buttons>
@@ -15,13 +15,7 @@
           <ion-img src="/assets/fl.png"></ion-img>
         </ion-card>
 
-        <br>
-        <div class="s"> 
-          <ion-icon name="add-circle-outline" slot="end" (click)="facility()"></ion-icon>
-         </div>
-        <ion-item>
-          <ion-input name="text" [(ngModel)]="faci" type="text"  placeholder="faciliteis"></ion-input>
-      </ion-item>
+        
     <form [formGroup]="form">
       <ion-grid>
         <ion-row color="justify-content-center">
@@ -31,21 +25,34 @@
               <h3 *ngIf="data">Edit Flat</h3>
             </div>
             <div class="ion-padding">
-              <!-- <ion-item>
-                <ion-label>check in</ion-label>
-                <ion-datetime formControlName="checkin"></ion-datetime>
-              </ion-item> 
-            
-            -->
+             
 
               <ion-item>
                   <ion-input name="firstname" formControlName="name" type="text" placeholder="Enter property name"></ion-input>
               </ion-item>
               <ion-item>
+                <ion-label>Rooms</ion-label>
+                <ion-select formControlName="rooms" type="text"   okText="Okay" cancelText="Dismiss">
+                  <ion-select-option value="1">1</ion-select-option>
+                  <ion-select-option value="2">2</ion-select-option>
+                  <ion-select-option value="3">3</ion-select-option>
+                  <ion-select-option value="4">4</ion-select-option>
+                  <ion-select-option value="5">5</ion-select-option>
+                  <ion-select-option value="6">6</ion-select-option>
+                  <ion-select-option value="7">7</ion-select-option>
+                  <ion-select-option value="8">8</ion-select-option>
+                  <ion-select-option value="9">9</ion-select-option>
+                  <ion-select-option value="10">10</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
                 <ion-input name="text" formControlName="amount" type="text" placeholder="Enter Rent per MOnth"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="text" formControlName="number" type="number" placeholder="Contact "></ion-input>
+                <ion-input name="text" formControlName="number" type="tel"  minLength="11" maxLength="11" placeholder="Contact "></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="email" formControlName="email" type="email" placeholder="your@email.com"></ion-input>
               </ion-item>
               <br>
               <ion-row >
@@ -54,48 +61,53 @@
                 </ion-col>
               </ion-row>
               <ion-item>
-                <ion-input name="text" formControlName="Location" type="text" placeholder="Enter location"></ion-input>
+                <ion-input name="text" readonly type="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
               </ion-item>
-              
+  
               <ion-item>
-                <ion-label>City</ion-label>
-                <ion-select formControlName="city" type="text"   okText="Okay" cancelText="Dismiss">
-                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
-                  <ion-select-option value="Lahore">Lahore</ion-select-option>
-                  <ion-select-option value="Karachi">Karachi</ion-select-option>
-                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
-                </ion-select>
-              </ion-item>
-             
+                   <ion-input name="text" readonly type="text" formControlName="city" type="text" placeholder=" City"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea rows="5" cols="5" formControlName="about" type="text" placeholder="About Flat..."></ion-textarea>
+                </ion-item>
+                  
               <ion-item>
-                <ion-input  type="text" readonly type="text" placeholder=" w'll charge for this service 20%"></ion-input>
+                <ion-input  type="text" readonly type="text" placeholder=" w'll charge for this service 5%"></ion-input>
                 I agree <ion-checkbox formControlName="check" color="primary"  ></ion-checkbox>
                 </ion-item>
               
-             
-              
+          
             </div>
            
-        <br>
-        <br>
-        
+            <br> 
+            <br>
             <br>
             <br>
 
             
             <div class="ion-padding">
-              <input type="file"  name="images" multiple (change)="selectMultipleImage($event)" />
-              <ion-button size="large"    (click)="onMultipleSubmit()" color="primary" type="submit"
-              expand="block">Multiple Image Upload
+              <input type="file"  formControlName="images"  multiple (change)="selectMultipleImage($event)" />
+              <ion-button size="meduim"    (click)="onMultipleSubmit()" color="primary" type="submit"
+              expand="block">Image Upload
             </ion-button>
           </div>
           
             <div class="ion-padding">
-              <ion-button size="large" [disabled]="form.invalid"  (click)="save()" color="primary" type="submit"
+              <h3 *ngIf="!data">
+                <ion-button size="large" [disabled]="form.invalid" (click)="addNew()" color="primary" type="submit"
+                expand="block">SAVE ! &nbsp;
+                <ion-spinner *ngIf="loading">
+                </ion-spinner>
+              </ion-button>
+            </h3>
+    
+            <h3 *ngIf="data">
+              <ion-button size="large"  (click)="updateBook()" color="primary" type="submit"
               expand="block">SAVE ! &nbsp;
               <ion-spinner *ngIf="loading">
               </ion-spinner>
             </ion-button>
+          </h3>
               
 
             

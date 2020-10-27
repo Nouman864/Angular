@@ -19,7 +19,9 @@ export class LocationPickerComponent implements OnInit {
   selectedLocationImage: string;
   isLoading = false;
 
-  constructor(private modalCtrl: ModalController, private http: HttpClient) {}
+  constructor(private modalCtrl: ModalController, private http: HttpClient) {
+    
+  }
 
   ngOnInit() {}
 
@@ -36,7 +38,7 @@ export class LocationPickerComponent implements OnInit {
           address: null,
           staticMapImageUrl: null
         };
-         this.isLoading = true;
+          this.isLoading = true;
          this.getAddress(modalData.data.lat, modalData.data.lng)
         
           .pipe(

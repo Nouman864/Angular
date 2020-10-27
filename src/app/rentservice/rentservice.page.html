@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">rent Services</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="viewproperty"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content text-justify="top">
+  <form [formGroup]="form ">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          
+          <div class="ion-padding">
+            <ion-item>
+           <ion-input name="firstname"  formControlName="name" type="text" placeholder="Your name.."></ion-input>
+          </ion-item>
+         <br>
+         <ion-item>
+          <ion-input name="firstname"  formControlName="number"  type="tel"  minLength="11" maxLength="11" placeholder="Your Contact.."></ion-input>
+         </ion-item>
+         <br>
+         <ion-item>
+          <ion-input name="firstname"  formControlName="about" type="text" placeholder="About.."></ion-input>
+         </ion-item>
+
+          </div>
+      
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+<div>
+  <div class="ion-padding">
+    <ion-button size="small" (click)="submit()" [disabled]="form.invalid" color="secondary" type="submit" expand="block">Submit
+    </ion-button>
+  
+  <br>
+  
+    <ion-button size="small" (click)="pay()"  color="secondary" type="submit" expand="block">Payment
+    </ion-button>
+  </div>
+</div>
+</ion-content>

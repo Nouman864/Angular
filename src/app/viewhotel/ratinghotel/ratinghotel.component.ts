@@ -21,9 +21,9 @@ export class RatinghotelComponent implements OnInit {
   constructor(private popoverController: PopoverController,private authService: AuthService,private booksService: BooksService,
     private formBuilder: FormBuilder) {
 }
- c1 = '';  c2 = '';  c3 = '';  c4 = ''; 
+ c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = '';
 n1 = 'star-outline'; n2 = 'star-outline'; n3 = 'star-outline';
-n4 = 'star-outline';
+n4 = 'star-outline';n5 = 'star-outline';
 star: number;
 reviewFormm: FormGroup;
 d: Date = new Date();
@@ -65,6 +65,13 @@ click2nd(item: any) {
       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
       }
 
+      click5th(item: any) {
+        this.star = item;
+      console.log('this.stars', this.star);
+      this.c1 = 'primary';    this.c2 = 'primary';
+      this.c3 = 'primary';    this.c4 = 'primary'; this.c5 = 'primary'
+      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';this.n5 = 'star';
+      }
 
 
      

@@ -9,10 +9,18 @@
     color: rgb(245, 187, 40);
 }
 
-.ion-text-lg-cente
-{
-      background-color: rgb(129, 172, 253);
-}
+ion-content {
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-item{
+    --background: transparent;
+  }
+  ion-input{
+    background-color: transparent;
+  }
 .ion-text-lg-center
 {
     color: rgb(10, 1, 1);

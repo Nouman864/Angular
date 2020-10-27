@@ -59,6 +59,8 @@ this.route.queryParams.subscribe((params)=>{
   console.log(params);
   this.id = JSON.parse(params.data);
     console.log(this.id);
+
+
   
   
   });
@@ -190,6 +192,7 @@ async addNew() {
        console.log(data);
        this.loading = false;
        this.form.reset();
+       this.router.navigate(['/getresturant']);
        //optional
 
      },

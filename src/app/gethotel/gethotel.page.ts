@@ -28,6 +28,7 @@ star: number;
   rooms: any;
   list: any;
   listt: any[];
+  dat: Event;
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
   ionViewWillEnter() {
     this. ngOnInit();
@@ -199,6 +200,15 @@ star: number;
     );
   }
   
+
+  viewhtl(event:Event)
+  {
+    this.dat = event;
+    console.log(this.dat);
+    this.router.navigate(['/hotelprofile'],{
+        queryParams:{data:JSON.stringify(this.dat)}
+    });
+  }
 
 }
   

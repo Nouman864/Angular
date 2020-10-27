@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { UserService } from '../sdk/custom/user.service';
 import { Router } from '@angular/router';
 import { BooksService } from '../sdk/custom/books.service';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-searching',
@@ -27,7 +28,7 @@ export class SearchingPage implements OnInit {
   e:any;
 
   constructor(
-    private modalCtrl: ModalController,private userService:UserService,private router: Router, private booksService :BooksService,
+    private modalCtrl: ModalController,private userService:UserService,private dataService:DataService,private router: Router, private booksService :BooksService,
     private renderer: Renderer2
   ) {}
 
@@ -110,9 +111,8 @@ openEditPopup(event:Event) {
   
     this.dataa = event;
     console.log(this.dataa);
-    this.router.navigate(['/viewproperty'],{
-        queryParams:{data:JSON.stringify(this.dataa)}
-    });
+    this.dataService.saveflat(this.dataa);
+    this.router.navigateByUrl('/viewproperty');
 }
   
 }

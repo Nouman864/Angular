@@ -17,7 +17,87 @@
        <!-- <h3 *ngIf="id"></h3> -->
     </div>
 
+                  <h3 *ngIf="!this.ROMMID">
+                    <ion-card class="ion-text-lg-cente">
+                      <ion-card-header>
+                       <ion-card-title  class="ion-text-lg-center">Rooms</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content *ngFor="let data of info; let i = index">
+                        
+                        <ion-list>
+                          <ion-text class="color">
+                            Room No: {{data.roomno}}
+                          </ion-text>
+          
+                         <br>
+                         <ion-text class="color">
+                          Facility: {{data.facility}}
+                        </ion-text>
   
+                        <br>
+                        <ion-text class="color">
+                          Beds: {{data.beds}}
+                        </ion-text>
+                         <br>
+                        <ion-text class="color">
+                          Amount: {{data.amount}}
+                        </ion-text>
+                        <ion-button fill="clear" (click)="del(data,i)">
+                          <ion-icon name="trash" slot="end"></ion-icon>
+                        </ion-button>
+                      
+                        </ion-list>        
+                      </ion-card-content>
+                    
+                    </ion-card> 
+                  </h3>
+
+                  <h3 *ngIf="this.ROMMID">
+                  <ion-card class="ion-text-lg-cente">
+                    <ion-card-content *ngFor="let data of rm; let i = index" >
+                      <ion-list>
+                        <ion-row >
+                          <ion-card  class="card-center" >
+                         
+                              <ion-card-content *ngFor="let img of data.image[0]; let i = index">
+                                
+                                  <img src= {{img}}>
+                                  
+                                </ion-card-content>
+                             </ion-card>
+                            
+                      </ion-row>
+                        <br>
+                        <br>
+                        Room no:  {{data.roomno}}
+                        <br>
+                        <br>
+                       No of Beds:  {{data.beds}}
+                       <br>
+                        <br>
+                        facility:  {{data.facility}}
+                        <br>
+                         <br>
+                      Amount:  {{data.amount}}
+                      
+                       
+                      </ion-list> 
+                      <ion-button (click)="Edit(data,i,image)" fill="clear">
+                        <ion-icon name="create" slot="end"></ion-icon>
+                      </ion-button> 
+                      <ion-button fill="clear" (click)="delete(data,i)">
+                        <ion-icon name="trash" slot="end"></ion-icon>
+                      </ion-button>     
+                    </ion-card-content>
+                  </ion-card>
+                </h3>
+
+
+
+
+
+
+
   
        <ion-item>
            <ion-input name="firstname" formControlName="roomno" type="tel"  minLength="1" maxLength="3" placeholder="Room no"></ion-input>
@@ -53,19 +133,24 @@
         <ion-input name="text" formControlName="amount" type="tel"  minLength="4" maxLength="5" placeholder=" amount"></ion-input>
       </ion-item>
        
-  
+      <h1 *ngIf="!this.ROMMID">
       <div class="s"> 
         <ion-title class="ion-text-center">Add</ion-title>
         <ion-icon name="add-circle-outline" slot="end" (click)="Roominfo()"></ion-icon>
        </div>
+       </h1>
     
 
-      
-        <div class="s"> 
-          <ion-title class="ion-text-center">Edit</ion-title>
-          <ion-icon name="create"  (click)="updateinfo()"></ion-icon>
-         </div>
-        
+       <h1 *ngIf="this.ROMMID">
+        <ion-button  (click)="updateroom()" color="success">
+          Update Room
+         </ion-button>
+        </h1>
+        <h1 *ngIf="this.ROMMID">
+          <ion-button  (click)="new()" color="success">
+            Add new Room
+           </ion-button>
+          </h1>
        </div>
       </form>
 
@@ -73,9 +158,11 @@
     <br>
     <br>
     <br>
+    <h1 *ngIf="!this.ROMMID">
     <ion-button size="meduim" [disabled]="form.invalid" (click)="save()" color="primary" type="submit"
     expand="block">Save ! &nbsp;
     <ion-spinner *ngIf="loading">
     </ion-spinner>
   </ion-button>
+  </h1>
 </ion-content>

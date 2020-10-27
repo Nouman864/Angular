@@ -50,7 +50,7 @@ multipleImages = [];
   flatid: any;
   flatcity: any;
   url: any;
-imges=[];   
+  img = [];
 secure_url:any;
   tableno: any;
   rom: [];
@@ -87,13 +87,14 @@ secure_url:any;
       this.http.post( 'http://localhost:3000/upload_images', formData).subscribe(
         
         async (data) =>{
-          //console.log(data);
-        this.images = data['image'];
-        console.log(this.images);
-        if(this.images)
+          console.log(data);
+          this.img = (data['image']);
+        
+      
+        if(data)
         {
           const toast = await this.toastController.create({
-            message: `${name} Imagehas been added successfully.`,
+            message: `${name} Image has been added successfully.`,
             duration: 3500
           });
           toast.present();
@@ -122,6 +123,15 @@ secure_url:any;
       console.log('got flat', this.data);
       this.form.patchValue(this.data);
       this.id = this.data._id;
+      this.form.patchValue({name : this.data.name});
+      this.form.patchValue({city : this.data.city});
+      this.form.patchValue({number : this.data.number});
+      this.form.patchValue({Location : this.data.Location});
+      this.form.patchValue({check: this.data.check});
+      this.form.patchValue({about: this.data.about});
+      this.form.patchValue({rooms: this.data.rooms});
+      this.form.patchValue({email: this.data.email});
+          this.img = this.data.image;
     }
     })
   
@@ -140,51 +150,35 @@ secure_url:any;
   formInitializer() {
     
     this.form = this.formBuilder.group({
-      name : [null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
+      name : [null, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
-      amount: [null, [Validators.required]],
+      amount: [null, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
       check: [null, [Validators.required]],
-     number: [null, [Validators.required]],
-      Location: [null, [Validators.required]]
+      number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
+      Location: [null, [Validators.required]],
+      images:  [null, [Validators.required]],
+      rooms:  [null, [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'),Validators.email]],
+      about : [null, [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
       });
       
   }
   onLocationPicked(location: PlaceLocation)
   {
     console.log(location);
-      this.form.patchValue({Location : location.address});
-      //this.form.patchValue({Lat : location.lat});
-      // this.form.patchValue({Lng : location.lng});
-       
+
+    let n = `${location.address}`.split(",");
+          
+   
+          const loc =`${location.address}`. split(",")[n.length - 2];
+         //const loc = location.address.slice(location.address.lastIndexOf(',') + 2);
+          console.log(loc);
+     this.form.patchValue({Location : location.address});
+      this.form.patchValue({city : loc});
   }
 
 
-  facility()
-  {
-    
-    let avail = this.faci;
-    this.tabll.push(
-        avail
-     );
-     this.faci = '';
-    console.log(this.tabll);
-  }
-
-
-
-//  async pay()
-//   {
-//     let owner;
-//     const ownerId =  await this.authService. getTokenFromStorage();
-//     const decoded = jwt_decode(ownerId );
-//     try{
-//       const decoded = jwt_decode(ownerId );
-//       owner = decoded['data']._id;
-//     }
-//     catch(ex){
-//     }
-    
-//   }
+  
   async addNew() {
     console.log(this.data);
    let owner;
@@ -201,9 +195,8 @@ secure_url:any;
     const obj =  this.form.value;
     console.log(obj);
     obj['owner'] = owner;
-    obj['image'] = this.images;
-    obj['roomno'] = this.order;
-    obj['facility'] = this.tabll;
+    obj['image'] = this.img;
+    
 
 
     const observable = await this.booksService.addNewBook(
@@ -222,6 +215,7 @@ secure_url:any;
         toast.present();
         this.loading = false;
         this.form.reset();
+        this.router.navigate(['/books']);
         //optional
 
       },
@@ -236,6 +230,7 @@ secure_url:any;
     console.log(this.id);
    const obj =  this.form.value
     obj['_id'] = this.id;
+    obj['image'] = this.img;
     const observable = await this.booksService.updateBook(
        obj
     );
@@ -253,6 +248,7 @@ secure_url:any;
         this.loading = false;
         this.form.reset();
         //optional
+        this.router.navigate(['/books']);
 
         this.modalCtrl.dismiss();
       },

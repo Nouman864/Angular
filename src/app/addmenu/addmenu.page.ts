@@ -321,7 +321,7 @@ async addNew() {
        this.loading = false;
        this.form.reset();
        this.router.navigate(['/addtable'],{
-        queryParams:{data:JSON.stringify(this.id )}
+        queryParams:{data:JSON.stringify(this.idd )}
     });
 
      },

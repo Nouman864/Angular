@@ -201,6 +201,14 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+  public async deletereservetable(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/bookedtables/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
   
 
   //////////////////////////// ROOMS//////////////////////
@@ -228,14 +236,7 @@ public async getAllHotels(): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
-  public async updateroom(data): Promise<any> {
-    const url =loginConfig.getPath() + `/rooms/${data._id}`;
-    const token = await this.authService.getTokenFromStorage();
-
-  return this.http.put(url, data, {
-    headers: new HttpHeaders().set('Authorization', token)
-  });
-  }
+  
 
   public async reservedRoom(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/bookedrooms/add';
@@ -366,6 +367,17 @@ return this.http.post(url, data, {
   headers: new HttpHeaders().set('Authorization', token)
 });
 }
+
+
+
+public async deleteroom(data): Promise<any> {
+  const url =loginConfig.getPath() + '/rooms/del';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
 /////////////////TABLE///////////////////
 
 
@@ -406,6 +418,24 @@ public async gettable(tablid: string): Promise<any> {
     headers: new HttpHeaders().set('Authorization', token)
   });
 }
+
+public async getrentflats(rent: string): Promise<any> {
+  const url = loginConfig.getPath() + '/rentflats/' + rent;
+  const token = await this.authService.getTokenFromStorage();
+
+  return this.http.get(url, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -510,6 +540,45 @@ public async gettable(tablid: string): Promise<any> {
 
 
 
+ ////////////////////ROOOMXS/////////////////////////////////////////
+
+
+
+
+ public async newroom(data): Promise<any> {
+  const url =loginConfig.getPath() + `/rooms/${data._id}`;
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.put(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+
+
+
+
+
+ public async updateroom(data): Promise<any> {
+  const url =loginConfig.getPath() + '/rooms/data';
+  const token = await this.authService.getTokenFromStorage();
+
+return this.http.post(url, data, {
+  headers: new HttpHeaders().set('Authorization', token)
+});
+}
+
+
+
+
+
+  public async checktable(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedtables/check';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
 
 
   public async deleteresturant(id: string): Promise<any> {
@@ -521,7 +590,54 @@ public async gettable(tablid: string): Promise<any> {
     });
   }
   
+  public async deleteflattt(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/rentflats/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+
+  
+  public async emailnotify(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/rentflats/notify';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
 
 
 
+  ///////////////////////CLIENT PROFILE/////////////////////////////////////
+  public async getclient(ownerr: string): Promise<any> {
+    const url = loginConfig.getPath() + '/clients/' + ownerr;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+
+  public async getviewflat(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/rentflats/flat';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async  getclientreservedrm(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookedrooms/room';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+ 
 }

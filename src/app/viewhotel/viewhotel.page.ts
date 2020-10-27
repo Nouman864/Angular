@@ -20,11 +20,12 @@ export class ViewhotelPage implements OnInit {
 
   c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
 
-  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-half' ; n6;n7;
+  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-outline' ; n6;n7;
 star: number;
   ht: any;
   value: any;
   owner: any;
+  email: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,private dataService:DataService,
     private booksService: BooksService,private platform: Platform) 
@@ -57,6 +58,8 @@ star: number;
       this.ht = this.data._id;
       this.hotelowner = this.data.owner;
       this.form.patchValue(this.data);
+      this.form.patchValue(this.data.email);
+      this.email = this.data.email;
     }
   
    this.gt();
@@ -79,6 +82,7 @@ star: number;
       name : [null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
      number: [null, [Validators.required]],
+     email: [null, [Validators.required,Validators.email]],
       Location: [null, [Validators.required]],
       facility: [null, [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
       images: [null, [Validators.required]],
@@ -119,48 +123,73 @@ let ownerr;
   clickFirst(item: any) {
     this.star = item;
     console.log('this.stars', this.star);
-  this.c1 = '';
-  this.n1 = 'star'; 
-  }
-  click2nd(item: any) {
+    this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+    this.c4 = ''; this.c5 = '';
+ this.n1 = 'star'; 
+ }
+ click2nd(item: any) {
   this.star = item;
   console.log('this.stars', this.star);
-     this.c1 = ''; this.c2 = ''; 
+     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+     this.c4 = ''; this.c5 = '';
      this.n1 = 'star'; this.n2 = 'star'; 
    }
-   click2half(item: any) {
-    this.star = item;
-    console.log('this.stars', this.star);
-       this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-       this.c4 = ''; 
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half'; 
-     }
    click3rd(item: any) {
      this.star = item;
      console.log('this.stars', this.star);
      
      this.c1 = '';    this.c2 = '';
-     this.c3 = '';   
+     this.c3 = ''; this.c5 = '';
      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
         
+     
+    
      }
-     click3half(item: any) {
-      this.star = item;
-      console.log('this.stars', this.star);
-      this.c1 = '';    this.c2 = '';
-      this.c3 = '';   this.c4 = '';
-      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
-         
-      }
-     clickForth(item: any) {
+     click4th(item: any) {
          this.star = item;
        console.log('this.stars', this.star);
        this.c1 = '';    this.c2 = '';
        this.c3 = '';    this.c4 = '';
+       this.c5 = '';
        this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
-  
+
      
        }
+       click5th(item: any) {
+        this.star = item;
+      console.log('this.stars', this.star);
+      this.c1 = '';    this.c2 = '';
+      this.c3 = '';    this.c4 = '';
+      this.c5 = '';
+      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star'; this.n5 = 'star';
+
+    
+      }
+      click2half(item: any)
+      {
+        this.star = item;
+        console.log('this.stars', this.star);
+           this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+           this.c4 = '';  this.c5 = ''; 
+           this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half';
+         }
+
+         click3half(item: any) {
+          this.star = item;
+          console.log('this.stars', this.star);
+          this.c1 = '';    this.c2 = '';
+          this.c3 = '';   this.c4 = '';  this.c5 = '';
+          this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+             
+          }
+          click4half(item: any) {
+            this.star = item;
+            console.log('this.stars', this.star);
+            this.c1 = '';    this.c2 = '';
+            this.c3 = '';   this.c4 = '';  this.c5 = '';
+            this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';this.n5 = 'star-half';
+               
+            }
 
 ///////////////////// GET ROOM/////////////////////
   
@@ -188,6 +217,7 @@ let ownerr;
    let ob = {};
    ob['room'] = this.rooms;
    ob['owner'] = this.hotelowner;
+   ob['email'] = this.email;
    this.dataService.saveroom(ob);
     this.router.navigateByUrl('/bookroom');
 }

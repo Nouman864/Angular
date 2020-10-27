@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-booktable',
@@ -22,7 +23,7 @@ export class BooktablePage implements OnInit {
   qr: any;
   seltable: any[];
 
-  constructor(private booksService: BooksService,private barcodeScanner: BarcodeScanner,private alertCtrl: AlertController,private formBuilder: FormBuilder
+  constructor(private booksService: BooksService,private dataService: DataService,private barcodeScanner: BarcodeScanner,private alertCtrl: AlertController,private formBuilder: FormBuilder
     ,private router: Router,private route: ActivatedRoute, private authService: AuthService)
    {
     
@@ -30,50 +31,30 @@ export class BooktablePage implements OnInit {
   
   form: FormGroup;
 
-  ngOnInit() {
+  async ngOnInit() {
 this.formInitializer();
-this.route.queryParams.subscribe((params)=>{
-  this.data = JSON.parse(params.data);
-  console.log(this.data.rest);
-  console.log(this.data.id);
-  this.table =[];
-  for(let i =0; i<this.data.rest.length; i++)
-  {
-  this.table.push(this.data.rest[i].Ta[0].Table);
-  } 
-  console.log(this.table[0].length);
-  this.seltable = [];
-  for(let j =0; j<this.table[0].length; j++)
-  {
-    this.seltable.push(this.table[0][j])
-  }
-  console.log(this.seltable);
-  })
+this.data;
+    await this.dataService.getreserveid().then((val)=>
+    {
+     this.data = val;
+    });
+  console.log(this.data);
+
+
+  this.form.patchValue({capacity: this.data.capacity});
+  this.form.patchValue({type: this.data.type});
+
   }
   formInitializer() {
     this.form = this.formBuilder.group({
-    partysize  : [null, [Validators.required]],
+    type  : [null, [Validators.required]],
+    capacity  : [null, [Validators.required]],
     date : [null, [Validators.required]],
     time  : [null, [Validators.required]]
        });
 }
 
-booked() 
-  {
-    
-    this. array =[];
-    for (var i = 0; i < this.seltable.length; i++)
-    {
-      if(this.seltable[i].checked === true)
-      {
-       this. array.push(
-          this.seltable[i]
-        )
-      }
-    }
-    console.log(this.array);
-   
-  }
+
  async addNew() {
   let clientid;
   const ownerId =  await this.authService. getTokenFromStorage();
@@ -84,57 +65,24 @@ booked()
   }
   catch(ex){
   }
-  let ob =  this.form.value;
-  let dt =   ob.date;
-  let  tm =   ob.time;
-  let size = ob.partysize;
-  console.log(tm);
-  console.log(size);
-
   
-  const adtable =[];
-    adtable.push({
-      date: dt,
-      time: tm,
-        Booked: this.array
-   })
-  console.log(adtable);
+
    const obj =  this.form.value;
-   obj['Table'] = adtable;
-   obj['partysize'] = size;
    obj['clientid'] = clientid;
+   obj['restid'] =  this.data.rest;
+   obj['tableno'] =   this.data.tabelno;
    const observable = await this.booksService.reservedTable(
      obj
    );
    observable.subscribe(
      async data => {
-        if(data['message'] == "table already booked")
-       {
-       
-        window.alert('Table alraedy reserved please check another');
-       }
-       else{
-       console.log('got response from server', data);
-        let tb = data.result.Table[0].Booked[0].tableno;
-       this.loading = false;
-       window.alert('Your Table has booked:'+ tb);
-       this.form.reset();
-       this.bookedarray = [];
-       for(let i =0; i<data.result.Table[0].Booked.length; i++)
-       {
-            this.bookedarray.push(data.result.Table[0].Booked[i].tableno)
-       }
-       console.log(this.bookedarray);
-       this.Encode();
-       this.router.navigate(['/paymentprocess'],{
-        queryParams:{data:JSON.stringify(this.data.id)}
-    });
-       }
+        
+      window.alert('Your table has been booked');
 
      },
      error => {
        this.loading = false;
-       window.alert('Table alraedy reserved please check another');
+       
        console.log('error', error);
      }
    );

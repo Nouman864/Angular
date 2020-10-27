@@ -1,0 +1,182 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="books"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">View Flat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+ <ion-content text-justify="top">
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          
+          <div class="ion-padding">
+            <label class="ion-text-lg-center" igxLabel for="firstname">Name:</label> 
+            <br>
+            <ion-item>
+       <ion-input name="firstname" readonly type="text" formControlName="name" type="text" placeholder="Enter property name"></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">No of Rooms:</label> 
+            <br>
+          <ion-item>
+            <ion-input name="text" readonly type="text" formControlName="rooms" type="text" placeholder="room"></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">Rent:</label> 
+            <br>
+          <ion-item>
+            <ion-input name="text" readonly type="text" formControlName="amount" type="text" placeholder="Enter Rent per MOnth"></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">Contact No:</label> 
+            <br>
+          <ion-item>
+            <ion-input name="text" readonly type="text" formControlName="number" type="tel"  minLength="11" maxLength="11" placeholder="Contact "></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">Email:</label> 
+            <br>
+          <ion-item>
+            <ion-input name="email"readonly type="text"  formControlName="email" type="email" placeholder="your@email.com"></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">Location:</label> 
+            <br>
+          
+          <ion-item>
+            <ion-input name="text" readonly type="text" formControlName="Location" type="text" placeholder=" Location"></ion-input>
+          </ion-item>
+          <label class="ion-text-lg-center" igxLabel for="firstname">City:</label> 
+          <br>
+          <ion-item>
+               <ion-input name="text" readonly type="text" formControlName="city" type="text" placeholder=" City"></ion-input>
+            </ion-item>
+            <label class="ion-text-lg-center" igxLabel for="firstname">About:</label> 
+            <br>
+            <ion-item>
+              <ion-textarea rows="5" cols="5" readonly type="text"  formControlName="about" type="text" placeholder="About Flat..."></ion-textarea>
+            </ion-item>
+              
+          </div>
+          
+        
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+
+  
+        <h1 *ngIf="value == '2'" class="ion">
+          {{this.click2nd(value)}} 
+               
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+        
+        <h1 *ngIf="value == '3'" class="c" class="ion">
+          
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+        <h1 *ngIf="value == '4'"class="ion">
+          {{this.click4th(value)}} 
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+        <h1 *ngIf="value == '5'"class="ion">
+          {{this.click5th(value)}} 
+          <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+          <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+          <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+          <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+          <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+          <ion-label>{{value}}</ion-label>
+        </h1>
+        <h1 *ngIf="value > '3.1' && value < '4'" class="ion">
+          {{this.click3half(value)}}  
+        <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+        <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+        <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+        <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+        <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+        <ion-label>{{value}}</ion-label>
+        </h1>
+         
+          <h1 *ngIf="value > '2.1' && value < '3'" class="ion">
+            {{this.click2half(value)}} 
+            <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+            <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+            <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+            <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+            <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+            <ion-label>{{value}}</ion-label>
+          </h1>
+         
+          <h1 *ngIf="value > '4.1' && value < '5'" class="ion">
+            {{this.click4half(value)}} 
+            <ion-icon size="large" color="{{c1}}" readonly type="text" name="{{n1}}"></ion-icon>
+            <ion-icon size="large" color="{{c2}}" readonly type="text"  name="{{n2}}"></ion-icon>
+            <ion-icon size="large" color="{{c3}}" readonly type="text" name="{{n3}}"></ion-icon>
+            <ion-icon size="large" color="{{c4}}" readonly type="text"  name="{{n4}}"></ion-icon>
+            <ion-icon size="large" color="{{c5}}" readonly type="text"  name="{{n5}}"></ion-icon>
+            <ion-label>{{value}}</ion-label>
+          </h1>
+  <div class="ion-padding">
+              
+               
+  
+    <ion-row >
+        <ion-card  class="card-center">
+       
+            <ion-card-content  *ngFor="let image of images" >
+              
+                <img src= {{image}}>
+                
+              </ion-card-content>
+           </ion-card>
+          
+    </ion-row>
+    </div>
+    <br>
+    <ion-card class="ion-text-lg-cente">
+      <ion-card-header>
+       <ion-card-title  class="ion-text-lg-center">Rent</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngFor="let data of rent">
+        
+        <ion-list>
+          <ion-text class="color">
+            Flat Name: {{data.name}}
+          </ion-text>
+
+         <br>
+         <ion-text class="color">
+          Date: {{data.date}}
+        </ion-text>
+
+    
+        </ion-list> 
+        <ion-button slot="end" fill="clear"  (click)="delete(data)"  color="success">
+          Remove
+          </ion-button>       
+      </ion-card-content>
+    <br>
+    <br>
+    </ion-card>
+
+
+     
+</ion-content>

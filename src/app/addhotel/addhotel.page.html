@@ -35,7 +35,7 @@
           </div>
           <div class="ion-padding">
             <ion-item>
-                <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="6" placeholder="Hotel Name"></ion-input>
+                <ion-input name="firstname" formControlName="name" type="text"  placeholder="Hotel Name"></ion-input>
             </ion-item>
             <ion-item>
               <ion-input name="number" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact No"></ion-input>
@@ -46,20 +46,15 @@
               </ion-col>
             </ion-row>
             <ion-item>
-              <ion-input name="text" formControlName="Location" type="text" placeholder="location"></ion-input>
+              <ion-input name="text" readonly type ="text" formControlName="Location" type="text" placeholder="location"></ion-input>
             </ion-item>
-            <ion-item>
-                <ion-label>City</ion-label>
-                <ion-select formControlName="city" type="text"  okText="Okay" cancelText="Dismiss">
-                  <ion-select-option value="Islamabad">Islamabad</ion-select-option>
-                  <ion-select-option value="Lahore">Lahore</ion-select-option>
-                  <ion-select-option value="Karachi">Karachi</ion-select-option>
-                  <ion-select-option value="Sargodha">Sargodha</ion-select-option>
-                </ion-select>
+            
+              <ion-item>
+                <ion-input name="text" readonly type ="text" formControlName="city" type="text" placeholder="city"></ion-input>
               </ion-item>
-              <!-- <ion-item>
-                <ion-input name="text" formControlName="facility" type="text" placeholder="expertness"></ion-input>
-              </ion-item> -->
+              <ion-item>
+                <ion-input name="email" formControlName="email" type="email" placeholder="your@email.com"></ion-input>
+              </ion-item>
               <br>
                 <br>
               <div class ="container">

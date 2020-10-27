@@ -24,6 +24,7 @@ export class ShowmenuPage implements OnInit {
   dnner: any;
   launh: any;
   dataa: Event;
+  rid: any;
 
   constructor(private userService:UserService,private dataService:DataService,private booksService :BooksService,private alertCtrl: AlertController,private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private authService: AuthService) { }
   form: FormGroup;
@@ -60,13 +61,13 @@ export class ShowmenuPage implements OnInit {
           data => {
             this.resturants = data.data;
             this.loading = false;
-          console.log(this.resturants);
-            // this.brek = data.data[0].AvailableTime[0].breakfast;
-            // this.launh = data.data[0].AvailableTime[0].launch;
-            // this.dnner = data.data[0].AvailableTime[0].dinner;
-            // console.log(this.brek);
-            // console.log(this.launh);
-            // console.log(this.dnner);
+                this.rid = this.resturants[0].id;
+          this.brek = this.resturants[0].breakfast;
+          this.launh = this.resturants[0].launch;
+          this.dnner = this.resturants[0].dinner;
+          console.log(this.brek);
+          console.log(this.launh);
+          console.log(this.dnner);
         
           }, 
           err => {
@@ -75,18 +76,18 @@ export class ShowmenuPage implements OnInit {
         ); 
       }
 
-      menu(event:Event)
+     
+
+      table(event:Event)
       {
         const ob = {};
-        ob['rest'] = this.resturants;
-        ob['id'] = this.data.owner;
+      
+        ob['id'] = this.data;
         this.dataa = event;
         console.log(this.dataa);
-        this.router.navigate(['/booktable'],{
-            queryParams:{data:JSON.stringify(ob)}
-        });
+        this.dataService.savetableid(ob);
+    this.router.navigateByUrl('/showtable');
       }
-
   }
 
 

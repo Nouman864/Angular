@@ -170,6 +170,30 @@ const routes: Routes = [
     path: 'addtable',
     loadChildren: () => import('./addtable/addtable.module').then( m => m.AddtablePageModule)
   },
+  {
+    path: 'resturantprofile',
+    loadChildren: () => import('./resturantprofile/resturantprofile.module').then( m => m.ResturantprofilePageModule)
+  },
+  {
+    path: 'showtable',
+    loadChildren: () => import('./showtable/showtable.module').then( m => m.ShowtablePageModule)
+  },
+  {
+    path: 'flatprofile',
+    loadChildren: () => import('./flatprofile/flatprofile.module').then( m => m.FlatprofilePageModule)
+  },
+  {
+    path: 'rentservice',
+    loadChildren: () => import('./rentservice/rentservice.module').then( m => m.RentservicePageModule)
+  },
+  {
+    path: 'onlineflatpay',
+    loadChildren: () => import('./onlineflatpay/onlineflatpay.module').then( m => m.OnlineflatpayPageModule)
+  },
+  {
+    path: 'hotelprofile',
+    loadChildren: () => import('./hotelprofile/hotelprofile.module').then( m => m.HotelprofilePageModule)
+  },
   
   
   

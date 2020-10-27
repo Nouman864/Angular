@@ -25,11 +25,11 @@
     <ion-card-content *ngFor="let data of info; let i = index" >
       <ion-list>
           <ion-row >
-              <ion-card  class="card-center">
+              <ion-card  class="card-center" >
              
-                  <ion-card-content  *ngFor="let image of images" >
+                  <ion-card-content *ngFor="let img of data.image[0]; let i = index">
                     
-                      <img src= {{image}}>
+                      <img src= {{img}}>
                       
                     </ion-card-content>
                  </ion-card>

@@ -92,6 +92,9 @@ multipleImages = [];
   data:any;
   loading = false;
   
+  refresh(){
+  
+  }
   ionViewWillEnter() {
     this. ngOnInit();
 }
@@ -149,12 +152,21 @@ multipleImages = [];
   }
   onLocationPicked(location: PlaceLocation)
   {
+
+    if(!location)
+    {
+       return ;
+    }
     console.log(location);
-          //  const loc =`${location.address}`. split(",")[2];
-           const loc = location.address.slice(location.address.lastIndexOf(',') + 1);
+
+     let n = `${location.address}`.split(",");
+            console.log(n.length - 1);
+    
+           const loc =`${location.address}`. split(",")[n.length - 2];
+          //const loc = location.address.slice(location.address.lastIndexOf(',') + 2);
            console.log(loc);
       this.form.patchValue({Location : location.address});
-         this.form.patchValue({city : loc});
+       this.form.patchValue({city : loc});
       // this.form.patchValue({Lng : location.lng});
       // let output = `${numbs}`.split('');
   }

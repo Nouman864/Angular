@@ -3,9 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button  defaultHref="getresturant"></ion-back-button>
     </ion-buttons>
-    <!-- <ion-button slot="end" (click)="resturant(this.idd)" color="success">
-      Update Menu 
-    </ion-button> -->
+    
+    <button matTooltip="Refresh" mat-icon-button (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+   
     <ion-title class="ion-text-center">Add Services</ion-title>
   </ion-toolbar>
 </ion-header>

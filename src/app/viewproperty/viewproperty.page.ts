@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import { RatingComponent } from './rating/rating.component';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 
 @Component({
   selector: 'app-viewproperty',
@@ -20,14 +21,18 @@ export class ViewpropertyPage implements OnInit {
   ownerid: any;
   amount: any;
   rm: Event;
-  c1 = '#b8860b';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
+  c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; 
 
-  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-half' ; n6;n7;
+  n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-outline' ; n6;n7;
 star: number;
   value: any;
   faci: any;
+  owner: any;
+  name: any;
+  email: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,
+    private dataService:DataService,
     private booksService: BooksService,private platform: Platform) 
     {
 
@@ -40,23 +45,25 @@ star: number;
   loading = false;
   images:any;
   @Input() flat;
-  ngOnInit() {
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-    console.log(params);
-    this.data = JSON.parse(params.data);
+    this.data;
+    await this.dataService.getflat().then((val)=>
+    {
+     this.data = val;
+    });
     if (this.data) {
       console.log('got flat', this.data);
       this.form.patchValue(this.data);
 
-      this.faci = this.data.facility;
+      this.amount = this.data.amount;
+      this.name = this.data.name;
+      this.email = this.data.email;
+      this.owner = this.data.owner;
+
     }
-    console.log(this.faci);
+    
        this.irt = this.data._id;
-    
-       //console.log(this.data);
-    
-    })
    console.log(this.data.image[0]);
     this.images =[];
     for (var i = 0; i < this.data.image.length; i++)
@@ -72,14 +79,16 @@ star: number;
   formInitializer() {
     
     this.form = this.formBuilder.group({
-      _id: [null],
-      name : [null, [Validators.required]],
-      amount : [null, [Validators.required]],
+      name : [null, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
-     number: [null, [Validators.required]],
-      Location :  [null, [Validators.required]],
-      facility :  [null, [Validators.required]],
-      image :  [null],
+      amount: [null, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
+      check: [null, [Validators.required]],
+      number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
+      Location: [null, [Validators.required]],
+      images:  [null, [Validators.required]],
+      rooms:  [null, [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'),Validators.email]],
+      about : [null, [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
       });
   } 
   
@@ -130,64 +139,88 @@ star: number;
    clickFirst(item: any) {
     this.star = item;
     console.log('this.stars', this.star);
-  this.c1 = '';
-  this.n1 = 'star'; 
-  }
-  click2nd(item: any) {
+ this.c1 = '';
+ this.n1 = 'star'; 
+ }
+ click2nd(item: any) {
   this.star = item;
   console.log('this.stars', this.star);
-     this.c1 = ''; this.c2 = ''; 
-     this.n1 = 'star'; this.n2 = 'star'; this.n3; this.n4;
+     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+     this.c4 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; 
    }
-   click2half(item: any) {
-    this.star = item;
-    console.log('this.stars', this.star);
-       this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-       this.c4 = ''; 
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half'; 
-     }
    click3rd(item: any) {
      this.star = item;
      console.log('this.stars', this.star);
      
      this.c1 = '';    this.c2 = '';
-     this.c3 = '';   
-     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+     this.c3 = ''; 
+     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
         
+     
+    
      }
-     click3half(item: any) {
-      this.star = item;
-      console.log('this.stars', this.star);
-      this.c1 = '';    this.c2 = '';
-      this.c3 = '';   this.c4 = '';
-      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
-         
-      }
-     clickForth(item: any) {
+     click4th(item: any) {
          this.star = item;
        console.log('this.stars', this.star);
        this.c1 = '';    this.c2 = '';
        this.c3 = '';    this.c4 = '';
        this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
-  
+
      
        }
+       click5th(item: any) {
+        this.star = item;
+      console.log('this.stars', this.star);
+      this.c1 = '';    this.c2 = '';
+      this.c3 = '';    this.c4 = '';
+      this.c5 = '';
+      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star'; this.n5 = 'star';
+
+    
+      }
+      click2half(item: any)
+      {
+        this.star = item;
+        console.log('this.stars', this.star);
+           this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+           this.c4 = '';  this.c5 = ''; 
+           this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half'; 
+         }
+
+         click3half(item: any) {
+          this.star = item;
+          console.log('this.stars', this.star);
+          this.c1 = '';    this.c2 = '';
+          this.c3 = '';   this.c4 = '';  this.c5 = '';
+          this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+             
+          }
+          click4half(item: any) {
+            this.star = item;
+            console.log('this.stars', this.star);
+            this.c1 = '';    this.c2 = '';
+            this.c3 = '';   this.c4 = '';  this.c5 = '';
+            this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';this.n5 = 'star-half';
+               
+            }
 
   async rent() {
-    let owner;
+       let ownerr
      const ownerId =  await this.authService. getTokenFromStorage();
   
      try{
        const decoded = jwt_decode(ownerId );
-       owner = decoded['data']._id;
+         ownerr = decoded['data']._id;
      }
      catch(ex){
      }
      const obj ={};
      
      obj['owner'] = this.irt;
-     obj['name'] = this.nam;
+     obj['name'] = this.name;
      obj['date'] = this.d;
+     obj['clientid'] = ownerr;
      const observable = await this.booksService.addrent(
        obj
      );
@@ -210,12 +243,12 @@ star: number;
          toast.present();
          this.loading = false;
          const ob ={};
-         ob['ownerid'] = this.ownerid;
-         //ob['amount'] = this.amount;
-         this.router.navigate(['/paymentprocess'],{
-          queryParams:{data:JSON.stringify(ob)}
-      });
-         this.Review(this.irt);
+         ob['ownerid'] = this.owner;
+         ob['amount'] = this.amount;
+         ob['email'] = this.email;
+       this.dataService.rentflat(ob);
+       this.router.navigateByUrl('/rentservice');
+         this.Review(this.data);
          }
          //this.form.reset();
          //optional

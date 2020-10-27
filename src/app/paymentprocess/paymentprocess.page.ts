@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
- 
-//import { StripeService, StripeCardComponent } from 'ngx-stripe';
-//import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../sdk/custom/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +9,7 @@ import { BooksService } from '../sdk/custom/books.service';
 import { AuthService } from '../sdk/core/auth.service';
 import { File } from '@ionic-native/file/ngx';
 import * as jwt_decode from 'jwt-decode';
+import { DataService } from '../sdk/custom/data.services';
 @Component({
   selector: 'app-paymentprocess',
   templateUrl: './paymentprocess.page.html',
@@ -25,23 +24,26 @@ export class PaymentprocessPage implements OnInit {
   images: any[];
   detail: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
-    private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
+    private booksService: BooksService, private dataService:DataService,private file: File,private platform: Platform,private http: HttpClient,
     private userService:UserService) 
     {
                
     }
   registerForm: FormGroup;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-      //console.log(params);
-      this.detail = JSON.parse(params.data);
-      if (this.detail) {
+    this.detail;
+    await this.dataService.getflatpay().then((val)=>
+    {
+      this.detail = val;
+    });
+      if (this.detail) 
+      {
         console.log(this.detail);
         //this.customerid = this.cd;
       }
-      })
+      
   }
 
   formInitializer() {
@@ -76,9 +78,9 @@ async proceed()
         const objt ={};
         objt['cid'] = jsonObj;
         objt['detaill'] = this.detail;
-        this.router.navigate(['/paymenttoken'],{
-          queryParams:{data:JSON.stringify(objt)}
-      });
+        this.dataService.flattoken(objt);
+      this.router.navigateByUrl('/paymenttoken');
+      
       },
       error => {
         this.loading = false;

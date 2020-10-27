@@ -1,0 +1,25 @@
+ion-content {
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg,  rgb(235, 142, 66), rgb(231, 50, 50));
+  }
+  ion-item{
+    --background: transparent;
+  }
+  ion-input{
+    background-color: transparent;
+  }
+  ion-card-content
+  {
+     
+    background-color: transparent;
+  }
+  ion-list
+  {
+    background-color: transparent;
+  }
+  .color
+  {
+     color: black;
+  }

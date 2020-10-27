@@ -92,5 +92,64 @@ public async getroom() {
   }
 
 
-  
+  public async savetableid(token) {
+    this.storage.set('savetableid', token);
+  }
+
+  public async gettableid() {
+    return await this.storage.get('savetableid');
+  }
+
+  public async savereserveid(token) {
+    this.storage.set('savereserveid', token);
+  }
+
+  public async getreserveid() {
+    return await this.storage.get('savereserveid');
+  }
+
+  public async saveflat(token) {
+    this.storage.set('saveflat', token);
+  }
+
+  public async getflat() {
+    return await this.storage.get('saveflat');
+  }
+
+  public async rentflat(token) {
+    this.storage.set('rentflat', token);
+  }
+
+
+  public async getrentflat() {
+    return await this.storage.get('rentflat');
+  }
+
+
+  public async flatpay(token) {
+    this.storage.set('flatpay', token);
+  }
+  public async getflatpay() {
+    return await this.storage.get('flatpay');
+  }
+   
+
+  public async flattoken(token) {
+    this.storage.set('flattoken', token);
+  }
+
+
+  public async getflattoken() {
+    return await this.storage.get('flattoken');
+  }
+
+
+  public async flatonlinepay(token) {
+    this.storage.set('flatonlinepay', token);
+  }
+
+
+  public async getflatonlinepay() {
+    return await this.storage.get('flatonlinepay');
+  }
 }

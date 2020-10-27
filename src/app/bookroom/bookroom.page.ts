@@ -45,6 +45,7 @@ export class BookroomPage implements OnInit {
   booked: any[];
   hotel: any;
   books: any;
+  email: any;
   
   constructor(private booksService: BooksService,private dataService:DataService,private barcodeScanner: BarcodeScanner,private alertCtrl: AlertController,private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private authService: AuthService)
    {
@@ -71,11 +72,13 @@ export class BookroomPage implements OnInit {
         console.log(this.data.length);
         this.hotelowner = this.data.owner;
         this.info = this.data.room[0].Roomsinfo;
-          this.pic = this.data.room[0].Roomsinfo[0].image;
           console.log(this.pic);
           this.hotel = this.data.room[0].hotelid;
           console.log(this.hotel);
-          console.log(this.info);
+          console.log('this = ',this.info);
+          console.log('this = ',this.info);
+          this.email = this.data.email;
+
 
       }
      
@@ -87,15 +90,17 @@ export class BookroomPage implements OnInit {
     
      }
      console.log(this.booked);
-      // console.log(this.pic.length);
       // this.images =[];
-      // for (var i = 0; i < this.pic.length; i++)
+      // let j = 0;
+      // for (var i = 0; i < this.data.room[0].Roomsinfo.length; i++)
       //  {
         
-      //  this.images[i] = this.pic[i];
+      //         this.pic = this.data.room[0].Roomsinfo[i].image.length;
      
       // }
-      
+
+
+      // console.log(this.pic);
       this.Booked();
   }
   
@@ -169,6 +174,7 @@ reserve(i)
   ob['amount'] = charge;
   ob['hotelid'] = this.hotel;
   ob['owner'] = this.hotelowner;
+  ob['email'] = this.email;
 
   this.dataService.bookrom(ob);
   this.router.navigateByUrl('/reservedroom');
@@ -183,6 +189,7 @@ else
   ob['amount'] = charge;
   ob['hotelid'] = this.hotel;
   ob['owner'] = this.hotelowner;
+  ob['email'] = this.email;
   this.dataService.bookrom(ob);
   this.router.navigateByUrl('/reservedroom');
 }
