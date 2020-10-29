@@ -19,6 +19,7 @@ export class ClientcategoryPage implements OnInit {
   info: any;
   flat: any[];
   rom: any;
+  images: any[];
 
   constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,
     private modalController: ModalController,private alertController: AlertController) {}
@@ -90,11 +91,20 @@ Account() {
       data => {
         this.data = data.data;
         this.loading = false;
-        //console.log(this.data);
+        console.log(this.data);
         this. registerForm.patchValue({firstname: this.data.firstname});
         this. registerForm.patchValue({lastname: this.data.lastname});
         this. registerForm.patchValue({email: this.data.email});
-        
+
+
+        console.log(this.data.image.length);
+        this.images =[];
+        for (var i = 0; i < this.data.image.length; i++)
+         {
+          
+         this.images[i] = this.data.image[i];
+       
+        }
   
       }, 
       err => {

@@ -46,6 +46,12 @@ export class UserloginPage implements OnInit {
         
         console.log('got response from server', data);
         this.loading = false;
+      if(data.message == "User not registered")
+      {
+        window.alert('This User not registered');
+        return 0;
+      }
+        
         this.authService.saveTokenToStorage(data.token);
          this.router.navigateByUrl('/select-property');
       },

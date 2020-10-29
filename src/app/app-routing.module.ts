@@ -194,6 +194,22 @@ const routes: Routes = [
     path: 'hotelprofile',
     loadChildren: () => import('./hotelprofile/hotelprofile.module').then( m => m.HotelprofilePageModule)
   },
+  {
+    path: 'marraigehall',
+    loadChildren: () => import('./marraigehall/marraigehall.module').then( m => m.MarraigehallPageModule)
+  },
+  {
+    path: 'addhall',
+    loadChildren: () => import('./addhall/addhall.module').then( m => m.AddhallPageModule)
+  },
+  {
+    path: 'addhallmenu',
+    loadChildren: () => import('./addhallmenu/addhallmenu.module').then( m => m.AddhallmenuPageModule)
+  },
+  {
+    path: 'marriageprofile',
+    loadChildren: () => import('./marriageprofile/marriageprofile.module').then( m => m.MarriageprofilePageModule)
+  },
   
   
   

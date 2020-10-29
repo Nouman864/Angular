@@ -1,0 +1,44 @@
+.s {
+    font-size: 2em;
+    float: right;
+    margin-right: 30px;
+
+}
+.card-center{
+    width:25%; // adjust width on your ion-card suitable on your screen
+    display:block;
+    margin: 0 auto;
+    
+    
+}
+.welcome-card ion-img {
+    max-height: 35vh;
+    overflow: hidden;
+  }
+  .text
+  {
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  ion-content {
+    --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+  }
+  ion-toolbar{
+    --background: linear-gradient(180deg, rgb(233, 145, 145), rgb(168, 168, 76));
+  }
+  ion-item{
+    --background: transparent;
+  }
+  ion-input{
+    background-color: transparent;
+  }
+  ion-list
+  {
+    background-color:transparent;
+  }
+  .color
+  {
+    color: black;
+  }

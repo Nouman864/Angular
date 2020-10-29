@@ -6,8 +6,23 @@
   </ion-buttons>
 </ion-toolbar>
 </ion-header>
-
+                              
 <ion-content color="">
+
+
+  <div class="card">
+    <div class="header">
+      <div class="avatar" *ngFor="let image of images">
+      
+        
+                            
+          <img src= {{image}}>
+          
+        
+     
+      </div>
+    </div>
+  </div>
   <form [formGroup]="registerForm">
     <ion-grid>
       <ion-row color="justify-content-center">

@@ -36,8 +36,13 @@ hotel()
 {
   this.router.navigateByUrl('/gethotel');
 }
-Service() {
+hall()
+{
+  this.router.navigateByUrl('/marraigehall');
+}
 
+Service() {
+  
   this.loading = true;
  const loginData = this.registerForm.value;
  console.log('loginData', loginData);

@@ -27,7 +27,7 @@ export class BooksService {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
-
+  
   public async addNewBook(data: object): Promise<any> {
     const url = loginConfig.getPath() + '/flats/add';
     const token = await this.authService.getTokenFromStorage();
@@ -639,5 +639,70 @@ return this.http.post(url, data, {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
- 
+
+
+  ///////////////MARRAIGE HALL/////////////////////////////////
+  public async addNewmarriage(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/halls/add';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async addhallmenu(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hallmenus/add';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  
+  public async gethall(owner: string): Promise<any> {
+    const url = loginConfig.getPath() + '/halls/' + owner;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
+  public async gethalmenu(restrnid: string): Promise<any> {
+    const url = loginConfig.getPath() + '/hallmenus/' + restrnid;
+    const token = await this.authService.getTokenFromStorage();
+  
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  public async deletemarraige(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/halls/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  public async updatehall(data): Promise<any> {
+    const url =loginConfig.getPath() + `/halls/${data._id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+  return this.http.put(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+  }
+
+  public async  gethallmenu(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hallmenus/hal';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
 }

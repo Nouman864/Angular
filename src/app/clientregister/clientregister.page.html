@@ -15,6 +15,25 @@
             
           </div>
           <div class="ion-padding">
+
+            <ion-card class="ion-text-lg-cente">
+              <ion-card-header>
+               <ion-card-title  class="ion-text-lg-center">Profile image</ion-card-title>
+              </ion-card-header>
+              <div class ="container">
+                <input type="file" formControlName="images"  name="images" multiple (change)="selectMultipleImage($event)" />
+                <br>
+                <br>
+                <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
+                expand="block">Image Upload
+              </ion-button>
+              </div>
+            </ion-card>
+
+            
+
+              <br>
+            <br>
             <ion-item>
               <ion-input name="firstname" formControlName="firstname" type="name" placeholder="Firstname"></ion-input>
             </ion-item>

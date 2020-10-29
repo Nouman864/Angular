@@ -19,8 +19,53 @@ ion-content {
     
     background-color: transparent;
   }
+  .profile-picture {
+    border-radius: 50%;
+    text-align: center;
+  }
+  .profile {
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 30%;
+    padding-top: 5px;
+  }
   
   .color
   {
      color: black;
+  }
+  .card
+  {
+    margin:0 auto;
+
+  .header
+  {
+      height: 200px;
+
+      .avatar
+      {
+           width: 120px;
+           height: 117px;
+           position: relative;
+           margin: 0 auto;
+        img
+        {
+          width: 145px;
+           height: 140px;
+            display: block;
+            border-radius: 50%;
+            position: absolute;
+            bottom: calc(-1*(80px + 4px));
+             border: 8px solid #130000;
+           // border: 8px ;
+            background-color: #fff;
+        }
+  } 
+}
   }
