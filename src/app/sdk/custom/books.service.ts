@@ -704,5 +704,78 @@ return this.http.post(url, data, {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
+
+  public async edithalmenu(data: object): Promise<any> {
+    const url =loginConfig.getPath() + '/hallmenus/edit';
+    const token = await this.authService.getTokenFromStorage();
   
+  return this.http.post(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+  }
+  public async  getAllhalls(): Promise<any> {
+    const url = loginConfig.getPath() + '/halls';
+    const token = await this.authService.getTokenFromStorage();
+   
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  public async addreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hallratings/add';
+  const token = await this.authService.getTokenFromStorage();
+
+   return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+  public async bookhall(data: object): Promise<any> {
+    const url =loginConfig.getPath() + '/bookinghalls/book';
+    const token = await this.authService.getTokenFromStorage();
+  
+  return this.http.post(url, data, {
+    headers: new HttpHeaders().set('Authorization', token)
+  });
+  }
+
+
+  public async getbookedhall(owner: string): Promise<any> {
+    const url = loginConfig.getPath() + '/bookinghalls/' + owner;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  public async  getmarraigehal(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/bookinghalls/marraige';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+  
+
+  public async deletebookhall(id: string): Promise<any> {
+    const url = loginConfig.getPath() + `/bookinghalls/${id}`;
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
+
+  public async gethallreview(data: object): Promise<any> {
+    const url = loginConfig.getPath() + '/hallratings/hall';
+    const token = await this.authService.getTokenFromStorage();
+
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set('Authorization', token)
+    });
+  }
+
 }

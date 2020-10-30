@@ -84,7 +84,7 @@ secure_url:any;
         // formData.append('ID', this.flatid);
       }
      
-      this.http.post( 'http://localhost:3000/upload_images', formData).subscribe(
+      this.http.post( 'https://rehayash.herokuapp.com/upload_images', formData).subscribe(
         
         async (data) =>{
           console.log(data);
@@ -117,8 +117,11 @@ secure_url:any;
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
-    console.log(params);
-    this.data = JSON.parse(params.data);
+      if(params.data)
+      {
+        this.data = JSON.parse(params.data);
+      }
+   
     if (this.data) {
       console.log('got flat', this.data);
       this.form.patchValue(this.data);

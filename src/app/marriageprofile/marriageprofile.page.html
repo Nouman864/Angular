@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  defaultHref="marriagehall"></ion-back-button>
+      <ion-back-button  defaultHref="marraigehall"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">View Resturant</ion-title>
+    <ion-title class="ion-text-center">View Hall</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -124,13 +124,20 @@
 
          <ion-card-title  class="ion-text-lg-center">Booking Halls</ion-card-title>
         </ion-card-header>
-        <ion-card-content *ngFor="let data of tb">
+        <ion-card-content *ngFor="let data of bookhall">
           <ion-list>
-           table no: {{data.tableno}}
+            <ion-text class="color">
+           Hotel Name: {{data.Hallname}}
+           
+            </ion-text>
            <br>
+           <ion-text class="color">
             date: {{data.date}}
+           </ion-text>
             <br>
-            time: {{data.time}}
+            <ion-text class="color">
+            Total: {{data.total}}
+            </ion-text>
           </ion-list>  
           <ion-button slot="end" fill="clear"  (click)="delete(data)"  color="success">
             Remove

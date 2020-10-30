@@ -44,7 +44,7 @@ multipleImages = [];
     
     }
    
-    this.http.post<any>('http://localhost:3000/clientprofile', formData).subscribe(
+    this.http.post<any>('https://rehayash.herokuapp.com/clientprofile', formData).subscribe(
       
       async (data) =>{
         console.log(data);

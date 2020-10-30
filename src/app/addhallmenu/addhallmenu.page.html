@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content>
+  <h3 *ngIf="!MENU">
     <ion-item>
         <ion-label>Select MENU type</ion-label>
         <ion-select [(ngModel)]="menutype" type="text"  okText="Okay" cancelText="Dismiss">
@@ -14,14 +15,15 @@
           <ion-select-option value="2">2</ion-select-option>
         </ion-select>
       </ion-item> 
+    </h3>
       <br>
       <br>
       <br>
-      <h3 *ngIf="MENU">
+      <!-- <h3 *ngIf="MENU">
         <ion-item>
           <ion-input name="text" [(ngModel)]="price1" type="tel" minLength="2"  placeholder=" Price"></ion-input>
         </ion-item>
-        </h3>
+        </h3> -->
       <h3 *ngIf="MENU">
       <ion-card class="ion-text-lg-cente">
         <ion-card-header>
@@ -33,13 +35,13 @@
         </ion-card-header>
         <ion-card-content *ngFor="let data of men1">
           <ion-list>
-            
+            <ion-text class="color">
               {{data.dish}}
-            
+            </ion-text>
           </ion-list>  
-          <ion-button fill="clear" (click)="del(data,i)">
-            <ion-icon name="trash" slot="end"></ion-icon>
-          </ion-button>      
+          <ion-button (click)="openEditPopup(data,i)" fill="clear">
+            <ion-icon name="create" slot="end"></ion-icon>
+          </ion-button>     
         </ion-card-content>
       </ion-card> 
     </h3>
@@ -47,11 +49,11 @@
       <br>
       <br>
       <br>
-      <h3 *ngIf="MENU">
+      <!-- <h3 *ngIf="MENU">
         <ion-item>
           <ion-input name="text" [(ngModel)]="price2" type="tel" minLength="2"  placeholder=" Price"></ion-input>
         </ion-item>
-        </h3>
+        </h3> -->
       <h3 *ngIf="MENU">
       <ion-card class="ion-text-lg-cente">
           <ion-card-header>
@@ -67,8 +69,8 @@
               {{data.dish}}
               </ion-text>
             </ion-list> 
-            <ion-button fill="clear" (click)="del(data,i)">
-              <ion-icon name="trash" slot="end"></ion-icon>
+            <ion-button (click)="openEditPopup(data,i)" fill="clear">
+              <ion-icon name="create" slot="end"></ion-icon>
             </ion-button>       
           </ion-card-content>
         </ion-card>
@@ -173,6 +175,11 @@
                             <ion-input name="firstname" formControlName="dish"   type="text" minLength="1"  placeholder="Dishes"></ion-input>
                         </ion-item>
                         <h3 *ngIf="MENU">
+                        <ion-item>
+                          <ion-input name="firstname" formControlName="price"   type="text" minLength="1"  placeholder="price"></ion-input>
+                      </ion-item>
+                    </h3>
+                        <!-- <h3 *ngIf="MENU">
                           <div class="s"> 
                             <ion-icon name="add-circle-outline" slot="end" (click)="add()"></ion-icon>
                            </div>
@@ -181,10 +188,10 @@
                           <br>
                           <br>
                           <br>
-                          <br>
+                          <br> -->
                         <h3 *ngIf="MENU">
-                        <ion-button  (click)="update()" color="success">
-                          Add New menu
+                        <ion-button  (click)="EDITT()" color="success">
+                          update menu
                          </ion-button>
                         </h3>
                        

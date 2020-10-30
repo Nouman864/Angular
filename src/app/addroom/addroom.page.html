@@ -59,7 +59,7 @@
                         <ion-row >
                           <ion-card  class="card-center" >
                          
-                              <ion-card-content *ngFor="let img of data.image[0]; let i = index">
+                              <ion-card-content *ngFor="let img of data.image; let i = index">
                                 
                                   <img src= {{img}}>
                                   
@@ -118,9 +118,9 @@
                 </ion-select>
               </ion-item>
               <ion-item>
-              <input type="file" formControlName="images"  multiple (change)="selectMultipleImage($event)" />
+              <input type="file"  multiple (change)="selectMultipleImage($event)" />
             </ion-item>
-            <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
+            <ion-button size="meduim"  (click)="onMultipleSubmit()" color="success" type="submit"
     >Image Upload
     </ion-button>
        <ion-item>

@@ -65,6 +65,10 @@ Account() {
   {
     this.router.navigateByUrl('/resturantsearch');
   }
+  if(loginData.account === "hall")
+  {
+    this.router.navigateByUrl('/searchhall');
+  }
   //console.log(loginData);
 
 }

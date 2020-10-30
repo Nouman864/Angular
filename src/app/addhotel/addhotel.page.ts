@@ -115,8 +115,11 @@ multipleImages = [];
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
-    console.log(params);
-    this.data = JSON.parse(params.data);
+      if(params.data)
+      {
+        this.data = JSON.parse(params.data);
+      }
+    
     if (this.data) {
       console.log('got hotel', this.data);
      this.idd = this.data._id;
@@ -240,7 +243,7 @@ multipleImages = [];
           queryParams:{data:JSON.stringify(this.id )}
       });
 
-        this.modalCtrl.dismiss();
+        
       },
       error => {
         this.loading = false;

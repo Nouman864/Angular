@@ -25,6 +25,7 @@ export class AddroomPage implements OnInit {
   info =[];
   multipleImages = [];
   tabll =[];
+  im = [];
   loading = false;
   faci: any;
   id: any;
@@ -41,6 +42,9 @@ export class AddroomPage implements OnInit {
   images: any;
   deleteLoading: boolean;
   img: any[];
+  ii: any;
+  img1: any;
+  
  
   constructor(private formBuilder: FormBuilder,private userService:UserService,private booksService: BooksService,private alertCtrl: AlertController,private router: Router,private route: ActivatedRoute, private authService: AuthService,
     private file: File,private toastController: ToastController,private platform: Platform,private http: HttpClient)
@@ -130,16 +134,13 @@ export class AddroomPage implements OnInit {
          if(this.rooms.length > 0)
          {
         
-         console.log(this.rooms);
+         
          this.rm = this.rooms[0].Roomsinfo;
+        
+         console.log(this.rm);
         this.ROMMID = uppt.data[0]._id;
         
-           for(let data of this.rooms[0].Roomsinfo)
-           {
-                  this.images = data.image;
-           }
-        
-           console.log(this.images);
+           
          }
       }, 
       err => {
@@ -154,7 +155,7 @@ export class AddroomPage implements OnInit {
      roomno : [null,[Validators.minLength(1), Validators.pattern(/^[0-9]\d*$/)]],
       beds: [null,[Validators.minLength(1),Validators.pattern(/^[0-9]\d*$/)]],
       facility:[null],
-      images:[null],
+      image:[null],
       amount: [null,[Validators.minLength(4),Validators.pattern(/^[0-9]\d*$/)]]
       });
       
@@ -324,6 +325,8 @@ facility()
 
 
     async updateroom() {
+
+      
       let owner;
       const ownerId =  await this.authService. getTokenFromStorage();
       try{
@@ -333,7 +336,13 @@ facility()
       catch(ex){
       }
       const ob = this.form.value;
-       ob['image'] = this.imag;
+              
+      let newArray = this.img1.slice();
+      newArray.push.apply(newArray, this.imag);
+        
+         console.log(newArray);
+
+       ob['image'] = newArray;
         ob['_id'] = this.ROMMID;
         ob['Roomsinfo'] = this.tabll;
       
@@ -386,13 +395,11 @@ del(data,i)
     Edit(data,i)
     {
       console.log(data);
-      this.img =[];
-      for (let ii = 0; ii < data.image.length; ii++)
-       {
-        
-          this.imag = data.image[ii];
-     
-      }
+      
+      
+          this.img1 = data.image;
+          console.log(this.img1);
+          this.tabll = data.facility;
             console.log(this.imag);
         this.form.patchValue({roomno: data.roomno});
         this.form.patchValue({beds : data.beds});
@@ -401,6 +408,10 @@ del(data,i)
         {
           this.form.patchValue({ facility : data.facility[l]});    
         }
+
+
+        
+        
     }
     save()
     {
@@ -420,6 +431,9 @@ del(data,i)
                   return ;
                 }
        }
+       
+   
+
       let owner;
       const ownerId =  await this.authService. getTokenFromStorage();
       try{
@@ -428,15 +442,16 @@ del(data,i)
       }
       catch(ex){
       }
-       const obj = this.form.value;
-          obj['facility'] = this.tabll;
-          obj['image'] = this.imag;
-          this.info.push(obj);
-          let obb = {};
-          obb['Roomsinfo'] = this.info;
-          obb['_id'] = this.ROMMID;
+      let obb = this.form.value;
+      obb['facility'] = this.tabll;
+      obb['image'] = this.imag;
+       this.info.push(obb);
+       console.log(this.info);
+       let ob = {};
+          ob['Roomsinfo'] = this.info;
+          ob['_id'] = this.ROMMID;
          const observable = await this.booksService.newroom(
-           obb
+           ob
          );
          observable.subscribe(
            async data => {

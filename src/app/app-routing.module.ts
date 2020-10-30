@@ -210,6 +210,18 @@ const routes: Routes = [
     path: 'marriageprofile',
     loadChildren: () => import('./marriageprofile/marriageprofile.module').then( m => m.MarriageprofilePageModule)
   },
+  {
+    path: 'searchhall',
+    loadChildren: () => import('./searchhall/searchhall.module').then( m => m.SearchhallPageModule)
+  },
+  {
+    path: 'viewhall',
+    loadChildren: () => import('./viewhall/viewhall.module').then( m => m.ViewhallPageModule)
+  },
+  {
+    path: 'hallbooking',
+    loadChildren: () => import('./hallbooking/hallbooking.module').then( m => m.HallbookingPageModule)
+  },
   
   
   

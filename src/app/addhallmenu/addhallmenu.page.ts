@@ -53,6 +53,9 @@ export class AddhallmenuPage implements OnInit {
   men1: any;
   price1: any;
   price2: any;
+  menucharge1: any;
+  menucharge2: any;
+  dataa: Event;
   
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private booksService: BooksService,private alertController: AlertController, private toastController: ToastController, private file: File,private platform: Platform,private http: HttpClient,
@@ -132,6 +135,10 @@ async getmenu() {
            
        console.log(data.data[0]._id);
       this.MENU = data.data[0]._id;
+      this.men1 = data.data[0].menu1;
+      this.men2 = data.data[0].menu2;
+     this. menucharge1 = data.data[0].menucharge1;
+      this.menucharge2 = data.data[0].menucharge2;
       
       }
       
@@ -240,13 +247,13 @@ async addNew() {
   
 
   console.log(this.price1);
-  if(String(this.price1))
+  if(!Number(this.price1))
     {
       window.alert('sorry,put Menu 2 charges in number ');
         return ;
     }
   console.log(this.price2);
-  if(String(this.price2))
+  if(!Number(this.price2))
     {
       window.alert('sorry,put Menu 2 charges in number ');
         return ;
@@ -486,17 +493,17 @@ async deletedish(ob) {
 
 
 
-async Edit(data,i)
-{
-  console.log(data);
-  this.mnu= data.menu;
-  this.id = data.id;
-  console.log(i);
-  let prevdish = data.dish;
-  let prevprice = data.price;
-  this.form.patchValue({dish : prevdish});
-  this.form.patchValue({price : prevprice});
-} 
+// async Edit(data,i)
+// {
+//   console.log(data);
+//   this.mnu= data.menu;
+//   this.id = data.id;
+//   console.log(i);
+//   let prevdish = data.dish;
+//   let prevprice = data.price;
+//   this.form.patchValue({dish : prevdish});
+//   this.form.patchValue({price : prevprice});
+// } 
 
 
 
@@ -527,7 +534,7 @@ async Edit(data,i)
       
         ob['_id'] = this.MENU;
         
-      const observable = await this.booksService.editmenu(
+      const observable = await this.booksService.edithalmenu(
         ob
       );
   
@@ -539,9 +546,6 @@ async Edit(data,i)
           this.getmenu();
           this.form.reset();
           
-          //optional
-  
-         // this.modalCtrl.dismiss();
         },
         error => {
           this.loading = false;
@@ -591,5 +595,32 @@ del(data,i)
       
   
  }
+
+
+ openEditPopup(data,i)
+  {
+  
+  console.log(data);
+  console.log(i);
+  this.form.patchValue({dish : data.dish});
+           if(data.menu == '1')
+           {
+                        
+           console.log(this. menucharge1);
+           this.form.patchValue({price :this.menucharge1 });
+           this.id = data.id;
+           this.mnu = data.menu;
+           }
+           if(data.menu == '2')
+           {
+                        
+            console.log(this. menucharge2);
+           this.form.patchValue({price :this.menucharge2 });
+           this.id = data.id;
+           this.mnu = data.menu;
+           }
+
+  
+}
 
 }

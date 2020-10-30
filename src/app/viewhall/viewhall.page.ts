@@ -1,57 +1,58 @@
 import {ActivatedRoute} from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {AlertController,ModalController} from '@ionic/angular';
+import {AlertController,ModalController, PopoverController} from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { BooksService } from '../sdk/custom/books.service';
 import { AuthService } from '../sdk/core/auth.service';
 import * as jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { DataService } from '../sdk/custom/data.services';
+import { HallratingComponent } from './hallrating/hallrating.component';
 @Component({
-  selector: 'app-marriageprofile',
-  templateUrl: './marriageprofile.page.html',
-  styleUrls: ['./marriageprofile.page.scss'],
+  selector: 'app-viewhall',
+  templateUrl: './viewhall.page.html',
+  styleUrls: ['./viewhall.page.scss'],
 })
-export class MarriageprofilePage implements OnInit {
-
+export class ViewhallPage implements OnInit {
   c1 = '';  c2 = '';  c3 = '';  c4 = ''; c5 = ''; c6 = '';
 
   n1 = 'star-outline';n2 = 'star-outline';n3 = 'star-outline';n4 = 'star-outline'; n5 = 'star-outline'; n6;n7;
 star: number;
-  loading: boolean;
-  resturants: Resturants[];
   data: any;
-  images: any[];
-  brek: any;
-  launh: any;
-  dnner: any;
-  showtable: any;
-  menus: any;
-  tb: any;
-  deleteLoading: boolean;
-  selectedBook: any;
-  value: any;
+  imagess: any[];
   halls: any;
-  men1: any;
-  men2: any;
+  loading: boolean;
   menucharge1: any;
   menucharge2: any;
-  imagess: any[];
-  bookhall: any;
-  constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
+  men1: any;
+  men2: any;
+  email: any;
+  owner: any;
+  name: any;
+  halid: any;
+  halname: any;
+  value: any;
+ 
+
+constructor(private booksService: BooksService, private popoverController: PopoverController,    private dataService:DataService,private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,private modalController: ModalController,private alertController: AlertController) {}
   
-  form: FormGroup;
-  ionViewWillEnter() {
-    this. ngOnInit();
+form: FormGroup;
+ionViewWillEnter() {
+  this. ngOnInit();
 }
-  ngOnInit() {
+
+  async ngOnInit() {
     this.formInitializer();
-    this.route.queryParams.subscribe((params)=>{
-    console.log(params);
-    this.data = JSON.parse(params.data);
+    this.data;
+    await this.dataService.gethall().then((val)=>
+    {
+     this.data = val;
+    });
     if (this.data) {
       console.log('got hall', this.data);
       console.log(this.data._id);
-      this.value = this.data.reviewsTotal;
+        this.halid = this.data._id
+      // this.value = this.data.reviewsTotal;
       this.form.patchValue({name : this.data.name});
       this.form.patchValue({city : this.data.city});
       this.form.patchValue({number : this.data.number});
@@ -62,6 +63,8 @@ star: number;
       this.form.patchValue({close: this.data.close});
       this.form.patchValue({email: this.data.email});
       this.form.patchValue({charges: this.data.charges});
+       this.email = this.data.email;
+       this.name =  this.data.name;
       this.imagess =[];
       
     for (var i = 0; i < this.data.images.length; i++)
@@ -72,118 +75,42 @@ star: number;
     }
       
     }
-    })
+    
   
     this.get();
-    this.getmarriagehal();
+    this.booked();
+    this.gt();
     // this.checktable();
  
   }
-  async get() {
+  async gt() {
     this.loading = true;
-   let halid = this.data._id;
-    let owner;
+let ownerr;
     const ownerId =  await this.authService. getTokenFromStorage();
     try{
       const decoded = jwt_decode(ownerId );
-      owner = decoded['data']._id;
+      ownerr = decoded['data']._id;
     }
     catch(ex){
     }
-    
-    const observable = await this.booksService.gethalmenu(
-      halid
+     const obj = {};
+     obj['sd'] = this.halid;
+    const observable = await this.booksService.gethallreview(
+      obj
     );
     observable.subscribe(
       data => {
-        this.halls = data.data;
         this.loading = false;
-      console.log(this.halls);
-        this.men1 = this.halls[0].menu1;
-        this.men2 = this.halls[0].menu2;
-       this. menucharge1 = this.halls[0].menucharge1;
-        this.menucharge2 = this.halls[0].menucharge2;
-        // this.dnner = this.resturants[0].dinner;
-        // console.log(this.brek);
-        // console.log(this.launh);
-        // console.log(this.dnner);
-    
+        console.log('data', data);
+        this. value = data['data'];
+        console.log(this.value);
+         
       }, 
       err => {
         console.log('err', err);
       } 
     ); 
   }
-
-  async getmarriagehal() {
-    this.loading = true;
-    let owner1 = this.data._id;
-    const ownerId =  await this.authService. getTokenFromStorage();
-    console.log(ownerId);
-    try{
-      const decoded = jwt_decode(ownerId );
-     let owner = decoded['data']._id;
-    }
-    catch(ex){
-    }
-    console.log(owner1);
-    let ob = {};
-    ob['halid'] = owner1;
-    const observable = await this.booksService.getmarraigehal(
-      ob
-    );
-    observable.subscribe(
-      data => {
-        this.menus = data.data;
-        this.loading = false;
-        console.log( data);
-         this.bookhall = data.data;
-        // if(data.data.length > 0)
-        // {
-        //  console.log(data.data[0]._id);
-        // this.showtable = data.data[0].Ta;
-        // console.log(this.showtable);
-        // }
-  
-      }, 
-      err => {
-        console.log('err', err);
-      } 
-    );
-  }
-  async checktable() {
-    this.loading = true;
-    let owner1 = this.data._id;
-    const ownerId =  await this.authService. getTokenFromStorage();
-    console.log(ownerId);
-    try{
-      const decoded = jwt_decode(ownerId );
-     let owner = decoded['data']._id;
-    }
-    catch(ex){
-    }
-    console.log(owner1);
-    let obj = {};
-
-    obj['idd'] = owner1;
-    const observable = await this.booksService.checktable(
-      obj
-    );
-    observable.subscribe(
-      data => {
-    
-        this.loading = false;
-        console.log(data.message);
-      this.tb = data.message;
-            
-      }, 
-      err => {
-        console.log('err', err);
-      } 
-    );
-  }
-
-
 
   formInitializer() {
     
@@ -205,52 +132,37 @@ star: number;
   }
 
 
-
-
-
-
-  async delete(data) {
-  
-    console.log(data._id);
-    const alert = await this.alertController.create({
-      header: 'Confirm!',
-      message: `Are you sure you want to delete the Hall`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: blah => {
-            console.log('Confirm Cancel: blah');
-          }
-        },
-        {
-          text: 'Okay',
-          handler: () => {
-            this.deleteBook(data);
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  async deleteBook(data) {
-    this.deleteLoading = true;
-  console.log(data._id);
-    const observable = await this.booksService.deletebookhall(data._id);
-
+  async get() {
+    this.loading = true;
+   let halid = this.data._id;
+  this.owner;
+    const ownerId =  await this.authService. getTokenFromStorage();
+    try{
+      const decoded = jwt_decode(ownerId );
+     this.owner = decoded['data']._id;
+    }
+    catch(ex){
+    }
+    
+    const observable = await this.booksService.gethalmenu(
+      halid
+    );
     observable.subscribe(
       data => {
-        console.log('got response from server', data);
-        this.deleteLoading = false;
-        this.getmarriagehal();
-      },
-      error => {
-        this.deleteLoading = false;
-        console.log('error', error);
-      }
-    );
+        this.halls = data.data;
+        this.loading = false;
+      console.log(this.halls);
+        this.men1 = this.halls[0].menu1;
+        this.men2 = this.halls[0].menu2;
+       this. menucharge1 = this.halls[0].menucharge1;
+        this.menucharge2 = this.halls[0].menucharge2;
+        this.Review(halid);
+    
+      }, 
+      err => {
+        console.log('err', err);
+      } 
+    ); 
   }
 
   clickFirst(item: any) {
@@ -325,17 +237,79 @@ star: number;
             }
 
 
-
+///////////////////////GET Booked halls.\//////////////////////////////////////////
+async booked() {
+  this.loading = true;
+ let halid = this.data._id;
+this.owner;
+  const ownerId =  await this.authService. getTokenFromStorage();
+  try{
+    const decoded = jwt_decode(ownerId );
+   this.owner = decoded['data']._id;
+  }
+  catch(ex){
+  }
+  
+  const observable = await this.booksService.getbookedhall(
+    halid
+  );
+  observable.subscribe(
+    data => {
+      this.halls = data.data;
+      this.loading = false;
+    console.log(this.halls);
+    if(this.halls)
+    {
+   this.halname = this.halls[0].Hallname;
+    }
+    
+  
+    }, 
+    err => {
+      console.log('err', err);
+    } 
+  ); 
 }
-interface Resturants {
-  dinner: any;
-  launch: any;
-  breakfast: any;
-  name: string;
-  ibn: string;
-  _id: string;
-  reviewsTotal:string;
-  image_url: string;
-  author: string;
-  is_deleted: boolean;
+
+
+
+
+
+
+
+  booking()
+  {
+
+
+     if(this.name == this.halname)
+     {
+      window.alert('Alread Booked,');
+      return 0;
+     }
+    let ob = {};
+      ob['menu1'] = this. menucharge1;
+      ob['menu2'] =   this.menucharge2;
+   ob['owner'] = this.owner;
+   ob['email'] = this.email;
+   ob['hallname'] = this.name;
+   ob['halid'] = this.halid;
+                 
+               
+   this.dataService.savehalmenu(ob);
+    this.router.navigateByUrl('/hallbooking');
+  }
+
+  async Review(event:Event)
+  {
+       const review = await this.popoverController.create({
+       component: HallratingComponent,
+       componentProps: { event }
+       });
+       review.onDidDismiss().then(data => {
+      
+        
+      });
+      await review.present();
+     
+  }
 }

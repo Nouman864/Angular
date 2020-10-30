@@ -152,4 +152,21 @@ public async getroom() {
   public async getflatonlinepay() {
     return await this.storage.get('flatonlinepay');
   }
+
+  public async savehall(token) {
+    this.storage.set('savehall', token);
+  }
+
+
+  public async gethall() {
+    return await this.storage.get('savehall');
+  }
+
+  public async savehalmenu(token) {
+    this.storage.set('savehalmenu', token);
+  }
+
+  public async gethalmenu() {
+    return await this.storage.get('savehalmenu');
+  }
 }

@@ -1,7 +1,7 @@
 
 export class loginConfig 
 {
-    private static path = 'http://localhost:3000';
+    private static path =  'http://localhost:3000';;
     // 'https://rehayash.herokuapp.com';
     //'http://localhost:3000';
   

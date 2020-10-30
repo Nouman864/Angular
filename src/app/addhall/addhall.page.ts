@@ -68,9 +68,9 @@ multipleImages = [];
         console.log(img);
         formData.append('files', img);
       
-      }
+      } 
      
-      this.http.post<any>('http://localhost:3000/hotelimage', formData).subscribe(
+      this.http.post<any>('https://rehayash.herokuapp.com/hotelimage', formData).subscribe(
         
         async (data) =>{
           console.log(data);
@@ -102,8 +102,11 @@ multipleImages = [];
   ngOnInit() {
     this.formInitializer();
     this.route.queryParams.subscribe((params)=>{
-    console.log(params);
+    
+     if(params.data)
+     {
     this.data = JSON.parse(params.data);
+    }
     if (this.data) {
       console.log('got hall', this.data);
     
