@@ -31,6 +31,7 @@ export class ShowtablePage implements OnInit {
   tbl: any;
   tb: any;
   dd: any;
+  email: any;
   constructor(private userService:UserService,private dataService:DataService,private booksService :BooksService,private alertCtrl: AlertController,private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private authService: AuthService) { }
   ionViewWillEnter() {
     this. ngOnInit();
@@ -105,6 +106,7 @@ export class ShowtablePage implements OnInit {
         this.menus = data.data;
         this.loading = false;
         console.log( data);
+        this.email = data.data[0].email;
         if(data.data.length > 0)
         {
         this.showtable = data.data[0].Ta;
@@ -137,7 +139,8 @@ export class ShowtablePage implements OnInit {
     ob['id'] = this.owner;
     ob['tabelno'] = data.tabel;
     ob['type'] = data.type;
-    ob['capacity'] = data.capacity;  
+    ob['capacity'] = data.capacity; 
+    ob['email'] = this.email;
     console.log(this.data);
     this.dataService.savereserveid(ob);
     this.router.navigateByUrl('/booktable');

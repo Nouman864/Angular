@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import { RatingComponent } from './rating/rating.component';
 import * as jwt_decode from 'jwt-decode';
+import { DatePipe } from '@angular/common';
 import { DataService } from '../sdk/custom/data.services';
 
 @Component({
@@ -17,7 +18,6 @@ export class ViewpropertyPage implements OnInit {
   rtid: Event;
   irt: any;
   nam: any;
-  d: Date = new Date();
   ownerid: any;
   amount: any;
   rm: Event;
@@ -30,9 +30,11 @@ star: number;
   owner: any;
   name: any;
   email: any;
+  date: Date;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,private popoverController: PopoverController,
     private dataService:DataService,
+    private datepipe: DatePipe,
     private booksService: BooksService,private platform: Platform) 
     {
 
@@ -92,6 +94,9 @@ star: number;
       });
   } 
   
+  
+    
+    
   async get() {
     this.loading = true;
     let id;
@@ -105,6 +110,7 @@ star: number;
     }
     catch(ex){
     }
+    
      const obj = {};
      obj['sd'] = this.irt;
     const observable = await this.booksService.getflatreview(
@@ -215,11 +221,17 @@ star: number;
      }
      catch(ex){
      }
+     if(ownerr == '')
+    {
+      window.alert('Login first');
+      return 0;
+    }
      const obj ={};
-     
+     this. date=new Date();
+    let latest_date =this. datepipe. transform(this.date, 'yyyy-MM-dd');
      obj['owner'] = this.irt;
      obj['name'] = this.name;
-     obj['date'] = this.d;
+     obj['date'] = latest_date;
      obj['clientid'] = ownerr;
      const observable = await this.booksService.addrent(
        obj

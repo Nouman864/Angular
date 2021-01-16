@@ -42,6 +42,7 @@ multipleImages = [];
   idd: any;
   rom: Event;
   hallid: any;
+  dat: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -55,6 +56,8 @@ multipleImages = [];
     {
       if (event.target.files.length > 0) 
       {
+        this.dat = event.target.files;
+       console.log(this.dat.length);
         this.multipleImages = event.target.files;
       }
 

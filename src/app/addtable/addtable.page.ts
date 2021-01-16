@@ -44,6 +44,7 @@ export class AddtablePage implements OnInit {
   showtable: any;
   index: any;
   deleteLoading: boolean;
+  email: any;
   
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private booksService: BooksService,private alertController: AlertController, private toastController: ToastController, private file: File,private platform: Platform,private http: HttpClient,
@@ -169,12 +170,18 @@ table()
     
 async addNew() {
  
+    if(!this.tabll.length)
+    {
+      window.alert('Table  please add another');
+      return 0;
+    }
   let owner;
    const ownerId =  await this.authService. getTokenFromStorage();
    const decoded = jwt_decode(ownerId );
    try{
      const decoded = jwt_decode(ownerId );
      owner = decoded['data']._id;
+     this.email = decoded['data'].email;
    }
    catch(ex){
    }
@@ -183,6 +190,7 @@ async addNew() {
    obj['resturantid'] = this.id;
    obj['Ta'] = this.tabll;
    obj['ownerid'] = owner;
+   obj['email'] = this.email;
    const observable = await this.booksService.addtable(
      obj
    );

@@ -42,8 +42,9 @@
             </ion-item>
             <br>
             <br>
+                             <h1 *ngIf="this.rent">
                               <ion-label>Rented Flats</ion-label>
-
+                             </h1>
                               <ion-card class="ion-text-lg-cente">
                                 <ion-card-content *ngFor="let data of dd; let i = index" >
                                   <ion-list>
@@ -68,11 +69,13 @@
                               </ion-card>
 
 <br> 
-<br>
-
-                      <ion-label>Reserved Rooms</ion-label>
+<br>              
+                                <h1 *ngIf="this.rom">
+                               <ion-button   (click)="Scan()">Click to Verify Your  Room </ion-button>
+                                 </h1>
+                      
                       <ion-card class="ion-text-lg-cente">
-                        <ion-card-content *ngFor="let data of rom; let i = index" >
+                        <ion-card-content *ngFor="let data of this.rom; let i = index">
                           <ion-list>
                             
                                         <br>
@@ -113,7 +116,7 @@
 
 
 
-            <ion-item>
+            <!-- <ion-item>
                
               <ion-label>Category</ion-label>
               <ion-select formControlName="account" type="text"  okText="Okay" cancelText="Dismiss">
@@ -122,12 +125,68 @@
                 <ion-select-option value="Resturant">Resturant</ion-select-option>
                 <ion-select-option value="hall">Marraige Hall</ion-select-option>
               </ion-select>
-            </ion-item>
+            </ion-item> -->
+
+                       <ion-label>Category</ion-label>
+            <ion-card class="card">
+              <ion-card-header>
+               <ion-card-title  class="ion-text-lg-center">Flats</ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="welcome-card " (click)="flt()">
+                  <ion-img src="/assets/fl.png"></ion-img>       
+              </ion-card-content>
+            </ion-card>
+      
+            <br>
+            <br>
+            <br>
+            <br>
+      
+      
+            <ion-card class="card">
+                <ion-card-header>
+                 <ion-card-title  class="ion-text-lg-center">Resturants</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="welcome-card "  (click)="rest()">
+                    <ion-img class="img" src="/assets/res.jpg"></ion-img>       
+                </ion-card-content>
+              </ion-card>
+      
+      
+              <br>
+              <br>
+              <br>
+              <br>
+        
+        
+              <ion-card class="card">
+                  <ion-card-header>
+                   <ion-card-title  class="ion-text-lg-center">Hotels</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="welcome-card "   (click)="hotel()">
+                      <ion-img src="/assets/hotel1.jpg"></ion-img>       
+                  </ion-card-content>
+                </ion-card>
+      
+                <br>
+                <br>
+                <br>
+                <br>
+      
+      
+                <ion-card class="card">
+                  <ion-card-header>
+                   <ion-card-title  class="ion-text-lg-center">Marraige Halls</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="welcome-card "   (click)="hall()">
+                      <ion-img src="/assets/golden.jpg"></ion-img>       
+                  </ion-card-content>
+                </ion-card>
           </div>
-          <div class="ion-padding">
+          <!-- <div class="ion-padding">
             <ion-button size="meduim" color="success" type="submit" (click)="Account()" expand="">Search
             </ion-button>
-          </div>
+          </div> -->
         </ion-col>
       </ion-row>
     </ion-grid>

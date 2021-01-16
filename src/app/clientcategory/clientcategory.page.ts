@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import * as jwt_decode from 'jwt-decode';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-clientcategory',
@@ -20,8 +21,10 @@ export class ClientcategoryPage implements OnInit {
   flat: any[];
   rom: any;
   images: any[];
+  room: any;
+  rent:boolean = false;
 
-  constructor(private booksService: BooksService, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,
+  constructor(private booksService: BooksService,private barcodeScanner: BarcodeScanner, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,
     private modalController: ModalController,private alertController: AlertController) {}
   
   registerForm: FormGroup;
@@ -48,30 +51,48 @@ export class ClientcategoryPage implements OnInit {
   
     });
 }
-Account() {
-
-  this.loading = true;
- const loginData = this.registerForm.value;
- console.log('loginData', loginData);
-  if(loginData.account === "Hotel")
-  {
-    this.router.navigateByUrl('/hotelsearch');
-  }
-  if(loginData.account === "Flat")
-  {
-    this.router.navigateByUrl('/searching');
-  }
-  if(loginData.account === "Resturant")
-  {
-    this.router.navigateByUrl('/resturantsearch');
-  }
-  if(loginData.account === "hall")
-  {
-    this.router.navigateByUrl('/searchhall');
-  }
-  //console.log(loginData);
+hotel()
+{
+  this.router.navigateByUrl('/hotelsearch');
+}
+hall()
+{
+  this.router.navigateByUrl('/searchhall');
 
 }
+rest()
+{
+  this.router.navigateByUrl('/resturantsearch');
+}
+
+flt()
+{
+  this.router.navigateByUrl('/searching');
+}
+// Account() {
+
+//   this.loading = true;
+//  const loginData = this.registerForm.value;
+//  console.log('loginData', loginData);
+//   if(loginData.account === "Hotel")
+//   {
+//     this.router.navigateByUrl('/hotelsearch');
+//   }
+//   if(loginData.account === "Flat")
+//   {
+//     this.router.navigateByUrl('/searching');
+//   }
+//   if(loginData.account === "Resturant")
+//   {
+//     this.router.navigateByUrl('/resturantsearch');
+//   }
+//   if(loginData.account === "hall")
+//   {
+//     this.router.navigateByUrl('/searchhall');
+//   }
+//   //console.log(loginData);
+
+// }
 
 
   async getclient()
@@ -142,8 +163,11 @@ Account() {
       this.dd = data.data;
       this.loading = false;
 
-
-      console.log(this.dd);
+            
+      if(this.dd.length > 0)
+      {
+           this.rent = true;
+      }
       // this. flat = [];
       //  this.flat = this.dd;
       //     this.dd.date;
@@ -203,7 +227,50 @@ Account() {
 
 }
 
+async Scan()
+  {
 
+    this.barcodeScanner .scan() .then(async barcodeData => {
+         console.log(barcodeData.text);
+         let client;
+         const ownerId =  await this.authService. getTokenFromStorage();
+         const decoded = jwt_decode(ownerId );
+         try{
+           const decoded = jwt_decode(ownerId );
+           client = decoded['data']._id;
+         }
+         catch(ex){
+         }
+         const obj = {};
+     
+          obj['roomqr'] =  JSON.parse(barcodeData.text);
+          obj['client'] = client;
+          const observable = await this.booksService.scanroom(
+            obj
+          );
+          observable.subscribe(
+            async data => {
+              console.log('got response from server', data);
+              if(data.message == "scaning verified")
+              {
+              //window.alert(' Room Scanned Verified');
+              this.room = data.data;
+              window.alert(' Room scaning verified' + data.data.Rooms);
+              }
+              if(data.message == "user not registered")
+              {
+                window.alert(' Room scaning Not verified');
+              }
+              this.loading = false;
+          }),
+            error => {
+              this.loading = false;
+              console.log('error', error);
+            }
+    });
+ 
+          
+  }
 
 
 

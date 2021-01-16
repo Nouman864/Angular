@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../sdk/core/auth.service';
 import * as jwt_decode from 'jwt-decode';
 import { DataService } from '../sdk/custom/data.services';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-booktable',
@@ -24,7 +25,7 @@ export class BooktablePage implements OnInit {
   seltable: any[];
 
   constructor(private booksService: BooksService,private dataService: DataService,private barcodeScanner: BarcodeScanner,private alertCtrl: AlertController,private formBuilder: FormBuilder
-    ,private router: Router,private route: ActivatedRoute, private authService: AuthService)
+    ,private router: Router, private datepipe: DatePipe,private route: ActivatedRoute, private authService: AuthService)
    {
     
   }
@@ -47,6 +48,7 @@ this.data;
   }
   formInitializer() {
     this.form = this.formBuilder.group({
+      name : ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
     type  : [null, [Validators.required]],
     capacity  : [null, [Validators.required]],
     date : [null, [Validators.required]],
@@ -68,9 +70,12 @@ this.data;
   
 
    const obj =  this.form.value;
+   let todt =this. datepipe. transform(obj.date, 'yyyy-MM-dd');
    obj['clientid'] = clientid;
+   obj['date'] = todt;
    obj['restid'] =  this.data.rest;
    obj['tableno'] =   this.data.tabelno;
+   obj['email'] =   this.data.email;
    const observable = await this.booksService.reservedTable(
      obj
    );

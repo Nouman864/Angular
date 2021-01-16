@@ -40,6 +40,14 @@ multipleImages = [];
   resturants: Resturants[];
   arr: any[];
   id: any;
+  dat: any;
+  openn: any;
+  closee: any;
+  cls: string;
+  opn: string;
+  tme: boolean = false;
+  openning: Date;
+  closingg: any;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
@@ -50,7 +58,10 @@ multipleImages = [];
     }
    
     selectMultipleImage(event){
-      if (event.target.files.length > 0) {
+      if (event.target.files.length > 0) 
+      {
+        this.dat = event.target.files;
+        console.log(this.dat.length);
         this.multipleImages = event.target.files;
       }
     }
@@ -64,7 +75,7 @@ multipleImages = [];
         // formData.append('ID', this.flatid);
       }
      
-      this.http.post('http://localhost:3000/upload_rest', formData).subscribe(
+      this.http.post('https://rehayash.herokuapp.com/upload_rest', formData).subscribe(
         
         async (data) =>{
            console.log(data);
@@ -143,8 +154,8 @@ multipleImages = [];
       name : [null, [Validators.required, Validators.minLength(1),Validators.pattern('^[a-zA-Z ]*$')]],
       city: [null, [Validators.required]],
       check: [null, [Validators.required]],
-      open: [null, [Validators.required]],
-      close:[null, [Validators.required]],
+      // open: [null, [Validators.required]],
+      // close:[null, [Validators.required]],
       number: [null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
       Location :  [null, [Validators.required]],
       images:  [null, [Validators.required]],
@@ -152,6 +163,41 @@ multipleImages = [];
       // Lat :  [null, [Validators.required]],
       // Lng :  [null, [Validators.required]],
       });
+  }
+   
+  open()
+  {
+    debugger;
+     this.opn = this.openn;
+     
+  }
+
+  close()
+  {
+                    this.openning = new Date(this.opn);
+                    this.openning.getTime();
+                    this.openning.setHours(0,0,0,0);
+                    this.closingg = new Date(this.closee);
+                    this.closingg.getTime();
+                    this.closingg.setHours(0,0,0,0);
+                    console.log(this.closingg);
+                    console.log(this.openning);
+
+                    let differenceInTime =  this.openning.getTime() - this.closingg.getTime();
+                    console.log(differenceInTime);
+                    let differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24)); 
+                    console.log(differenceInDays);
+                    debugger;
+                        if( this.closee < this.openn)
+                      {
+                               window.alert('cannot specific time');
+                               this.closee = null;      
+                      }
+                      else
+                      {
+                         console.log("dfjsd");
+                      }    
+
   }
   onLocationPicked(location: PlaceLocation)
   {
@@ -262,7 +308,7 @@ multipleImages = [];
         this.router.navigate(['/addmenu'],{
           queryParams:{data:JSON.stringify(this.mealid)}
       });
-        this.modalCtrl.dismiss();
+        
       },
       error => {
         this.loading = false;

@@ -501,7 +501,8 @@ public async getrentflats(rent: string): Promise<any> {
       headers: new HttpHeaders().set('Authorization', token)
     });
   }
-  public async reservedroom(data: object): Promise<any> {
+  public async reservedroom(data: object): Promise<any>
+   {
     const url = loginConfig.getPath() + '/bookedrooms/add';
     const token = await this.authService.getTokenFromStorage();
 

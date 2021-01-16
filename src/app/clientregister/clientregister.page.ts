@@ -17,6 +17,7 @@ export class ClientregisterPage implements OnInit {
 multipleImages = [];
   loading: boolean;
   imag: any;
+  dat: any;
   
   constructor(private userService:UserService,private formBuilder: FormBuilder,
     private platform: Platform,private http: HttpClient,private router: Router, private toastController: ToastController) {}
@@ -29,6 +30,8 @@ multipleImages = [];
   {
     if (event.target.files.length > 0) 
     {
+       this.dat = event.target.files;
+       console.log(this.dat.length);
       this.multipleImages = event.target.files;
     }
 
@@ -66,10 +69,10 @@ multipleImages = [];
   }
   formInitializer() {
     this.clientForm = this.formBuilder.group({
-      firstname: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
-      lastname: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
+      firstname: ['', [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
+      lastname: ['', [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
       email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'),Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required, ]],
       images: [null, [Validators.required]]
       
       
@@ -93,14 +96,14 @@ multipleImages = [];
         {
         this.loading = false;
         window.alert('Activate your email');
-        //this.router.navigateByUrl('/bookroom');
+        this.router.navigateByUrl('/clientlogin');
         }
       },
       error => {
         this.loading = false;
         console.log('error', error);
       }
-    );
+    ); 
   }
 
 }

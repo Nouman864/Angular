@@ -156,7 +156,7 @@ let ownerr;
         this.men2 = this.halls[0].menu2;
        this. menucharge1 = this.halls[0].menucharge1;
         this.menucharge2 = this.halls[0].menucharge2;
-        this.Review(halid);
+        // this.Review(halid);
     
       }, 
       err => {
@@ -165,76 +165,76 @@ let ownerr;
     ); 
   }
 
-  clickFirst(item: any) {
-    this.star = item;
-    console.log('this.stars', this.star);
-    this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-    this.c4 = ''; this.c5 = '';
- this.n1 = 'star'; 
- }
- click2nd(item: any) {
-  this.star = item;
-  console.log('this.stars', this.star);
-     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-     this.c4 = ''; this.c5 = '';
-     this.n1 = 'star'; this.n2 = 'star'; 
-   }
-   click3rd(item: any) {
-     this.star = item;
-     console.log('this.stars', this.star);
+//   clickFirst(item: any) {
+//     this.star = item;
+//     console.log('this.stars', this.star);
+//     this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+//     this.c4 = ''; this.c5 = '';
+//  this.n1 = 'star'; 
+//  }
+//  click2nd(item: any) {
+//   this.star = item;
+//   console.log('this.stars', this.star);
+//      this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+//      this.c4 = ''; this.c5 = '';
+//      this.n1 = 'star'; this.n2 = 'star'; 
+//    }
+//    click3rd(item: any) {
+//      this.star = item;
+//      console.log('this.stars', this.star);
      
-     this.c1 = '';    this.c2 = '';
-     this.c3 = ''; this.c5 = '';
-     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
+//      this.c1 = '';    this.c2 = '';
+//      this.c3 = ''; this.c5 = '';
+//      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star';
         
      
     
-     }
-     click4th(item: any) {
-         this.star = item;
-       console.log('this.stars', this.star);
-       this.c1 = '';    this.c2 = '';
-       this.c3 = '';    this.c4 = '';
-       this.c5 = '';
-       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
+//      }
+//      click4th(item: any) {
+//          this.star = item;
+//        console.log('this.stars', this.star);
+//        this.c1 = '';    this.c2 = '';
+//        this.c3 = '';    this.c4 = '';
+//        this.c5 = '';
+//        this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';
 
      
-       }
-       click5th(item: any) {
-        this.star = item;
-      console.log('this.stars', this.star);
-      this.c1 = '';    this.c2 = '';
-      this.c3 = '';    this.c4 = '';
-      this.c5 = '';
-      this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star'; this.n5 = 'star';
+//        }
+//        click5th(item: any) {
+//         this.star = item;
+//       console.log('this.stars', this.star);
+//       this.c1 = '';    this.c2 = '';
+//       this.c3 = '';    this.c4 = '';
+//       this.c5 = '';
+//       this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star'; this.n5 = 'star';
 
     
-      }
-      click2half(item: any)
-      {
-        this.star = item;
-        console.log('this.stars', this.star);
-           this.c1 = ''; this.c2 = ''; this.c3 = ''; 
-           this.c4 = '';  this.c5 = ''; 
-           this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half';
-         }
+//       }
+//       click2half(item: any)
+//       {
+//         this.star = item;
+//         console.log('this.stars', this.star);
+//            this.c1 = ''; this.c2 = ''; this.c3 = ''; 
+//            this.c4 = '';  this.c5 = ''; 
+//            this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star-half';
+//          }
 
-         click3half(item: any) {
-          this.star = item;
-          console.log('this.stars', this.star);
-          this.c1 = '';    this.c2 = '';
-          this.c3 = '';   this.c4 = '';  this.c5 = '';
-          this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
+//          click3half(item: any) {
+//           this.star = item;
+//           console.log('this.stars', this.star);
+//           this.c1 = '';    this.c2 = '';
+//           this.c3 = '';   this.c4 = '';  this.c5 = '';
+//           this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star-half';
              
-          }
-          click4half(item: any) {
-            this.star = item;
-            console.log('this.stars', this.star);
-            this.c1 = '';    this.c2 = '';
-            this.c3 = '';   this.c4 = '';  this.c5 = '';
-            this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';this.n5 = 'star-half';
+//           }
+//           click4half(item: any) {
+//             this.star = item;
+//             console.log('this.stars', this.star);
+//             this.c1 = '';    this.c2 = '';
+//             this.c3 = '';   this.c4 = '';  this.c5 = '';
+//             this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star';this.n5 = 'star-half';
                
-            }
+//             }
 
 
 ///////////////////////GET Booked halls.\//////////////////////////////////////////
@@ -260,7 +260,7 @@ this.owner;
     console.log(this.halls);
     if(this.halls)
     {
-   this.halname = this.halls[0].Hallname;
+   this.halname = this.halls[0].name;
     }
     
   

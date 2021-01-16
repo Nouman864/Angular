@@ -250,7 +250,7 @@ async addNew() {
   if(!Number(this.price1))
     {
       window.alert('sorry,put Menu 2 charges in number ');
-        return ;
+        return;
     }
   console.log(this.price2);
   if(!Number(this.price2))
@@ -305,6 +305,8 @@ async addNew() {
        console.log(data);
        this.loading = false;
        this.form.reset();
+       this.router.navigate(['/marraigehall']);
+
        
 
      },

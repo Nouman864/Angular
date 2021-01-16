@@ -23,12 +23,12 @@ export class RegisterPage implements OnInit {
 
   formInitializer() {
     this.registerForm = this.formBuilder.group({
-      firstname: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
-      lastname: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z ]*$')]],
+      firstname: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      lastname: ['', [Validators.required,  Validators.pattern('^[a-zA-Z ]*$')]],
       cnic: [null, [Validators.required, Validators.minLength(13),Validators.pattern(/^[0-9]\d*$/)]],
       phone:[null, [Validators.required, Validators.minLength(11),Validators.pattern(/^[0-9]\d*$/)]],
       email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'),Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required]],
       
     });
   }
@@ -40,9 +40,18 @@ export class RegisterPage implements OnInit {
 
     this.userService.userRegister(loginData).subscribe(
       data => {
+
+        if(data.message == "This email has been registered already")
+        {
+          window.alert('This email has been registered already,try another email');
+        }
+        else 
+        {
         console.log('got response from server', data);
         this.loading = false;
         window.alert('Activate your email');
+        this.router.navigateByUrl('/userlogin');
+        }
       },
       error => {
         this.loading = false;

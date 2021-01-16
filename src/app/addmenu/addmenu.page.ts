@@ -281,6 +281,22 @@ console.log(this.dinner);
  
 async addNew() {
  
+  if(!this.breakfast.length)
+  {
+    window.alert('please add breakfast');
+    return 0 ;
+  }
+  if(!this.launch.length)
+  {
+    window.alert('please add launch');
+    return 0 ;
+  }
+  if(!this.dinner.length)
+  {
+    window.alert('please add dinner');
+    return 0 ;
+  }
+
   this.time = [];
      let br = {};
       let breakfast = this.breakfast;

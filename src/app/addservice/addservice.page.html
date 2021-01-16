@@ -87,9 +87,11 @@
             
             <div class="ion-padding">
               <input type="file"  formControlName="images"  multiple (change)="selectMultipleImage($event)" />
+              <h3 *ngIf="dat">
               <ion-button size="meduim"    (click)="onMultipleSubmit()" color="primary" type="submit"
               expand="block">Image Upload
             </ion-button>
+          </h3>
           </div>
           
             <div class="ion-padding">

@@ -58,7 +58,7 @@ export class OnlineflatpayPage implements OnInit {
   formInitializer() 
   {
     this.registerForm = this.formBuilder.group({
-   amount: [null, [Validators.required]],
+   amount: [null, [Validators.required],Validators.minLength(3)],
    currency: [null, [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
    description: [null, [Validators.required]]
       

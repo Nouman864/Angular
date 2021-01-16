@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar >
     <ion-buttons slot="start">
       <ion-back-button  defaultHref="showtable"></ion-back-button>
     </ion-buttons>
@@ -18,6 +18,9 @@
     <ion-grid>
       <ion-row color="justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <ion-item>
+            <ion-input name="firstname" type="text" formControlName="name" type="name" placeholder="enter your name"></ion-input>
+          </ion-item>
           <label igxLabel for="firstname">Party Size:</label> 
           <br>
           <ion-item>
@@ -32,7 +35,7 @@
 
             <ion-item>
               <ion-label>Date</ion-label>
-                <ion-datetime formControlName="date" displayFormat="D/M" pickerFormat="D/M" ></ion-datetime>
+                <ion-datetime formControlName="date" date="dd-MM-yyyy" ></ion-datetime>
                </ion-item>
         <br>
         <ion-item>
@@ -42,12 +45,12 @@
             <ion-select-option value="7:00 AM">7:00 AM</ion-select-option>
             <ion-select-option value="7:30 AM">7:30 AM</ion-select-option>
             <ion-select-option value="8:00 AM">8:00 AM</ion-select-option>
-            <ion-select-option value="8:30 AM">8:30 AM</ion-select-option>
-            <ion-select-option value="9:00 AM">9:00 AM</ion-select-option>
-            <ion-select-option value="9:30 AM">9:30 AM</ion-select-option>
-            <ion-select-option value="10:00 AM">10:00 AM</ion-select-option>
-            <ion-select-option value="10:30 AM">10:30 AM</ion-select-option>
-            <ion-select-option value="11:00 AM">11:00 AM</ion-select-option>
+            <ion-select-option value="8:30 AM">8:30 PM</ion-select-option>
+            <ion-select-option value="9:00 AM">9:00 PM</ion-select-option>
+            <ion-select-option value="9:30 AM">9:30 PM</ion-select-option>
+            <ion-select-option value="10:00 AM">10:00 PM</ion-select-option>
+            <ion-select-option value="10:30 AM">10:30 PM</ion-select-option>
+            <ion-select-option value="11:00 AM">11:00 PM</ion-select-option>
           </ion-select>
 
           
@@ -58,19 +61,18 @@
   </form>
   
   <br>
-  <!-- <ion-button expand='block' margin (click)=" Encode()">Click to Create QR</ion-button> -->
-    <ion-button expand='block' margin (click)="Scan()">Click to Scan Table QR</ion-button>
-  <ion-list>
+  
+  <!-- <ion-list>
   <ion-item *ngFor="let tables of seltable">
     
     <ion-checkbox color="primary"  [(ngModel)]="tables.checked" ></ion-checkbox>
     
   </ion-item>
-</ion-list>
+</ion-list> -->
 
 
 <div class="ion-padding">
-  <ion-button size="large" (click)="addNew()" color="primary" type="submit" expand="block">Book
+  <ion-button size="large" (click)="addNew()" [disabled]="form.invalid" color="primary" type="submit" expand="block">Book
   </ion-button>
 </div>
 

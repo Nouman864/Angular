@@ -1,22 +1,16 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu side="start"  contentId="main-content" type="overlay"  >
-      <ion-header class="head">
-                <div class="profile">
-                  <img class="profile-picture" src="/assets/stack.jpeg/">
-                  <h3 class="name">Nouman</h3>
-                </div>
-      </ion-header>
       <ion-content >
         <ion-list> 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item *ngIf="p?.title!=='Login'"  [routerDirection]="'root'" [routerLink]="[p.url]" class="item" color="black">
+            <ion-item *ngIf="p?.title!=='LogIn'"  [routerDirection]="'root'" [routerLink]="[p.url]" class="item" color="black">
               <ion-icon *ngIf="p?.icon" slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
             </ion-item>
-            <ion-item (click)="logout()" *ngIf="p?.title==='Login'" class="item" color="black">
+            <ion-item (click)="logout()" *ngIf="p?.title==='LogIn'" class="item" color="black">
               <ion-icon *ngIf="p?.icon" slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}

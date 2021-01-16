@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content text-justify="top">
+  <ion-content text-justify="top">
   <ion-card class="welcome-card">
       <ion-img src="/assets/golden.jpg"></ion-img>
     </ion-card>
@@ -55,9 +55,11 @@
               <br>
               <br>
               
+              <h3 *ngIf="dat">
               <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
               expand="block">Image Upload
             </ion-button>
+          </h3>
               
             </div>
             <ion-item>

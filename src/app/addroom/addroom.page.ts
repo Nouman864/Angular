@@ -44,6 +44,8 @@ export class AddroomPage implements OnInit {
   img: any[];
   ii: any;
   img1: any;
+  dat: any;
+  newArray: any;
   
  
   constructor(private formBuilder: FormBuilder,private userService:UserService,private booksService: BooksService,private alertCtrl: AlertController,private router: Router,private route: ActivatedRoute, private authService: AuthService,
@@ -58,7 +60,10 @@ export class AddroomPage implements OnInit {
 
 
   selectMultipleImage(event){
-    if (event.target.files.length > 0) {
+    if (event.target.files.length > 0) 
+    {
+      this.dat = event.target.files;
+        console.log(this.dat.length);
       this.multipleImages = event.target.files;
     }
   }
@@ -71,7 +76,7 @@ export class AddroomPage implements OnInit {
     
     }
    
-    this.http.post<any>('http://localhost:3000/hotelimage', formData).subscribe(
+    this.http.post<any>('https://rehayash.herokuapp.com/hotelimage', formData).subscribe(
       
       async (data) =>{
         console.log(data);
@@ -113,7 +118,7 @@ export class AddroomPage implements OnInit {
   }
   
   async getroom() {
-   
+    
     let owner1 = this.id;
     const ownerId =  await this.authService. getTokenFromStorage();
     console.log(ownerId);
@@ -216,7 +221,7 @@ Roominfo()
      {
       if(this.info[j].roomno == item.roomno )
       {
-         console.log("roomno already booked");
+         
          window.alert('Room alraedy Added please add another');
          return ;
       }
@@ -248,6 +253,7 @@ facility()
 {
   let avail = this.form.value;
   this.faci = avail.facility;
+  //avail.facility = '';
   if( this.l == 1)
   {
          console.log(this.tabll.length);
@@ -259,13 +265,18 @@ facility()
          window.alert('Facility alraedy Added please add another');
          return ;
       }
+      
      }
+     if(avail)
+  {
+  window.alert('Facility is Added' +      this.faci);
+  }
      this.tabll.push(
       this.faci
     );
-    avail.facility = '';
+    
       
-
+ 
 
   }
   else
@@ -274,7 +285,11 @@ facility()
       this.faci
     );
     this.l = 1;
-    avail.facility = '';
+    if(avail)
+    {
+    window.alert('Facility is Added' +      this.faci);
+    }
+    //avail.facility = '';
    
   }
 
@@ -284,6 +299,12 @@ facility()
 
 
     async room() {
+
+      if(!this.info.length)
+      {
+        window.alert('plz, Room added');
+        return 0;
+      }
       let owner;
     const ownerId =  await this.authService. getTokenFromStorage();
     try{
@@ -308,6 +329,7 @@ facility()
           duration: 3500
         });
         toast.present();
+        this.form.reset();
         this.router.navigate(['/gethotel']);
         this.loading = false;
           
@@ -336,13 +358,16 @@ facility()
       catch(ex){
       }
       const ob = this.form.value;
-              
-      let newArray = this.img1.slice();
-      newArray.push.apply(newArray, this.imag);
+               if(this.img1)
+               {
+                    this.newArray = this.img1.slice();
+                   this.newArray.push.apply(this.newArray, this.imag);
+                   console.log(this.newArray);
+               }
         
-         console.log(newArray);
+         
 
-       ob['image'] = newArray;
+       ob['image'] = this.newArray;
         ob['_id'] = this.ROMMID;
         ob['Roomsinfo'] = this.tabll;
       
@@ -423,6 +448,7 @@ del(data,i)
 
     async new()
     { 
+      debugger;
       for (let data of this.rm)
        {
                 if(data.roomno == this.form.value.roomno)
@@ -431,6 +457,7 @@ del(data,i)
                   return ;
                 }
        }
+        
        
    
 
@@ -442,16 +469,26 @@ del(data,i)
       }
       catch(ex){
       }
+    
       let obb = this.form.value;
+
+      // if(!this.form.value)
+      // { 
+      //   window.alert('fill form');
+      //   return 0;
+             
+      // }
       obb['facility'] = this.tabll;
       obb['image'] = this.imag;
+      obb['_id'] = this.ROMMID;
        this.info.push(obb);
-       console.log(this.info);
        let ob = {};
           ob['Roomsinfo'] = this.info;
-          ob['_id'] = this.ROMMID;
+          // ob['_id'] = this.ROMMID;
+          console.log(this.info);
+          console.log(ob);
          const observable = await this.booksService.newroom(
-           ob
+          obb
          );
          observable.subscribe(
            async data => {
@@ -462,7 +499,9 @@ del(data,i)
           });
           toast.present();
           this.tabll = [];
+          this.form.reset();
           this.getroom();
+          
           this.loading = false;
             
              

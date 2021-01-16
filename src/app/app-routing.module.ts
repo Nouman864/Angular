@@ -222,6 +222,10 @@ const routes: Routes = [
     path: 'hallbooking',
     loadChildren: () => import('./hallbooking/hallbooking.module').then( m => m.HallbookingPageModule)
   },
+  {
+    path: 'getallflats',
+    loadChildren: () => import('./getallflats/getallflats.module').then( m => m.GetallflatsPageModule)
+  },
   
   
   

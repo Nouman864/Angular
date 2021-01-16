@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
 import { NgxStripeModule } from 'ngx-stripe';
 import { AgmCoreModule } from '@agm/core';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, SearchPipe],
@@ -43,7 +44,8 @@ import { AgmCoreModule } from '@agm/core';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ImagePicker,
     File,
-    Camera
+    Camera,
+    DatePipe
     
   ],
   bootstrap: [AppComponent]

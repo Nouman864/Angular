@@ -43,6 +43,7 @@ multipleImages = [];
   hotelid: any;
   idd: any;
   rom: Event;
+  dat: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
     private booksService: BooksService, private file: File,private platform: Platform,private http: HttpClient,
@@ -61,17 +62,12 @@ multipleImages = [];
     {
       if (event.target.files.length > 0) 
       {
+        this.dat = event.target.files;
+       console.log(this.dat.length);
         this.multipleImages = event.target.files;
       }
 
-  //     console.log(this.multipleImages);
-  //    this.images =[];
-  //  for (var i = 0; i < this.multipleImages.length; i++)
-  //   {
-     
-  //   this.images[i] = this.multipleImages[i].name;
   
-  //    }
 
     }
     
@@ -83,7 +79,7 @@ multipleImages = [];
       
       }
      
-      this.http.post<any>('http://localhost:3000/hotelimage', formData).subscribe(
+      this.http.post<any>('https://rehayash.herokuapp.com/hotelimage', formData).subscribe(
         
         async (data) =>{
           console.log(data);
@@ -134,7 +130,7 @@ multipleImages = [];
       this.id = this.data._id;
       this.imag = this.data.images; 
     }
-    })
+    });
   }
   formInitializer() {
     this.form = this.formBuilder.group({

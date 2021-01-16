@@ -117,18 +117,19 @@
                   <ion-select-option value="Air conditioning">Air conditioning</ion-select-option>
                 </ion-select>
               </ion-item>
+             
               <ion-item>
-              <input type="file"  multiple (change)="selectMultipleImage($event)" />
+              <input type="file" formControlName="image" multiple (change)="selectMultipleImage($event)" />
             </ion-item>
+            <h3 *ngIf="dat">
             <ion-button size="meduim"  (click)="onMultipleSubmit()" color="success" type="submit"
     >Image Upload
     </ion-button>
+  </h3>
        <ion-item>
          <ion-input name="text" formControlName="beds" type="tel"  minLength="1" maxLength="1" placeholder=" No of Beds"></ion-input>
        </ion-item>
-       <!-- <ion-item>
-        <ion-input name="text" formControlName="nightstay"  type="number" placeholder=" nights stay"></ion-input>
-      </ion-item> -->
+       
       <ion-item>
         <ion-input name="text" formControlName="amount" type="tel"  minLength="4" maxLength="5" placeholder=" amount"></ion-input>
       </ion-item>

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button  defaultHref="home"></ion-back-button>
+        </ion-buttons>
+    <ion-title class="ion-text-center">Flats</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background">
+  <div *ngIf="!loading">
+
+    <ion-list class="gr">
+      <ion-item *ngFor="let flat of flats">
+        <ion-thumbnail slot="start">
+          <ion-img *ngIf="flat.image_url && flat.image_url!='null'" [src]="'assets/icon/shapes.svg'">
+          </ion-img>
+          <ion-img *ngIf="!flat.image_url ||  flat.image_url=='null' " [src]="'assets/icon/shapes.svg'">
+          </ion-img>
+        </ion-thumbnail>
+        
+        
+        <ion-button (click)="openEditPopup(flat)" fill="clear">
+          {{flat.name}}
+        </ion-button>
+       
+    
+        
+        <div>
+         
+        </div>
+      </ion-item>
+    </ion-list>
+  </div> 
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-item *ngFor="let item of skeletonlist">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ion-content>

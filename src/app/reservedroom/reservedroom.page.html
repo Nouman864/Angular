@@ -11,13 +11,13 @@
 
     <ion-item>
       <ion-label>Check-in </ion-label>
-      <ion-datetime displayFormat="D/M" pickerFormat="D/M" [(ngModel)]="from_date" (ionChange)="booked()" ></ion-datetime>
+      <ion-datetime date="dd-MM-yyyy"  [(ngModel)]="from_date" (ionChange)="booked()" ></ion-datetime>
     </ion-item>
     
     <ion-item>
         <ion-label>Check-out </ion-label>
         
-    <ion-datetime displayFormat="D/M" pickerFormat="D/M" [(ngModel)]="to_date" (ionChange)="time()" ></ion-datetime>
+    <ion-datetime  date="dd-MM-yyyy" [(ngModel)]="to_date" (ionChange)="time()" ></ion-datetime>
     </ion-item>
 
     <form [formGroup]="form"> 
@@ -26,16 +26,18 @@
       <ion-item>
         <ion-input name="text" readonly type="text" formControlName="night" type="number" placeholder="nights"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-input name="number" formControlName="cnic" type="tel"  minLength="13" maxLength="13"  placeholder="Enter your CNIC"></ion-input>
+      </ion-item>
+      <ion-button size="meduim" [disabled]="form.invalid"  (click)="room()"  type="submit">book now
+        <ion-spinner *ngIf="loading">
+        </ion-spinner>
+      </ion-button>
     </form>
     <!-- *ngIf="value == '3'" -->
-
-    <ion-button size="meduim"   (click)="room()"  type="submit"
-    >book now
-    <!-- <ion-spinner *ngIf="loading">
-    </ion-spinner> -->
-  </ion-button>
+  
   <br>
-  <ion-button   (click)="Scan()">Click to Verify Room QR</ion-button>
+  <!-- <ion-button   (click)="Scan()">Click to Verify Room QR</ion-button> -->
   <br>
   <br>
   <br>

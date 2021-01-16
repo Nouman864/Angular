@@ -7,7 +7,7 @@ import * as jwt_decode from 'jwt-decode';
 import { AuthService } from '../sdk/core/auth.service';
 import { BooksService } from '../sdk/custom/books.service';
 import { DataService } from '../sdk/custom/data.services';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-reservedroom',
   templateUrl: './reservedroom.page.html',
@@ -25,6 +25,7 @@ export class ReservedroomPage implements OnInit {
   bookedarray: any;
   rm: any;
   hotelowner: any;
+  jj = 0;
   from_date: any;
   minStartDate: any;
   enddate: any;
@@ -40,8 +41,11 @@ export class ReservedroomPage implements OnInit {
   from: any;
   dt: any;
   email: any;
+  in: string;
+  out: string;
   constructor(private booksService: BooksService,private barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
+    private datepipe: DatePipe,
     private formBuilder: FormBuilder,private router: Router,private dataService:DataService,
     private route: ActivatedRoute, private authService: AuthService)
    {
@@ -73,14 +77,16 @@ export class ReservedroomPage implements OnInit {
   formInitializer() {
     this.form = this.formBuilder.group({
 
-    checkin : [null, [Validators.required]],
-    checkout: [null, [Validators.required]],
-    night: [null, [Validators.required]]
+    // checkin : [null, [Validators.required]],
+    // checkout: [null, [Validators.required]],
+    night: [null, [Validators.required]],
+    cnic: [null, [Validators.required, Validators.minLength(13),Validators.pattern(/^[0-9]\d*$/)]],
+    
        });
 }
   booked() 
   {
-                   this.from =  this.from_date;
+       this.from =  this.from_date;
     this.start = new Date(this.from_date);
     this.start.getTime();
     this.start.setHours(0,0,0,0);
@@ -108,28 +114,35 @@ time()
      console.log(this.total);
     }
   }
+  
   else
   {
-    window.alert("sorry put another checkout");
-
+    if(this.jj == 1)
+    {
+       return;
+    }
+    else
+    {
+     window.alert("sorry put another checkout");
     return;
+    }
   }
 }
 
 
   async room() {
+    
     console.log(this.start);
     console.log(this.to);
     if(this.to>this.start)
   {
 
   }
-  else
-  {
-    window.alert("sorry put another checkout");
-
-    return;
-  }
+  // else
+  // {
+  //   window.alert("sorry put another checkout");
+  //   return;
+  // }
     let clientid;
     const ownerId =  await this.authService. getTokenFromStorage();
     const decoded = jwt_decode(ownerId );
@@ -144,42 +157,48 @@ time()
                let nit = obj.nightstay;
                let inn = obj.checkin;
                let out = obj.checkout;
+               let str =this. datepipe. transform(this.from_date, 'yyyy-MM-dd');
+               let todt =this. datepipe. transform(this.to_date, 'yyyy-MM-dd');
+               this.in = str;
+               this.out = todt;
      obj['Rooms'] = this.rm;
-     obj['checkin'] = this.from_date;
-     obj['checkout'] = this.to_date;
+     obj['checkin'] = str;
+     obj['checkout'] = todt;
      obj['ownerid'] = this.hotelowner
      obj['hotelid'] = this.owner;
-     obj['email'] = this.email;
      obj['clientid'] = clientid;
+     obj['email'] = this.email;
      const observable = await this.booksService.reservedroom(
        obj
      );
      observable.subscribe(
        async data => {
-          if(data['message'] == "room already booked")
-         {
-         
-          window.alert('Room not avaiable please check another');
-         }
-         else{
-         console.log('got response from server', data);
-            console.log(data.data.Rooms.length);
-            this. bookedarray = [];
-          for(let i = 0; i<data.data.Rooms.length; i++)
+          
+          console.log(data);
+          if(data.message == "room booked")
           {
-            this.bookedarray.push(data.data.Rooms[i]);
+            window.alert('Your room is booked');
+            console.log('got response from server', data);
+            // console.log(data.data.Rooms.length);
           }
+         
+          //   this. bookedarray = [];
+          // for(let i = 0; i<data.data.Rooms.length; i++)
+          // {
+          //   this.bookedarray.push(data.data.Rooms[i]);
+          // }
           // this.bookedarray.push(data.result.Rooms[0].roomno);
          
         
          this.loading = false;
-       
          this.form.reset();
-        //    this.from = '';
-        //  this.dt = '';
-        console.log(this.bookedarray);
-         //this.Encode();
-         }
+          this.jj = 1;
+         this.from_date = '';
+         this.to_date = '';
+      
+
+         this.Encode();
+         
   
        },
        error => {
@@ -252,47 +271,7 @@ time()
   ////////////////////////// SCAN QR ///////////////////////
 
 
-  async Scan()
-  {
-
-    this.barcodeScanner .scan() .then(async barcodeData => {
-         console.log(barcodeData.text);
-         let client;
-         const ownerId =  await this.authService. getTokenFromStorage();
-         const decoded = jwt_decode(ownerId );
-         try{
-           const decoded = jwt_decode(ownerId );
-           client = decoded['data']._id;
-         }
-         catch(ex){
-         }
-         const obj = {};
-     
-          obj['roomqr'] =  JSON.parse(barcodeData.text);
-          const observable = await this.booksService.scanroom(
-            obj
-          );
-          observable.subscribe(
-            async data => {
-              console.log('got response from server', data);
-              if(data.message == "scaning verified")
-              {
-              window.alert(' Table Scanned Verified');
-              }
-              if(data.message == "user not registered")
-              {
-                window.alert(' Table scaning cancelled');
-              }
-              this.loading = false;
-          }),
-            error => {
-              this.loading = false;
-              console.log('error', error);
-            }
-    });
- 
-          
-  }
+  
 
 
   pay()

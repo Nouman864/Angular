@@ -43,7 +43,7 @@ export class LocationPickerComponent implements OnInit {
         
           .pipe(
             switchMap(address => {
-              console.log(address);
+          
              console.log(pickedLocation.address = address);
               this.getAddress = address;
               return of(

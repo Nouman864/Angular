@@ -60,6 +60,7 @@ secure_url:any;
   order = new Array();
   id: any;
   faci: any;
+  dat: any;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute,private authService: AuthService,private modalCtrl: ModalController,
     private toastController: ToastController,
@@ -70,7 +71,10 @@ secure_url:any;
     }
    
     selectMultipleImage(event){
-      if (event.target.files.length > 0) {
+      if (event.target.files.length > 0) 
+      {
+        this.dat = event.target.files;
+        console.log(this.dat.length);
         this.multipleImages = event.target.files;
       }
     }
@@ -253,7 +257,6 @@ secure_url:any;
         //optional
         this.router.navigate(['/books']);
 
-        this.modalCtrl.dismiss();
       },
       error => {
         this.loading = false;

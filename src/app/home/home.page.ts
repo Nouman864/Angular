@@ -1,6 +1,11 @@
-
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { BooksService } from '../sdk/custom/books.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../sdk/core/auth.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import * as jwt_decode from 'jwt-decode';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 // import { flatMap } from 'rxjs/operators';
 
 
@@ -22,11 +27,26 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 export class HomePage {
   
  
+  constructor(private booksService: BooksService,private barcodeScanner: BarcodeScanner, private router: Router,private route: ActivatedRoute,private authService: AuthService, private formBuilder: FormBuilder,
+    private modalController: ModalController,private alertController: AlertController) {}
 
 
 
-
-
+  // hotel()
+  // {
+  //   this.router.navigateByUrl('/hotelsearch');
+  // }
+  // hall()
+  // {
+  //   this.router.navigateByUrl('/searchhall');
+  
+  // }
+  // rest()
+  // {
+  //   this.router.navigateByUrl('/resturantsearch');
+  // }
+  
+  
 
 
 }

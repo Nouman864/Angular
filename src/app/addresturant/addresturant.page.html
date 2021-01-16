@@ -33,7 +33,12 @@
     <br>
     <br>
     <br>
-  
+    <ion-item>
+      <ion-datetime displayFormat="hh-mm-A" [(ngModel)]="openn" (click)="open()"  placeholder="opening Time"></ion-datetime>
+      </ion-item>
+       <ion-item>
+        <ion-datetime displayFormat="hh-mm-A" [(ngModel)]="closee"  (click)="close()" placeholder="closing Time"></ion-datetime>
+     </ion-item>
            <!-- <div class="s"> 
               <ion-icon name="add-circle-outline" slot="end" (click)="table()"></ion-icon>
              </div> -->
@@ -42,16 +47,11 @@
       <ion-row color="justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
           
-          <div class="ion-padding">
+            <div class="ion-padding">
             <ion-item>
                 <ion-input name="firstname" formControlName="name" type="text" minLength="6" maxLength="1" placeholder="Resturant name"></ion-input>
             </ion-item>
-            <ion-item>
-            <ion-datetime displayFormat="hh-mm-A" formControlName="open" placeholder="opening Time"></ion-datetime>
-              </ion-item>
-             <ion-item>
-              <ion-datetime displayFormat="hh-mm-A" formControlName="close" placeholder="closing Time"></ion-datetime>
-           </ion-item>
+            
             <ion-item>
               <ion-input name="text" formControlName="number" type="tel"  minLength="11" maxLength="11"  placeholder="Contact number"></ion-input>
             </ion-item>
@@ -82,9 +82,11 @@
             <br>
             <br>
             <br>
+            <h3 *ngIf="dat">
             <ion-button size="meduim" (click)="onMultipleSubmit()" color="success" type="submit"
             expand="block">Image Upload
           </ion-button>
+          </h3>
             
           </div>
           <ion-item>
